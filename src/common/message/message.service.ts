@@ -1,46 +1,40 @@
 import { log } from "winston";
 
 export interface IMessage {
-  success: boolean;
   message: string;
 }
 
 interface ISuccessPayload extends IMessage {
   data?: any;
-  statusCode: number;
 }
 
 interface IErrorPayload extends IMessage {
-  error?: any;
-  statusCode: number;
+  type?: string;
+  statusCode?: number;
 }
 
 export type ServerResponsePayload = ISuccessPayload & IErrorPayload;
 
 export const sendSuccess = (
   message: string,
-  data: any = [],
-  statusCode: number = 200
+  data: any = []
 ): ISuccessPayload => {
   log("info", message);
   return {
-    success: true,
-    message: message,
-    data: data,
-    statusCode: statusCode,
+    message,
+    data,
   };
 };
 
 export const sendFailure = (
   message: string,
-  error: any,
-  statusCode: number = 400
+  type: string,
+  statusCode: number
 ): IErrorPayload => {
   log("error", message);
   return {
-    success: false,
     message,
-    error,
+    type,
     statusCode,
   };
 };

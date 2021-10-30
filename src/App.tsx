@@ -1,25 +1,57 @@
 import React from "react";
-import logo from "./logo.svg";
-import "./App.css";
-
+import PropertyAPI from "./core/property/Property.api";
+import { Property } from "./core/property/Property";
+import { Address } from "./core/address/Address";
+import { useState, useEffect } from "react";
+import { Main, DataTable, Text } from "grommet";
+const propertyAPI = new PropertyAPI();
+const addressToString = (address: Address) => {
+  return `${address.street}, ${address.city}, ${address.state} ${address.zip_code}`;
+};
+const columns = [
+  {
+    property: "property_id",
+    header: <Text>apn</Text>,
+    primary: true,
+  },
+  {
+    property: "address",
+    header: <Text>Address</Text>,
+  },
+  {
+    property: "units",
+    header: <Text>Units</Text>,
+  },
+  {
+    property: "buildings",
+    header: <Text>Buildings</Text>,
+  },
+  {
+    property: "sqft",
+    header: <Text>Sqft</Text>,
+  },
+  {
+    property: "year_built",
+    header: <Text>Year Built</Text>,
+  },
+];
 function App() {
+  const [data, setData] = useState([]);
+
+  useEffect(() => {
+    propertyAPI.getAll().then((data) =>
+      setData(
+        data.map((property) => {
+          property.address = addressToString(property.address);
+          return property;
+        })
+      )
+    );
+  }, []);
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Main>
+      <DataTable paginate={true} columns={columns} data={data} />
+    </Main>
   );
 }
 
