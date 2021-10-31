@@ -1,10 +1,9 @@
 import React from "react";
-import PropertyAPI from "./core/property/Property.api";
-import { Property } from "./core/property/Property";
-import { Address } from "./core/address/Address";
+import PropertyAPI from "../core/property/Property.api";
+import { Property } from "../core/property/Property";
+import { Address } from "../core/address/Address";
 import { useState, useEffect } from "react";
 import { Main, DataTable, Text } from "grommet";
-import DataTableComponent from "./components/DataTable";
 const propertyAPI = new PropertyAPI();
 const addressToString = (address: Address) => {
   return `${address.street}, ${address.city}, ${address.state} ${address.zip_code}`;
@@ -37,16 +36,22 @@ const columns = [
     header: <Text>Year Built</Text>,
   },
 ];
-function App() {
-  const [data, setData] = useState([]);
+
+export default function DataTableComponent(props) {
+  useEffect(() => {
+    propertyAPI.getAll().then((data) =>
+      props.setData(
+        data.map((property) => {
+          property.address = addressToString(property.address);
+          return property;
+        })
+      )
+    );
+  }, []);
 
   return (
-    <div>
-      {/* <NavBar />
-      <SideBar /> */}
-      <DataTableComponent setData={setData} data={data} />
-    </div>
+    <Main>
+      <DataTable paginate={true} columns={columns} data={props.data} />
+    </Main>
   );
 }
-
-export default App;
