@@ -3,7 +3,7 @@ import PropertyAPI from "../../core/property/Property.api";
 import { Property } from "../../core/property/Property";
 import { Address } from "../../core/address/Address";
 import { useState, useEffect } from "react";
-import { Main, DataTable, Text } from "grommet";
+import { DataTable, Text } from "grommet";
 const propertyAPI = new PropertyAPI();
 const addressToString = (address: Address) => {
   return `${address.street}, ${address.city}, ${address.state} ${address.zip_code}`;
@@ -26,6 +26,7 @@ const columns = [
   {
     property: "buildings",
     header: <Text>Buildings</Text>,
+    // pin: true,
   },
   {
     property: "sqft",
@@ -50,8 +51,12 @@ export default function DataTableComponent(props) {
   }, []);
 
   return (
-    <Main>
-      <DataTable paginate={true} columns={columns} data={props.data} />
-    </Main>
+    <DataTable
+      // padding={{ top: "small" }}
+      border={{ side: "bottom", color: "#EEF1F7" }}
+      paginate={true}
+      columns={columns}
+      data={props.data}
+    />
   );
 }
