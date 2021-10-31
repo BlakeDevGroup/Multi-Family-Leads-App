@@ -54,11 +54,10 @@ export default function DataTableComponent(props) {
     <DataTable
       className="data-table"
       // padding={{ top: "small" }}
-      border={{ side: "bottom", color: "#EEF1F7" }}
+      border={{ side: "bottom", color: "#EEF1F7", size: "small" }}
       paginate={true}
       columns={columns}
       data={props.data}
-      color={"#3D5899"}
     />
   );
 }
