@@ -1,7 +1,7 @@
 import React from "react";
-import PropertyAPI from "../core/property/Property.api";
-import { Property } from "../core/property/Property";
-import { Address } from "../core/address/Address";
+import PropertyAPI from "../../core/property/Property.api";
+import { Property } from "../../core/property/Property";
+import { Address } from "../../core/address/Address";
 import { useState, useEffect } from "react";
 import { Main, DataTable, Text } from "grommet";
 const propertyAPI = new PropertyAPI();
