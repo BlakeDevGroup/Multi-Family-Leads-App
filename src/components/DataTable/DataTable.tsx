@@ -4,37 +4,37 @@ import { Property } from "../../core/property/Property";
 import { Address } from "../../core/address/Address";
 import { useState, useEffect } from "react";
 import { DataTable, Text } from "grommet";
+import "./DataTable.css";
 const propertyAPI = new PropertyAPI();
 const addressToString = (address: Address) => {
   return `${address.street}, ${address.city}, ${address.state} ${address.zip_code}`;
 };
-// DarkBlue : #0e1e24, Grey background: #f2f5f7
 const columns = [
   {
     property: "property_id",
-    header: <Text>apn</Text>,
+    header: <Text color="#99A3C0">apn</Text>,
     primary: true,
   },
   {
     property: "address",
-    header: <Text>Address</Text>,
+    header: <Text color="#99A3C0">Address</Text>,
   },
   {
     property: "units",
-    header: <Text>Units</Text>,
+    header: <Text color="#99A3C0">Units</Text>,
   },
   {
     property: "buildings",
-    header: <Text>Buildings</Text>,
+    header: <Text color="#99A3C0">Buildings</Text>,
     // pin: true,
   },
   {
     property: "sqft",
-    header: <Text>Sqft</Text>,
+    header: <Text color="#99A3C0">Sqft</Text>,
   },
   {
     property: "year_built",
-    header: <Text>Year Built</Text>,
+    header: <Text color="#99A3C0">Year Built</Text>,
   },
 ];
 
@@ -52,11 +52,13 @@ export default function DataTableComponent(props) {
 
   return (
     <DataTable
+      className="data-table"
       // padding={{ top: "small" }}
       border={{ side: "bottom", color: "#EEF1F7" }}
       paginate={true}
       columns={columns}
       data={props.data}
+      color={"#3D5899"}
     />
   );
 }

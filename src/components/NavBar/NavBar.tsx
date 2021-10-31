@@ -1,4 +1,4 @@
-import { Header, Anchor, Box, ResponsiveContext, Menu } from "grommet";
+import { Header, Anchor, Box } from "grommet";
 import { Globe as GrommetIcon, Menu as MenuIcon } from "grommet-icons";
 
 export default function ResponsiveNavBar() {
@@ -12,9 +12,9 @@ export default function ResponsiveNavBar() {
       <div>
         <Anchor
           href="https://tools.grommet.io/"
-          icon={<GrommetIcon color="#6658ff" />}
+          icon={<GrommetIcon color="#43588F" />}
           label="Company Name"
-          color="#6658ff"
+          color="#43588F"
         />
       </div>
       <div></div>
