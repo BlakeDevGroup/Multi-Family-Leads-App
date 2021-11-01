@@ -1,24 +1,32 @@
-import { Header, Anchor, Box } from "grommet";
+import { Header, Anchor, Box, Button } from "grommet";
 import { Globe as GrommetIcon, Menu as MenuIcon } from "grommet-icons";
 
-export default function ResponsiveNavBar() {
+export default function MainNavBar(props) {
   return (
     <Header
       background="#ffffff"
       pad="small"
       height="xxsmall"
-      elevation="medium"
+      elevation="xsmall"
+      // margin={{ left: "96px" }}
     >
-      <div>
+      <Box>
         <Anchor
           href="https://tools.grommet.io/"
           icon={<GrommetIcon color="#43588F" />}
-          label="Company Name"
+          label="Central Property Valley Advisers"
           color="#43588F"
         />
-      </div>
-      <div></div>
-      <div></div>
+      </Box>
+      <Box></Box>
+      <Box>
+        <Button
+          hoverIndicator
+          onClick={() => {
+            props.setShowSidebar(false);
+          }}
+        />
+      </Box>
     </Header>
   );
 }
