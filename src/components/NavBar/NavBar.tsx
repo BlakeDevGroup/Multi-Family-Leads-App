@@ -1,5 +1,6 @@
-import { Header, Anchor, Box, Button } from "grommet";
+import { Header, Anchor, Box, WorldMap } from "grommet";
 import { Globe as GrommetIcon, Menu as MenuIcon } from "grommet-icons";
+import LeftLayerButton from "../LeftLayer/LeftLayerButton";
 
 export default function MainNavBar(props) {
   return (
@@ -18,15 +19,10 @@ export default function MainNavBar(props) {
           color="#43588F"
         />
       </Box>
-      <Box></Box>
       <Box>
-        <Button
-          hoverIndicator
-          onClick={() => {
-            props.setShowSidebar(false);
-          }}
-        />
+        <LeftLayerButton onOpen={props.onOpen} />
       </Box>
+      <Box> </Box>
     </Header>
   );
 }
