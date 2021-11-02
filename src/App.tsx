@@ -3,54 +3,35 @@ import PropertyAPI from "./core/property/Property.api";
 import { Property } from "./core/property/Property";
 import { Address } from "./core/address/Address";
 import { useState, useEffect } from "react";
-import { Main, DataTable, Text } from "grommet";
-const propertyAPI = new PropertyAPI();
-const addressToString = (address: Address) => {
-  return `${address.street}, ${address.city}, ${address.state} ${address.zip_code}`;
-};
-const columns = [
-  {
-    property: "property_id",
-    header: <Text>apn</Text>,
-    primary: true,
-  },
-  {
-    property: "address",
-    header: <Text>Address</Text>,
-  },
-  {
-    property: "units",
-    header: <Text>Units</Text>,
-  },
-  {
-    property: "buildings",
-    header: <Text>Buildings</Text>,
-  },
-  {
-    property: "sqft",
-    header: <Text>Sqft</Text>,
-  },
-  {
-    property: "year_built",
-    header: <Text>Year Built</Text>,
-  },
-];
+import { Main, Box, Text, Grid, Button } from "grommet";
+import DataTableComponent from "./components/DataTable/DataTable";
+import NavBar from "./components/NavBar/NavBar";
+import SideBar from "./components/SideBar/FixedSideBar";
+import FixedSideBarComponent from "./components/SideBar/FixedSideBar";
+import Layer from "./components/Layer/Layer";
+import PropertyJsonQuery from "./core/property/PropertyJsonQuery";
+
 function App() {
   const [data, setData] = useState([]);
+  const [sidebar, setShowSidebar] = useState(false);
+  const [open, setOpen] = React.useState(false);
 
-  useEffect(() => {
-    propertyAPI.getAll().then((data) =>
-      setData(
-        data.map((property) => {
-          property.address = addressToString(property.address);
-          return property;
-        })
-      )
-    );
-  }, []);
+  function onOpen() {
+    setOpen(true);
+  }
+
+  function onClose() {
+    setOpen(false);
+  }
+
   return (
-    <Main>
-      <DataTable paginate={true} columns={columns} data={data} />
+    <Main background="#f1f5f8">
+      <NavBar setShowSidebar={setShowSidebar} onOpen={onOpen} />
+      <Layer open={open} onClose={onClose} />
+      <Box direction="row-responsive">
+        <FixedSideBarComponent />
+        <DataTableComponent setData={setData} data={data} />
+      </Box>
     </Main>
   );
 }
