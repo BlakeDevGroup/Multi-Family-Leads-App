@@ -1,14 +1,8 @@
-import { TextInput, Text, Box, defaultProps } from "grommet";
+import { TextInput, Text, Box } from "grommet";
 
-export default function LeftLayerInput(props) {
+export default function LayerAddress(props) {
   return (
-    <Box
-      margin="xsmall"
-      fill
-      elevation="medium"
-      round
-      border={{ color: "#EEF1F7", size: "small" }}
-    >
+    <Box>
       <Text color="#99A3C0" margin="small" textAlign="start">
         {props.text}
       </Text>

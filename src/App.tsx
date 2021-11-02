@@ -8,8 +8,8 @@ import DataTableComponent from "./components/DataTable/DataTable";
 import NavBar from "./components/NavBar/NavBar";
 import SideBar from "./components/SideBar/FixedSideBar";
 import FixedSideBarComponent from "./components/SideBar/FixedSideBar";
-import LeftLayer from "./components/LeftLayer/LeftLayer";
-// import "./app.scss";
+import Layer from "./components/Layer/Layer";
+import PropertyJsonQuery from "./core/property/PropertyJsonQuery";
 
 function App() {
   const [data, setData] = useState([]);
@@ -27,7 +27,7 @@ function App() {
   return (
     <Main background="#f1f5f8">
       <NavBar setShowSidebar={setShowSidebar} onOpen={onOpen} />
-      <LeftLayer open={open} onClose={onClose} />
+      <Layer open={open} onClose={onClose} />
       <Box direction="row-responsive">
         <FixedSideBarComponent />
         <DataTableComponent setData={setData} data={data} />

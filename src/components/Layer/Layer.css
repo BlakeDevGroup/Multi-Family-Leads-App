@@ -1,0 +1,17 @@
+.input-text {
+  color: #43588f;
+}
+
+.mf-layer__input-text {
+  line-height: 1.25 !important;
+  padding: 0 5px 0 !important;
+}
+
+.notes-box {
+  color: #43588f;
+}
+
+.notes-style {
+  line-height: 1.75 !important;
+  padding: 0 5px 0 !important;
+}

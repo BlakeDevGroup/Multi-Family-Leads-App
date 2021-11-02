@@ -1,6 +1,6 @@
 import { Text } from "grommet";
 
-export default function LeftLayerHeader() {
+export default function LayerHeader() {
   return (
     <Text
       color="#43588F"

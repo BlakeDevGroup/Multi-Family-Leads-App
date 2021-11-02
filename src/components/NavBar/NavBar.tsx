@@ -1,6 +1,6 @@
 import { Header, Anchor, Box, WorldMap } from "grommet";
 import { Globe as GrommetIcon, Menu as MenuIcon } from "grommet-icons";
-import LeftLayerButton from "../LeftLayer/LeftLayerButton";
+import LeftLayerButton from "../Layer/LayerComponents/TestLayerButton";
 
 export default function MainNavBar(props) {
   return (

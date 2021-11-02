@@ -84,7 +84,6 @@ export default function DataTableComponent(props) {
         paginate={true}
         columns={columns}
         data={props.data}
-        sortable={true}
       />
     </Box>
   );
