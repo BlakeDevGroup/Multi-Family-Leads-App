@@ -7,7 +7,7 @@ export default function LayerButton(props) {
       icon={<Add color="brand" />}
       label={
         <Text>
-          <strong>Add Corner Layer</strong>
+          <strong>Create</strong>
         </Text>
       }
       onClick={props.onOpen}

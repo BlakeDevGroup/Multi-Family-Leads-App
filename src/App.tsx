@@ -8,16 +8,25 @@ import DataTableComponent from "./components/DataTable/DataTable";
 import NavBar from "./components/NavBar/NavBar";
 import SideBar from "./components/SideBar/FixedSideBar";
 import FixedSideBarComponent from "./components/SideBar/FixedSideBar";
-import Layer from "./components/Layer/Layer";
+import MainLayer from "./components/Layer/Layer";
 import PropertyJsonQuery from "./core/property/PropertyJsonQuery";
+import HomeView from "./components/Layer/LayerComponents/HomeView";
+import { Home } from "grommet-icons";
 
 function App() {
   const [data, setData] = useState([]);
   const [sidebar, setShowSidebar] = useState(false);
   const [open, setOpen] = React.useState(false);
+  const [component, setComponent] = useState(<HomeView data={{}} />);
 
   function onOpen() {
     setOpen(true);
+  }
+
+  function setLayer({ datum }) {
+    console.log(datum);
+    setOpen(true);
+    setComponent(<HomeView data={datum} />);
   }
 
   function onClose() {
@@ -27,10 +36,17 @@ function App() {
   return (
     <Main background="#f1f5f8">
       <NavBar setShowSidebar={setShowSidebar} onOpen={onOpen} />
-      <Layer open={open} onClose={onClose} />
+      <MainLayer open={open} onClose={onClose}>
+        {component}
+      </MainLayer>
+
       <Box direction="row-responsive">
         <FixedSideBarComponent />
-        <DataTableComponent setData={setData} data={data} />
+        <DataTableComponent
+          setData={setData}
+          data={data}
+          onClickRow={setLayer}
+        />
       </Box>
     </Main>
   );

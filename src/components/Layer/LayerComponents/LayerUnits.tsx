@@ -1,6 +1,6 @@
 import { Box, TextInput, Text } from "grommet";
 
-export default function LayerUnits() {
+export default function LayerUnits(props) {
   return (
     <Box
       className="input-text"
@@ -25,6 +25,7 @@ export default function LayerUnits() {
         textAlign="center"
         // height="auto"
         className="units"
+        value={props.value}
       />
     </Box>
   );

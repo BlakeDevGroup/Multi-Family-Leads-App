@@ -25,8 +25,8 @@ export default function LayerNotes(props) {
         className="notes-style"
         resize={false}
         // placeholder="Notes"
-        value={note}
-        onChange={(e) => setNote(e.target.value)}
+        value={props.note}
+        onChange={(e) => props.setNote(e.target.value)}
       />
     </Box>
   );

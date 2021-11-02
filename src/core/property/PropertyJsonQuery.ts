@@ -1,4 +1,4 @@
-import propertyData from "./properties.json";
+import propertyData from "./prop2.json";
 import * as MessageService from "../../common/message/message.service";
 import { Property } from "./Property";
 import { IQuery } from "../../common/query/IQuery";
@@ -8,7 +8,7 @@ export default class PropertyJsonQuery implements IQuery {
   async readById(id: string): Promise<ServerResponsePayload> {
     return new Promise((resolve, reject) => {
       const data: any = propertyData.properties.filter(
-        (property) => property.apn === id
+        (property) => property["Property Address"] === id
       )[0];
 
       if (data) {
@@ -51,23 +51,23 @@ export default class PropertyJsonQuery implements IQuery {
 
   private propertyFromData(property: any): Property {
     return {
-      property_id: property.apn,
+      property_id: property["Property Address"],
       address: {
-        street: property.address_line_1,
-        city: property.address_city,
-        state: property.address_state,
-        zip_code: property.address_postal_code,
-        county: property.county,
+        street: property["Property Address"],
+        city: property["Property City"],
+        state: property["State"],
+        zip_code: property["Zip Code"],
+        county: "",
       },
       owner_id: "",
-      owner_name: "",
+      owner_name: property["Contact Person"],
       owner_email: "",
       owner_number: "",
       price: 1,
-      units: parseInt(property.total_units),
-      sqft: parseInt(property.gross_building_area),
-      buildings: parseInt(property.total_buildings),
-      year_built: parseInt(property.year_built),
+      units: parseInt(property.Units),
+      sqft: 0,
+      buildings: 0,
+      year_built: 0,
       notes: [],
     };
   }

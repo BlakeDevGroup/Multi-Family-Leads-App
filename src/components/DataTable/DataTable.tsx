@@ -84,6 +84,7 @@ export default function DataTableComponent(props) {
         paginate={true}
         columns={columns}
         data={props.data}
+        onClickRow={props.onClickRow}
       />
     </Box>
   );
