@@ -5,14 +5,21 @@ import LayerContacts from "./LayerContacts";
 import LayerNotes from "./LayerNotes";
 import LayerHeader from "./LayerHeader";
 import NoteButton from "./NotesButton";
+import LayerUnits from "./LayerUnits";
 import "../Layer.css";
 
 export default function HomeView(props) {
   return (
     <Box width="large" overflow="auto" fill="vertical">
-      <Box>
-        <LayerHeader />
+      <Box
+        direction="row-responsive"
+        margin={{ top: "small", right: "large", bottom: "small" }}
+      >
+        <Box fill>
+          <LayerHeader />
+        </Box>
       </Box>
+
       <Box direction="row-responsive" margin="small">
         <LayerContacts
           fill={"horizontal"}
@@ -25,6 +32,19 @@ export default function HomeView(props) {
           placeholder="xxx-xxx-xxxx"
         />
       </Box>
+      <Box direction="row-responsive" margin="small">
+        <LayerContacts
+          fill={"horizontal"}
+          text="Ownership Entity"
+          placeholder="Company"
+        />
+        <LayerContacts
+          fill={"horizontal"}
+          text="Contact Email"
+          placeholder="Email@email.com"
+        />
+      </Box>
+      <LayerUnits />
       <Box direction="row-responsive">
         <Box
           direction="column"
@@ -36,8 +56,8 @@ export default function HomeView(props) {
           }}
           fill="horizontal"
         >
-          <LayerContacts text="Street" placeholder="First Last" />
-          <LayerContacts text="City" placeholder="First Last" />
+          <LayerContacts text="Street" placeholder="123 Main St" />
+          <LayerContacts text="City" />
         </Box>
         <Box
           basis="small"
@@ -50,7 +70,7 @@ export default function HomeView(props) {
           }}
           fill="horizontal"
         >
-          <LayerContacts text="State" placeholder="CA" />
+          <LayerContacts text="State" />
           <LayerContacts text="Zip Code" placeholder="xxxxx" />
         </Box>
       </Box>

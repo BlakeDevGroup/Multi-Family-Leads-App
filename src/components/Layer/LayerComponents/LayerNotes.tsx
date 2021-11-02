@@ -1,4 +1,4 @@
-import { TextArea, Box } from "grommet";
+import { TextArea, Box, Text } from "grommet";
 import { useState } from "react";
 
 export default function LayerNotes(props) {
@@ -7,15 +7,24 @@ export default function LayerNotes(props) {
     <Box
       pad={{ left: "small" }}
       className="notes-box"
-      round
+      round={{ size: "8px" }}
       fill
       border={{ color: "#e9ecf1", size: "small" }}
     >
+      <Text
+        color="#99A3C0"
+        textAlign="start"
+        size="xsmall"
+        // margin={{ left: "5px" }}
+        className="notes-style"
+      >
+        Notes
+      </Text>
       <TextArea
         plain
         className="notes-style"
         resize={false}
-        placeholder="Notes"
+        // placeholder="Notes"
         value={note}
         onChange={(e) => setNote(e.target.value)}
       />
