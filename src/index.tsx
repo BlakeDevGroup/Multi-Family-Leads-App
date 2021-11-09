@@ -1,5 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom";
+import { BrowserRouter } from "react-router-dom";
+
 import "./index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
@@ -18,7 +20,9 @@ const theme = {
 ReactDOM.render(
   <React.StrictMode>
     <Grommet theme={theme}>
+      <BrowserRouter>
       <App />
+      </BrowserRouter>
     </Grommet>
   </React.StrictMode>,
   document.getElementById("root")
