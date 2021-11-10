@@ -13,6 +13,7 @@ import PropertyJsonQuery from "./core/property/PropertyJsonQuery";
 import HomeView from "./components/Layer/LayerComponents/HomeView";
 import { Routes, Route } from "react-router";
 import Owner from "./components/Owner/Owner";
+import "./components/SideBar/SideBar.css"
 
 function App() {
   const [data, setData] = useState([]);
@@ -42,7 +43,7 @@ function App() {
       </MainLayer>
 
       <Box direction="row-responsive" fill="vertical">
-        <Box width="xsmall" >
+        <Box className="sidebar-box"  >
         <FixedSideBarComponent />
         </Box>
         <Routes>
