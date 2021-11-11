@@ -158,7 +158,7 @@ export default function HomeView(props) {
             <Box
               className="input-text"
               fill={props.fill}
-              margin={{ bottom: "xsmall" }}
+              margin={{ bottom: "xsmall", left: "xsmall"  }}
               border={{ color: "#e9ecf1", size: "small" }}
               pad="8px"
               round={{ size: "8px" }}
@@ -167,9 +167,11 @@ export default function HomeView(props) {
               {note.note}
             </Box>
             <Box
+              
               className="input-text"
               fill={props.fill}
-              margin={{ bottom: "xsmall" }}
+              margin={{ bottom: "xsmall", left: "xsmall" , right: "xsmall" }}
+              align="center"
               border={{ color: "#e9ecf1", size: "small" }}
               pad="8px"
               round={{ size: "8px" }}
