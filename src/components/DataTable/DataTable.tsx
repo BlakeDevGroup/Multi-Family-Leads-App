@@ -71,17 +71,25 @@ export default function DataTableComponent(props) {
 
   return (
     <Box
+
+    height="medium" width="3000px" overflow="auto"
+    fill="vertical"
       margin="large"
-      flex
       elevation="large"
       round={true}
       background="#ffffff"
+      // className="data-table-height"
     >
       <DataTable
-        className="data-table"
-        // padding={{ top: "small" }}
+      
+        // width="large"
+        fill
+        pin
+        
+        size="large"
+        // className="data-table"
         border={{ side: "bottom", color: "#EEF1F7", size: "small" }}
-        paginate={true}
+        paginate={{size: "medium", }}
         columns={columns}
         data={props.data}
         onClickRow={props.onClickRow}

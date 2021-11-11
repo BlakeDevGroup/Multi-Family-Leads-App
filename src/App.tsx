@@ -36,29 +36,23 @@ function App() {
   }
 
   return (
-    <Main background="#f1f5f8" overflow="hidden">
+    <Main background="#f1f5f8" overflow="hidden" >
       <NavBar setShowSidebar={setShowSidebar} onOpen={onOpen} />
       <MainLayer open={open} onClose={onClose}>
         {component}
       </MainLayer>
 
-      <Box direction="row-responsive" fill="vertical">
-        <Box className="sidebar-box"  >
+      <Box direction="row-responsive"  >
+        
         <FixedSideBarComponent />
-        </Box>
         <Routes>
-          
           <Route path="/" element={ <DataTableComponent
           setData={setData}
           data={data}
           onClickRow={setLayer}
         /> } />
         <Route path="Owner" element={<Owner />} />
-        
         </Routes>
-
-        
-        
       </Box>
     </Main>
   );
