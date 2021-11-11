@@ -15,6 +15,7 @@ import LayerNotes from "./LayerNotes";
 import LayerHeader from "./LayerHeader";
 import NoteButton from "./NotesButton";
 import LayerUnits from "./LayerUnits";
+import LayerAddress from "./LayerAddress";
 import "../Layer.css";
 
 type NoteItem = {
@@ -75,12 +76,12 @@ export default function HomeView(props) {
           }}
           fill="horizontal"
         >
-          <LayerContacts
+          <LayerAddress
             text="Street"
             placeholder="123 Main St"
             value={props.data ? props.data.address.street : ""}
           />
-          <LayerContacts
+          <LayerAddress
             text="City"
             value={props.data ? props.data.address.city : ""}
           />
@@ -96,18 +97,18 @@ export default function HomeView(props) {
           }}
           fill="horizontal"
         >
-          <LayerContacts
+          <LayerAddress
             text="State"
             value={props.data ? props.data.address.state : ""}
           />
-          <LayerContacts
+          <LayerAddress
             text="Zip Code"
             placeholder="xxxxx"
             value={props.data ? props.data.address.zip_code : ""}
           />
         </Box>
       </Box>
-      <Box margin="small" direction="row-responsive">
+      <Box margin="small" direction="row-responsive" height="xsmall">
         <Box
           pad={{ left: "small" }}
           className="notes-box"
@@ -128,12 +129,15 @@ export default function HomeView(props) {
             plain
             className="notes-style"
             resize={false}
+            fill={true}
             // placeholder="Notes"
             value={note}
             onChange={(e) => setNote(e.target.value)}
+            size="medium"
           />
         </Box>
-        <Box margin="xsmall" color="blue" round>
+        <Box margin="xsmall" color="blue" round align="center"
+        alignSelf="center">
           <Button
             plain={false}
             color="#00FF00"
@@ -144,7 +148,7 @@ export default function HomeView(props) {
                 [{ note: note, created: new Date().toDateString() }].concat(
                   notes
                 )
-              );
+              ), setNote("");
             }}
           />
         </Box>
@@ -157,7 +161,7 @@ export default function HomeView(props) {
             <Box
               className="input-text"
               fill={props.fill}
-              margin={{ bottom: "xsmall" }}
+              margin={{ bottom: "xsmall", left: "xsmall"  }}
               border={{ color: "#e9ecf1", size: "small" }}
               pad="8px"
               round={{ size: "8px" }}
@@ -166,9 +170,11 @@ export default function HomeView(props) {
               {note.note}
             </Box>
             <Box
+              
               className="input-text"
               fill={props.fill}
-              margin={{ bottom: "xsmall" }}
+              margin={{ bottom: "xsmall", left: "xsmall" , right: "xxsmall" }}
+              align="center"
               border={{ color: "#e9ecf1", size: "small" }}
               pad="8px"
               round={{ size: "8px" }}
