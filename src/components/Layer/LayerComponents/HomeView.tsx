@@ -15,6 +15,7 @@ import LayerNotes from "./LayerNotes";
 import LayerHeader from "./LayerHeader";
 import NoteButton from "./NotesButton";
 import LayerUnits from "./LayerUnits";
+import LayerAddress from "./LayerAddress";
 import "../Layer.css";
 
 type NoteItem = {
@@ -75,12 +76,12 @@ export default function HomeView(props) {
           }}
           fill="horizontal"
         >
-          <LayerContacts
+          <LayerAddress
             text="Street"
             placeholder="123 Main St"
             value={props.data ? props.data.address.street : ""}
           />
-          <LayerContacts
+          <LayerAddress
             text="City"
             value={props.data ? props.data.address.city : ""}
           />
@@ -96,11 +97,11 @@ export default function HomeView(props) {
           }}
           fill="horizontal"
         >
-          <LayerContacts
+          <LayerAddress
             text="State"
             value={props.data ? props.data.address.state : ""}
           />
-          <LayerContacts
+          <LayerAddress
             text="Zip Code"
             placeholder="xxxxx"
             value={props.data ? props.data.address.zip_code : ""}
@@ -144,7 +145,7 @@ export default function HomeView(props) {
                 [{ note: note, created: new Date().toDateString() }].concat(
                   notes
                 )
-              );
+              ), setNote("");
             }}
           />
         </Box>
