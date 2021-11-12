@@ -23,7 +23,7 @@ export default function NoteComponent(props) {
             width="100%"
           >
             <Box direction="row-responsive">
-            <Text>
+            <Text size="small" color="#99A3C0" margin="xxsmall">
             {props.note.dateCreated.substring(4)}
             </Text>
             <Text size="small" color="#99A3C0" margin="xxsmall">

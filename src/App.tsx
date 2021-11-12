@@ -36,14 +36,13 @@ function App() {
   }
 
   return (
-    <Main background="#f1f5f8" overflow="hidden" >
+    <Main background="#f1f5f8" >
       <NavBar setShowSidebar={setShowSidebar} onOpen={onOpen} />
       <MainLayer open={open} onClose={onClose}>
         {component}
       </MainLayer>
 
       <Box direction="row-responsive"  >
-        
         <FixedSideBarComponent />
         <Routes>
           <Route path="/" element={ <DataTableComponent
