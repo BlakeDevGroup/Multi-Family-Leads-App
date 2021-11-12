@@ -9,7 +9,7 @@ export default function LayerNotes(props) {
       className="notes-box"
       round={{ size: "8px" }}
       fill
-      border={{ color: "#e9ecf1", size: "small" }}
+      border={{ color: "red", size: "small" }}
     >
       <Text
         color="#99A3C0"

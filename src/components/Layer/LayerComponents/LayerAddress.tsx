@@ -1,7 +1,7 @@
 import { TextInput, Text, Box } from "grommet";
 import "../Layer.css";
 
-export default function LayerAddress(props) {
+export default function LayerInput(props) {
   return (
     <Box
       className="input-text"
