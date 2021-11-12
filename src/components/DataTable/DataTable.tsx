@@ -5,10 +5,10 @@ import { Address } from "../../core/address/Address";
 import { useState, useEffect } from "react";
 import { DataTable, Text, Box } from "grommet";
 import "./DataTable.css";
+import MainLayer from "../Layer/Layer";
+import HomeView from "../Layer/LayerComponents/HomeView";
 const propertyAPI = new PropertyAPI();
-const addressToString = (address: Address) => {
-  return `${address.street}, ${address.city}, ${address.state} ${address.zip_code}`;
-};
+
 const columns = [
   {
     property: "address.street",
@@ -65,33 +65,29 @@ const columns = [
 ];
 
 export default function DataTableComponent(props) {
+  const [open, setOpen] = useState(false);
+  const [data, setData] = useState([]);
+  const [component, setComponent] = useState(<HomeView data={{}} />);
+
   useEffect(() => {
-    propertyAPI.getAll().then((data) => props.setData(data));
+    propertyAPI.getAll().then((res) => setData(res));
   }, []);
 
   return (
-    <Box
-    height="calc(100vh - 48px)" 
-    width="calc(100vw - 90px)" 
-    overflow="scroll"
-    fill="vertical"
-      margin="large"
-      elevation="large"
-      round={true}
-      background="#ffffff"
-    >
+    <Box background="white" margin="2vh">
       <DataTable
-      
-        fill
-        pin
-        
-        size="large"
         border={{ side: "bottom", color: "#EEF1F7", size: "small" }}
-        paginate={{size: "medium", }}
+        paginate={{ size: "medium" }}
         columns={columns}
-        data={props.data}
-        onClickRow={props.onClickRow}
+        data={data}
+        onClickRow={({ datum }) => {
+          setOpen(true);
+          setComponent(<HomeView data={datum} />);
+        }}
       />
+      <MainLayer open={open} onClose={() => setOpen(false)}>
+        {component}
+      </MainLayer>
     </Box>
   );
 }

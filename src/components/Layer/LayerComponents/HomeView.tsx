@@ -1,6 +1,4 @@
-import {
-  Box,
-} from "grommet";
+import { Box } from "grommet";
 import LayerContacts from "./LayerContacts";
 import LayerHeader from "./LayerHeader";
 import LayerUnits from "./LayerUnits";
@@ -8,10 +6,7 @@ import LayerAddress from "./LayerAddress";
 import "../Layer.css";
 import NotesWrapper from "../../Notes/NotesWrapper";
 import { Note } from "grommet-icons";
-
-
-
-
+import React from "react";
 
 // type NoteItem = {
 //   note: string;
@@ -19,11 +14,9 @@ import { Note } from "grommet-icons";
 //   timeCreated: string;
 // };
 export default function HomeView(props) {
-  
-
-  console.log(new Date().toString())
+  console.log(new Date().toString());
   return (
-    <Box width="large" overflow="auto" fill="vertical" >
+    <Box width="large" overflow="auto" fill="vertical">
       <Box
         direction="row-responsive"
         margin={{ top: "small", right: "large", bottom: "small" }}
