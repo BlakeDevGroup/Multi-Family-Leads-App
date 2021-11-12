@@ -1,32 +1,29 @@
 import {
   Box,
-  Layer,
-  TextInput,
-  Text,
-  TextArea,
-  Button,
-  DataTable,
 } from "grommet";
-import { Checkmark } from "grommet-icons";
-import { useState } from "react";
-import LeftLayerNotes from "./LayerNotes";
 import LayerContacts from "./LayerContacts";
-import LayerNotes from "./LayerNotes";
 import LayerHeader from "./LayerHeader";
-import NoteButton from "./NotesButton";
 import LayerUnits from "./LayerUnits";
 import LayerAddress from "./LayerAddress";
 import "../Layer.css";
+import NotesWrapper from "../../Notes/NotesWrapper";
+import { Note } from "grommet-icons";
 
-type NoteItem = {
-  note: string;
-  created: string;
-};
+
+
+
+
+// type NoteItem = {
+//   note: string;
+//   dateCreated: string;
+//   timeCreated: string;
+// };
 export default function HomeView(props) {
-  const [notes, setNotes] = useState<NoteItem[]>([]);
-  const [note, setNote] = useState<string>("");
+  
+
+  console.log(new Date().toString())
   return (
-    <Box width="large" overflow="auto" fill="vertical">
+    <Box width="large" overflow="auto" fill="vertical" >
       <Box
         direction="row-responsive"
         margin={{ top: "small", right: "large", bottom: "small" }}
@@ -108,78 +105,7 @@ export default function HomeView(props) {
           />
         </Box>
       </Box>
-      <Box margin="small" direction="row-responsive">
-        <Box
-          pad={{ left: "small" }}
-          className="notes-box"
-          round={{ size: "8px" }}
-          fill
-          border={{ color: "#e9ecf1", size: "small" }}
-        >
-          <Text
-            color="#99A3C0"
-            textAlign="start"
-            size="xsmall"
-            // margin={{ left: "5px" }}
-            className="notes-style"
-          >
-            Notes
-          </Text>
-          <TextArea
-            plain
-            className="notes-style"
-            resize={false}
-            // placeholder="Notes"
-            value={note}
-            onChange={(e) => setNote(e.target.value)}
-          />
-        </Box>
-        <Box margin="xsmall" color="blue" round>
-          <Button
-            plain={false}
-            color="#00FF00"
-            hoverIndicator={true}
-            icon={<Checkmark color="#00FF00" />}
-            onClick={(e) => {
-              setNotes(
-                [{ note: note, created: new Date().toDateString() }].concat(
-                  notes
-                )
-              ), setNote("");
-            }}
-          />
-        </Box>
-        {/* <LayerNotes setNotes={setNotes}/>
-        <NoteButton /> */}
-      </Box>
-      <Box margin="xsmall" color="blue" round>
-        {notes.map((note) => (
-          <Box direction="row">
-            <Box
-              className="input-text"
-              fill={props.fill}
-              margin={{ bottom: "xsmall" }}
-              border={{ color: "#e9ecf1", size: "small" }}
-              pad="8px"
-              round={{ size: "8px" }}
-              width="70%"
-            >
-              {note.note}
-            </Box>
-            <Box
-              className="input-text"
-              fill={props.fill}
-              margin={{ bottom: "xsmall" }}
-              border={{ color: "#e9ecf1", size: "small" }}
-              pad="8px"
-              round={{ size: "8px" }}
-              width="30%"
-            >
-              {note.created}
-            </Box>
-          </Box>
-        ))}
-      </Box>
+      <NotesWrapper />
     </Box>
   );
 }

@@ -1,5 +1,6 @@
 .input-text {
   color: #43588f;
+  word-wrap: break-word;
 }
 
 .mf-layer__input-text {
@@ -18,4 +19,8 @@
 
 .units {
   padding: 0 5px 0 5px !important;
+}
+
+.comment-header {
+  font-weight: 700;
 }

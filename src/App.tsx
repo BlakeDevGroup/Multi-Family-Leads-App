@@ -11,7 +11,9 @@ import FixedSideBarComponent from "./components/SideBar/FixedSideBar";
 import MainLayer from "./components/Layer/Layer";
 import PropertyJsonQuery from "./core/property/PropertyJsonQuery";
 import HomeView from "./components/Layer/LayerComponents/HomeView";
-import { Home } from "grommet-icons";
+import { Routes, Route } from "react-router";
+import Owner from "./components/Owner/Owner";
+import "./components/SideBar/SideBar.css"
 
 function App() {
   const [data, setData] = useState([]);
@@ -34,19 +36,22 @@ function App() {
   }
 
   return (
-    <Main background="#f1f5f8">
+    <Main background="#f1f5f8" >
       <NavBar setShowSidebar={setShowSidebar} onOpen={onOpen} />
       <MainLayer open={open} onClose={onClose}>
         {component}
       </MainLayer>
 
-      <Box direction="row-responsive">
+      <Box direction="row-responsive"  >
         <FixedSideBarComponent />
-        <DataTableComponent
+        <Routes>
+          <Route path="/" element={ <DataTableComponent
           setData={setData}
           data={data}
           onClickRow={setLayer}
-        />
+        /> } />
+        <Route path="Owner" element={<Owner />} />
+        </Routes>
       </Box>
     </Main>
   );

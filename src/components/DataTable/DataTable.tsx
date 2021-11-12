@@ -42,7 +42,7 @@ const columns = [
     search: true,
   },
   {
-    property: "",
+    property: "owner_name",
     header: <Text color="#99A3C0">Contact Person</Text>,
     search: true,
 
@@ -71,17 +71,23 @@ export default function DataTableComponent(props) {
 
   return (
     <Box
+    height="calc(100vh - 48px)" 
+    width="calc(100vw - 90px)" 
+    overflow="scroll"
+    fill="vertical"
       margin="large"
-      flex
       elevation="large"
       round={true}
       background="#ffffff"
     >
       <DataTable
-        className="data-table"
-        // padding={{ top: "small" }}
+      
+        fill
+        pin
+        
+        size="large"
         border={{ side: "bottom", color: "#EEF1F7", size: "small" }}
-        paginate={true}
+        paginate={{size: "medium", }}
         columns={columns}
         data={props.data}
         onClickRow={props.onClickRow}
