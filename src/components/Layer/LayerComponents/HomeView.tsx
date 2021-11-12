@@ -20,13 +20,18 @@ import "../Layer.css";
 
 type NoteItem = {
   note: string;
-  created: string;
+  dateCreated: string;
+  timeCreated: string;
 };
 export default function HomeView(props) {
   const [notes, setNotes] = useState<NoteItem[]>([]);
   const [note, setNote] = useState<string>("");
+
+  console.log(new Date().toString())
   return (
-    <Box width="large" overflow="auto" fill="vertical">
+    <Box width="large" overflow="auto" fill="vertical" 
+    // className="layer_style" 
+    >
       <Box
         direction="row-responsive"
         margin={{ top: "small", right: "large", bottom: "small" }}
@@ -145,7 +150,7 @@ export default function HomeView(props) {
             icon={<Checkmark color="#00FF00" />}
             onClick={(e) => {
               setNotes(
-                [{ note: note, created: new Date().toDateString() }].concat(
+                [{ note: note, dateCreated: new Date().toDateString(), timeCreated: new Date().toLocaleTimeString() }].concat(
                   notes
                 )
               ), setNote("");
@@ -160,7 +165,7 @@ export default function HomeView(props) {
           <Box direction="row">
             <Box
               className="input-text"
-              fill={props.fill}
+              // fill={props.fill}
               margin={{ bottom: "xsmall", left: "xsmall"  }}
               border={{ color: "#e9ecf1", size: "small" }}
               pad="8px"
@@ -180,7 +185,9 @@ export default function HomeView(props) {
               round={{ size: "8px" }}
               width="30%"
             >
-              {note.created}
+              {note.dateCreated},
+              <br/>
+              {note.timeCreated}
             </Box>
           </Box>
         ))}
