@@ -5,8 +5,8 @@ export default function LayerInput(props) {
   return (
     <Box
       className="input-text"
-      fill={props.fill}
-      margin={{ bottom: "xsmall", }}
+      width="100%"
+      margin={{ bottom: "xsmall" }}
       border={{ color: "#e9ecf1", size: "small" }}
       pad="8px"
       round={{ size: "8px" }}

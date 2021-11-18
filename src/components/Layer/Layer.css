@@ -1,6 +1,7 @@
 .input-text {
   color: #43588f;
   word-wrap: break-word;
+  min-height: 75px !important;
 }
 
 .mf-layer__input-text {

@@ -1,6 +1,6 @@
 import { Address } from "../address/Address";
 
-export type Property = {
+export interface Property {
   property_id: string;
   address: Address;
   owner_id: string;
@@ -13,4 +13,4 @@ export type Property = {
   buildings: number;
   year_built: number;
   notes: string[];
-};
+}
