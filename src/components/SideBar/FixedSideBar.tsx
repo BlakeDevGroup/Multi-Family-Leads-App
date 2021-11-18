@@ -25,7 +25,7 @@ export default function FixedSideBarComponent(props) {
             // overflow="hidden"
             align="center"
           >
-            <Text color="#2A2C64" size="small">Home View </Text>
+            <Text color="#2A2C64"  size="small">Home View </Text>
           </Box>)}}
         />
         <Button
