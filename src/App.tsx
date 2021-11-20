@@ -1,7 +1,4 @@
 import React from "react";
-import PropertyAPI from "./core/property/Property.api";
-import { Property } from "./core/property/Property";
-import { Address } from "./core/address/Address";
 import { useState, useEffect } from "react";
 import { Main, Box, Text, Grid, Button } from "grommet";
 import DataTableComponent from "./components/DataTable/DataTable";
