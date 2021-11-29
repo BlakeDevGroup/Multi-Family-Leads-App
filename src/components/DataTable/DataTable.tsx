@@ -70,7 +70,7 @@ export default function DataTableComponent(props) {
   const [component, setComponent] = useState(<HomeView data={{}} />);
 
   useEffect(() => {
-    propertyAPI.getAll().then((res) => setData(res));
+    propertyAPI.getAll().then((data) => setData(data));
   }, []);
 
   return (
