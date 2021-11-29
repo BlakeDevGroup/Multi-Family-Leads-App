@@ -42,7 +42,7 @@ const columns = [
     search: true,
   },
   {
-    property: "",
+    property: "owner_name",
     header: <Text color="#99A3C0">Contact Person</Text>,
     search: true,
 
@@ -66,7 +66,30 @@ const columns = [
 
 export default function DataTableComponent(props) {
   useEffect(() => {
-    propertyAPI.getAll().then((data) => props.setData(data));
+    propertyAPI
+      .create({
+        id: "110 Tucker St",
+        address: {
+          street: "110 Tucker St",
+          city: "Arvin",
+          state: "CA",
+          zip_code: "93203",
+          county: "",
+        },
+        owner_id: "",
+        owner_name: "Villanueva Leonardo / Villanueva Lud...",
+        owner_email: "",
+        owner_number: "",
+        price: 1,
+        units: 5,
+        sqft: 0,
+        buildings: 0,
+        year_built: 0,
+        notes: [],
+      })
+      .then(() => {
+        propertyAPI.getAll().then((data) => props.setData(data));
+      });
   }, []);
 
   return (

@@ -78,11 +78,15 @@ export default function HomeView(props) {
           <LayerContacts
             text="Street"
             placeholder="123 Main St"
-            value={props.data ? props.data.address.street : ""}
+            value={
+              props.data && props.data.address ? props.data.address.street : ""
+            }
           />
           <LayerContacts
             text="City"
-            value={props.data ? props.data.address.city : ""}
+            value={
+              props.data && props.data.address ? props.data.address.city : ""
+            }
           />
         </Box>
         <Box
@@ -98,12 +102,18 @@ export default function HomeView(props) {
         >
           <LayerContacts
             text="State"
-            value={props.data ? props.data.address.state : ""}
+            value={
+              props.data && props.data.address ? props.data.address.state : ""
+            }
           />
           <LayerContacts
             text="Zip Code"
             placeholder="xxxxx"
-            value={props.data ? props.data.address.zip_code : ""}
+            value={
+              props.data && props.data.address
+                ? props.data.address.zip_code
+                : ""
+            }
           />
         </Box>
       </Box>

@@ -38,7 +38,7 @@ describe("PropertyJsonQuery", () => {
     it("should send success when id is found", async () => {
       const ID = "110 Tucker St";
       const expected: Property = {
-        property_id: "110 Tucker St",
+        id: "110 Tucker St",
         address: {
           street: "110 Tucker St",
           city: "Arvin",

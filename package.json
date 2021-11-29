@@ -16,6 +16,7 @@
     "@types/webpack": "^5.28.0",
     "@types/webpack-dev-server": "^4.3.1",
     "@typescript-eslint/parser": "^5.2.0",
+    "axios": "^0.24.0",
     "chai": "^4.3.4",
     "env-cmd": "^10.1.0",
     "eslint-config-netflix": "^2.0.0",

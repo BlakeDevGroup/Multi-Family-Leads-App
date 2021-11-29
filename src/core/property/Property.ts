@@ -1,7 +1,7 @@
 import { Address } from "../address/Address";
 
 export type Property = {
-  property_id: string;
+  id: string;
   address: Address;
   owner_id: string;
   owner_name: string;

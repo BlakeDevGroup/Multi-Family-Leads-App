@@ -35,7 +35,12 @@ function App() {
 
   return (
     <Main background="#f1f5f8">
-      <NavBar setShowSidebar={setShowSidebar} onOpen={onOpen} />
+      <NavBar
+        setShowSidebar={setShowSidebar}
+        onOpen={() => {
+          setLayer({ datum: null });
+        }}
+      />
       <MainLayer open={open} onClose={onClose}>
         {component}
       </MainLayer>
