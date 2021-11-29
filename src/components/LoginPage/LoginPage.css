@@ -1,0 +1,13 @@
+.login-page-text-color {
+  color: #43588f;
+}
+
+.button-style {
+  text-align: center !important;
+  border-radius: 12px !important;
+  padding: 11px !important;
+}
+
+.button-label {
+  line-height: 24px !important;
+}

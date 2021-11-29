@@ -39,7 +39,7 @@ export default class PropertyJsonQuery implements IQuery {
       );
     });
   }
-  putById(resource: Property) {
+  putById(id: string, resource: Property) {
     return true;
   }
   create(resource: Property) {
@@ -51,7 +51,7 @@ export default class PropertyJsonQuery implements IQuery {
 
   private propertyFromData(property: any): Property {
     return {
-      property_id: property["Property Address"],
+      id: property.id,
       address: {
         street: property["Property Address"],
         city: property["Property City"],

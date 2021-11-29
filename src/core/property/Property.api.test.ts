@@ -9,7 +9,7 @@ import sinonchai from "sinon-chai";
 chai.use(sinonchai);
 const ID = "015-400-17-00-4";
 const RESOURCE: Property = {
-  property_id: "003-352-11-00-9",
+  id: "003-352-11-00-9",
   address: {
     street: "2018 19Th St",
     city: "Bakersfield",
@@ -60,7 +60,7 @@ describe("PropertyAPI", () => {
   it("should call putById", async () => {
     const spy = sandbox.spy(propertyAPI["query"], "putById");
 
-    propertyAPI.put(RESOURCE);
+    propertyAPI.put(ID, RESOURCE);
 
     expect(spy).calledOnceWith(RESOURCE);
 
