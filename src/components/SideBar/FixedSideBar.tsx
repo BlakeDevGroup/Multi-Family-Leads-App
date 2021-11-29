@@ -1,10 +1,18 @@
 import { Box, Sidebar, Button, Nav, Avatar } from "grommet";
-import { User, LinkNext, Home, Document, Transaction } from "grommet-icons";
+import { User, Home, Document, Calculator } from "grommet-icons";
+// import "./SideBar.css"
 
 export default function FixedSideBarComponent(props) {
-  //   const [showSidebar, setShowSidebar] = useState(true);
   return (
-    <Sidebar background="#030848">
+    <Box
+      background="#030848"
+      pad="15px"
+      style={{
+        maxWidth: "90px",
+        minWidth: "90px",
+        height: "calc(100vh - 48px)",
+      }}
+    >
       <Nav gap="large" margin={{ top: "xlarge" }}>
         <Button
           color="#2A2C64"
@@ -25,6 +33,6 @@ export default function FixedSideBarComponent(props) {
           hoverIndicator
         />
       </Nav>
-    </Sidebar>
+    </Box>
   );
 }
