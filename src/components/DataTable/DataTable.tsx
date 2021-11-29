@@ -70,34 +70,7 @@ export default function DataTableComponent(props) {
   const [component, setComponent] = useState(<HomeView data={{}} />);
 
   useEffect(() => {
-<<<<<<< HEAD
-    propertyAPI
-      .create({
-        id: "110 Tucker St",
-        address: {
-          street: "110 Tucker St",
-          city: "Arvin",
-          state: "CA",
-          zip_code: "93203",
-          county: "",
-        },
-        owner_id: "",
-        owner_name: "Villanueva Leonardo / Villanueva Lud...",
-        owner_email: "",
-        owner_number: "",
-        price: 1,
-        units: 5,
-        sqft: 0,
-        buildings: 0,
-        year_built: 0,
-        notes: [],
-      })
-      .then(() => {
-        propertyAPI.getAll().then((data) => props.setData(data));
-      });
-=======
     propertyAPI.getAll().then((res) => setData(res));
->>>>>>> a1a0ba064bd95394726a9ad1b88d2c73a7742d40
   }, []);
 
   return (
