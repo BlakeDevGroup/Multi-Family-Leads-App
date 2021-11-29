@@ -66,6 +66,7 @@ export default function LoginPage() {
             size="small"
             margin={{ right: "medium" }}
             color="#43588f"
+            hoverIndicator="#5E7CC8"
             label={
               <Text className="button-label" color="white">
                 Login
