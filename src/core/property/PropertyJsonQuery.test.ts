@@ -84,7 +84,7 @@ describe("PropertyJsonQuery", () => {
       expect(spySuccess.args[0][0]).to.equal(
         "Successfully retrieved properties"
       );
-      expect(spySuccess.args[0][1].length).to.equal(8458);
+      expect(spySuccess.args[0][1].length).to.equal(556);
     });
   });
 });
