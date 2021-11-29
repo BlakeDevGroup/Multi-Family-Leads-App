@@ -42,7 +42,7 @@ const columns = [
     search: true,
   },
   {
-    property: "",
+    property: "owner_name",
     header: <Text color="#99A3C0">Contact Person</Text>,
     search: true,
 
