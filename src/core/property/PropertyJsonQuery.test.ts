@@ -44,17 +44,11 @@ describe("PropertyJsonQuery", () => {
           city: "Arvin",
           state: "CA",
           zip_code: "93203",
-          county: "",
         },
-        owner_id: "",
         owner_name: "Villanueva Leonardo / Villanueva Lud...",
         owner_email: "",
         owner_number: "",
-        price: 1,
         units: 5,
-        sqft: 0,
-        buildings: 0,
-        year_built: 0,
         notes: [],
       };
 

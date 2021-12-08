@@ -19,7 +19,7 @@ describe("Message Service", () => {
     const error = new Error("Process Failed");
     const result = sendFailure("Process Failure", "Error", 400);
 
-    expect(result.statusCode).to.equal(400);
+    expect(result.status).to.equal(400);
     expect(result.type).to.deep.equal("Error");
     expect(result.message).to.equal("Process Failure");
   });
@@ -29,7 +29,7 @@ describe("Message Service", () => {
     const error = new Error("Process Failed");
     const result = sendFailure("Test Failure", "Error", 404);
 
-    expect(result.statusCode).to.equal(404);
+    expect(result.status).to.equal(404);
     expect(result.type).to.deep.equal("Error");
     expect(result.message).to.equal("Test Failure");
   });

@@ -2,7 +2,6 @@ import { IQuery } from "../../common/query/IQuery";
 import axios from "axios";
 import * as MessageService from "../../common/message/message.service";
 import { Property } from "./Property";
-import { StringDecoder } from "string_decoder";
 
 export default class PropertyQuery implements IQuery {
   query;
@@ -12,11 +11,11 @@ export default class PropertyQuery implements IQuery {
     });
   }
   async readById(id: string): Promise<any> {
-    const data = await this.query.get(`/${id}`);
-    if (data) {
+    const result = await this.query.get(`/${id}`);
+    if (result.data) {
       return MessageService.sendSuccess(
         "Successfully retrieved property",
-        data
+        result.data
       );
     } else {
       return MessageService.sendFailure(
@@ -27,23 +26,32 @@ export default class PropertyQuery implements IQuery {
     }
   }
   async list() {
-    const data = await this.query.get("/");
+    const result = await this.query.get("/");
     return MessageService.sendSuccess(
       "Successfully retrieved properties",
-      data
+      result.data
     );
   }
   async create(resource: Property) {
-    const data = await this.query.post("/", resource);
-    return MessageService.sendSuccess("Successfully created property", data);
+    const result = await this.query.post("/", resource);
+    return MessageService.sendSuccess(
+      "Successfully created property",
+      result.data
+    );
   }
 
   async putById(id: string, resource: Property) {
-    const data = await this.query.put(`/${id}`, resource);
-    return MessageService.sendSuccess("Successfully updated property", data);
+    const result = await this.query.put(`/${id}`, resource);
+    return MessageService.sendSuccess(
+      "Successfully updated property",
+      result.data
+    );
   }
   async deleteById(id: string) {
-    const data = await this.query.delete(`/${id}`);
-    return MessageService.sendSuccess("Successfully deleted property", data);
+    const result = await this.query.delete(`/${id}`);
+    return MessageService.sendSuccess(
+      "Successfully deleted property",
+      result.data
+    );
   }
 }

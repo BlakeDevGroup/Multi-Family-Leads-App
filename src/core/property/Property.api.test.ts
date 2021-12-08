@@ -62,7 +62,7 @@ describe("PropertyAPI", () => {
 
     propertyAPI.put(ID, RESOURCE);
 
-    expect(spy).calledOnceWith(RESOURCE);
+    expect(spy).calledOnceWith(ID, RESOURCE);
 
     spy.restore();
   });

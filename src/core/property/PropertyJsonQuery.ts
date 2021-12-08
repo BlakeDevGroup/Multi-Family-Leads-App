@@ -1,4 +1,4 @@
-import propertyData from "./prop2.json";
+import propertyData from "./properties.json";
 import * as MessageService from "../../common/message/message.service";
 import { Property } from "./Property";
 import { IQuery } from "../../common/query/IQuery";
@@ -8,7 +8,7 @@ export default class PropertyJsonQuery implements IQuery {
   async readById(id: string): Promise<ServerResponsePayload> {
     return new Promise((resolve, reject) => {
       const data: any = propertyData.properties.filter(
-        (property) => property["Property Address"] === id
+        (property) => property["id"] === id
       )[0];
 
       if (data) {
@@ -52,22 +52,11 @@ export default class PropertyJsonQuery implements IQuery {
   private propertyFromData(property: any): Property {
     return {
       id: property.id,
-      address: {
-        street: property["Property Address"],
-        city: property["Property City"],
-        state: property["State"],
-        zip_code: property["Zip Code"],
-        county: "",
-      },
-      owner_id: "",
-      owner_name: property["Contact Person"],
-      owner_email: "",
-      owner_number: "",
-      price: 1,
+      address: property.Address,
+      owner_name: property.Name,
+      owner_email: property.Email,
+      owner_number: property.PhoneNumber,
       units: parseInt(property.Units),
-      sqft: 0,
-      buildings: 0,
-      year_built: 0,
       notes: [],
     };
   }

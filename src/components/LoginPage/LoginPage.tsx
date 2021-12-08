@@ -1,10 +1,25 @@
 import { Box, TextInput, Button, Text } from "grommet";
 import { Checkmark, View, Hide } from "grommet-icons";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "./LoginPage.css";
+import { authenticateUser } from "../../common/auth/AuthSlice";
+import { useDispatch } from "react-redux";
+import { useNavigate, useLocation } from "react-router";
 
 export default function LoginPage() {
   const [reveal, setReveal] = useState(false);
+  const [userName, setUserName] = useState("");
+  const [password, setPassword] = useState("");
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  function handleSubmit(e) {
+    dispatch(authenticateUser({ userName: userName, password: password }));
+
+    navigate(location.state?.from?.pathname || "/", { replace: true });
+  }
+
   return (
     <Box fill={true} background="transparent" align="center">
       <Box
@@ -27,6 +42,8 @@ export default function LoginPage() {
             color="#43588f"
             plain={true}
             placeholder="Username"
+            value={userName}
+            onChange={(e) => setUserName(e.target.value)}
           ></TextInput>
         </Box>
         <Box
@@ -47,6 +64,8 @@ export default function LoginPage() {
             plain
             placeholder="Password"
             type={reveal ? "text" : "password"}
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
           ></TextInput>
           <Button
             icon={
@@ -75,6 +94,7 @@ export default function LoginPage() {
             plain={true}
             primary
             fill={true}
+            onClick={handleSubmit}
           />
         </Box>
       </Box>

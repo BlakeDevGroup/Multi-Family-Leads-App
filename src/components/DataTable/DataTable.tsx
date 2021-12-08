@@ -11,6 +11,16 @@ const propertyAPI = new PropertyAPI();
 
 const columns = [
   {
+    property: "owner_name",
+    header: <Text color="#99A3C0">Name</Text>,
+    search: true,
+  },
+  {
+    property: "owner_entity",
+    header: <Text color="#99A3C0">Entity</Text>,
+    search: true,
+  },
+  {
     property: "address.street",
     header: <Text color="#99A3C0">Street</Text>,
     primary: true,
@@ -36,31 +46,16 @@ const columns = [
     header: <Text color="#99A3C0">Units</Text>,
     search: true,
   },
+
   {
-    property: "",
-    header: <Text color="#99A3C0">Ownership Entity</Text>,
+    property: "owner_number",
+    header: <Text color="#99A3C0">Phone Number</Text>,
     search: true,
   },
   {
-    property: "owner_name",
-    header: <Text color="#99A3C0">Contact Person</Text>,
+    property: "owner_email",
+    header: <Text color="#99A3C0">Email</Text>,
     search: true,
-
-    // pin: true,
-  },
-  {
-    property: "",
-    header: <Text color="#99A3C0">Contact Phone</Text>,
-    search: true,
-
-    // pin: true,
-  },
-  {
-    property: "",
-    header: <Text color="#99A3C0">Contact Email</Text>,
-    search: true,
-
-    // pin: true,
   },
 ];
 
@@ -70,7 +65,10 @@ export default function DataTableComponent(props) {
   const [component, setComponent] = useState(<HomeView data={{}} />);
 
   useEffect(() => {
-    propertyAPI.getAll().then((data) => setData(data));
+    propertyAPI.getAll().then((data) => {
+      console.log(data);
+      setData(data);
+    });
   }, []);
 
   return (
