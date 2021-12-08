@@ -29,6 +29,7 @@ export default function HomeView(props) {
     setCity(props.data?.address?.city);
     setZipCode(props.data?.address?.zip_code);
     setNotes(props.data?.notes);
+    setUnits(props.data?.units);
     setId(props.data?.id);
   }, [props.data]);
   return (
