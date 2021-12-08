@@ -18,6 +18,7 @@ export default function HomeView(props) {
   const [city, setCity] = useState("");
   const [zipCode, setZipCode] = useState("");
   const [Notes, setNotes] = useState("");
+  const [id, setId] = useState("");
 
   useEffect(() => {
     setName(props.data?.owner_name);
@@ -28,6 +29,7 @@ export default function HomeView(props) {
     setCity(props.data?.address?.city);
     setZipCode(props.data?.address?.zip_code);
     setNotes(props.data?.notes);
+    setId(props.data?.id);
   }, [props.data]);
   return (
     <Box width="large" overflow="hidden" fill="vertical" direction="column">
@@ -40,7 +42,7 @@ export default function HomeView(props) {
             <LayerHeader />
           </Box>
         </Box>
-
+        <LayerContacts value={id} />
         <Box direction="row-responsive" margin="small">
           <LayerContacts
             text="Name"
