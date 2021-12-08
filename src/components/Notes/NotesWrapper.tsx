@@ -1,7 +1,6 @@
-import NoteComponent from "./NoteComponent";
+import NoteComponent, { NoteItem } from "./NoteComponent";
 import { Grommet, Box, Text, Button, TextArea } from "grommet";
 import { Checkmark } from "grommet-icons";
-import { NoteItem } from "./NoteComponent";
 import { useState } from "react";
 
 export default function NotesWrapper() {
