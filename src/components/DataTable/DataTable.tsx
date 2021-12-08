@@ -7,6 +7,7 @@ import { DataTable, Text, Box } from "grommet";
 import "./DataTable.css";
 import MainLayer from "../Layer/Layer";
 import HomeView from "../Layer/LayerComponents/HomeView";
+import NavBar from "../NavBar/NavBar";
 const propertyAPI = new PropertyAPI();
 
 const columns = [
@@ -62,7 +63,18 @@ const columns = [
 export default function DataTableComponent(props) {
   const [open, setOpen] = useState(false);
   const [data, setData] = useState([]);
-  const [component, setComponent] = useState(<HomeView data={{}} />);
+  const [component, setComponent] = useState(
+    <HomeView
+      data={{
+        address: { street: "", city: "", state: "", zip_code: "" },
+        owner_email: "",
+        owner_entity: "",
+        owner_name: "",
+        owner_number: "",
+        units: "",
+      }}
+    />
+  );
 
   useEffect(() => {
     propertyAPI.getAll().then((data) => {
@@ -72,20 +84,28 @@ export default function DataTableComponent(props) {
   }, []);
 
   return (
-    <Box background="white" margin="2vh">
-      <DataTable
-        border={{ side: "bottom", color: "#EEF1F7", size: "small" }}
-        paginate={{ size: "medium" }}
-        columns={columns}
-        data={data}
-        onClickRow={({ datum }) => {
+    <>
+      <NavBar
+        onOpen={() => {
           setOpen(true);
-          setComponent(<HomeView data={datum} />);
+          setComponent(<HomeView data={{}} />);
         }}
       />
-      <MainLayer open={open} onClose={() => setOpen(false)}>
-        {component}
-      </MainLayer>
-    </Box>
+      <Box background="white" margin="2vh">
+        <DataTable
+          border={{ side: "bottom", color: "#EEF1F7", size: "small" }}
+          paginate={{ size: "medium" }}
+          columns={columns}
+          data={data}
+          onClickRow={({ datum }) => {
+            setOpen(true);
+            setComponent(<HomeView data={datum} />);
+          }}
+        />
+        <MainLayer open={open} onClose={() => setOpen(false)}>
+          {component}
+        </MainLayer>
+      </Box>
+    </>
   );
 }

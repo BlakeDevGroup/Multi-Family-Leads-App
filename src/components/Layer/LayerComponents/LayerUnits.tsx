@@ -26,6 +26,7 @@ export default function LayerUnits(props) {
         // height="auto"
         className="units"
         value={props.value}
+        onChange={props.onChange}
       />
     </Box>
   );

@@ -5,9 +5,30 @@ import LayerUnits from "./LayerUnits";
 import LayerAddress from "./LayerAddress";
 import "../Layer.css";
 import NotesWrapper from "../../Notes/NotesWrapper";
+import { useEffect, useState } from "react";
 
 export default function HomeView(props) {
-  console.log(new Date().toString());
+  const [name, setName] = useState("");
+  const [entity, setEntity] = useState("");
+  const [email, setEmail] = useState("");
+  const [number, setNumber] = useState("");
+  const [units, setUnits] = useState("");
+  const [street, setStreet] = useState("");
+  const [state, setState] = useState("");
+  const [city, setCity] = useState("");
+  const [zipCode, setZipCode] = useState("");
+  const [Notes, setNotes] = useState("");
+
+  useEffect(() => {
+    setName(props.data?.owner_name);
+    setEntity(props.data?.owner_entity);
+    setEmail(props.data?.owner_email);
+    setNumber(props.data?.owner_number);
+    setStreet(props.data?.address?.street);
+    setCity(props.data?.address?.city);
+    setZipCode(props.data?.address?.zip_code);
+    setNotes(props.data?.notes);
+  }, [props.data]);
   return (
     <Box width="large" overflow="hidden" fill="vertical" direction="column">
       <Box style={{ maxHeight: "50vh", minHeight: "unset" }}>
@@ -22,37 +43,27 @@ export default function HomeView(props) {
 
         <Box direction="row-responsive" margin="small">
           <LayerContacts
-            text="Street"
-            placeholder="123 Main St"
-            value={
-              props.data && props.data.address ? props.data.address.street : ""
-            }
+            text="Name"
+            placeholder="Owner Name..."
+            value={name}
+            onChange={setName}
           />
-          <LayerContacts
-            text="City"
-            value={
-              props.data && props.data.address ? props.data.address.city : ""
-            }
-          />
+          <LayerContacts text="Entity" value={entity} onChange={setEntity} />
         </Box>
         <Box direction="row-responsive" margin="small">
           <LayerContacts
-            text="State"
-            value={
-              props.data && props.data.address ? props.data.address.state : ""
-            }
+            text="Email"
+            placeholder="xxxxx"
+            value={email}
+            onChange={setEmail}
           />
           <LayerContacts
-            text="Zip Code"
-            placeholder="xxxxx"
-            value={
-              props.data && props.data.address
-                ? props.data.address.zip_code
-                : ""
-            }
+            text="Phone Number"
+            value={number}
+            onChange={setNumber}
           />
         </Box>
-        <LayerUnits value={props.data ? props.data.units : ""} />
+        <LayerUnits value={units} onChange={setUnits} />
         <Box direction="row-responsive">
           <Box
             direction="column"
@@ -67,12 +78,10 @@ export default function HomeView(props) {
             <LayerAddress
               text="Street"
               placeholder="123 Main St"
-              value={props.data ? props.data.address.street : ""}
+              value={street}
+              onChange={setStreet}
             />
-            <LayerAddress
-              text="City"
-              value={props.data ? props.data.address.city : ""}
-            />
+            <LayerAddress text="City" value={city} onChange={setCity} />
           </Box>
           <Box
             basis="small"
@@ -85,14 +94,12 @@ export default function HomeView(props) {
             }}
             fill="horizontal"
           >
-            <LayerAddress
-              text="State"
-              value={props.data ? props.data.address.state : ""}
-            />
+            <LayerAddress text="State" value={state} onChange={setState} />
             <LayerAddress
               text="Zip Code"
               placeholder="xxxxx"
-              value={props.data ? props.data.address.zip_code : ""}
+              value={zipCode}
+              onChange={setZipCode}
             />
           </Box>
         </Box>

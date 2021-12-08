@@ -15,17 +15,11 @@ const RESOURCE: Property = {
     city: "Bakersfield",
     state: "CA",
     zip_code: "93301",
-    county: "Kern County",
   },
-  owner_id: "",
   owner_name: "",
   owner_email: "",
   owner_number: "",
-  price: 1,
   units: 6,
-  sqft: 3846,
-  buildings: 1,
-  year_built: 1900,
   notes: [],
 };
 let propertyAPI: PropertyAPI;

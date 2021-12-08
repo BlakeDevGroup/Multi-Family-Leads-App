@@ -28,6 +28,7 @@ export default function LayerInput(props) {
         height="auto"
         className="text-input mf-layer__input-text"
         value={props.value}
+        onChange={props.onChange}
       />
     </Box>
   );
