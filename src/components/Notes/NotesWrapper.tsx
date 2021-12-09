@@ -1,10 +1,11 @@
-import NoteComponent, { NoteItem } from "./NoteComponent";
+import NoteComponent from "./NoteComponent";
 import { Grommet, Box, Text, Button, TextArea } from "grommet";
 import { Checkmark } from "grommet-icons";
 import { useState } from "react";
+import { Note } from "../../core/notes/Note";
 
 export default function NotesWrapper() {
-  const [notes, setNotes] = useState<NoteItem[]>([]);
+  const [notes, setNotes] = useState<Note[]>([]);
   const [note, setNote] = useState<string>("");
   return (
     <>
@@ -53,16 +54,13 @@ export default function NotesWrapper() {
             hoverIndicator={true}
             icon={<Checkmark color="#00FF00" />}
             onClick={(e) => {
-              setNotes(
-                [
-                  {
-                    note: note,
-                    dateCreated: new Date().toDateString(),
-                    timeCreated: `${new Date().getHours()}:${new Date().getMinutes()}`,
-                  },
-                ].concat(notes)
-              ),
-                setNote("");
+              const newNote: Note = {
+                note: note,
+                dateCreated: new Date().toDateString(),
+                timeCreated: `${new Date().getHours()}:${new Date().getMinutes()}`,
+              };
+              setNotes([newNote].concat(notes));
+              setNote("");
             }}
           />
         </Box>

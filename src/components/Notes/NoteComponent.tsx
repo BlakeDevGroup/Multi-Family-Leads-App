@@ -1,11 +1,9 @@
-import { Box, Text, Button } from "grommet";
+import { Box, Text, Button, TextInput } from "grommet";
 import { Edit, Trash } from "grommet-icons";
+import NoteApi from "../../core/notes/Note.api";
+import { Note } from "../../core/notes/Note";
 
-export type NoteItem = {
-  note: string;
-  dateCreated: string;
-  timeCreated: string;
-};
+const api = new NoteApi();
 
 export default function NoteComponent(props) {
   return (
@@ -38,11 +36,14 @@ export default function NoteComponent(props) {
             hoverIndicator="background"
             icon={<Edit size="13px" color="#99A3C0" />}
             color="#99A3C0"
+            onClick={(e) => {
+              api.put(props.note.id, props.note);
+            }}
           />
           <Button
             hoverIndicator="background"
             onClick={(e) => {
-              console.log(props.notes);
+              api.delete(props.note.id);
             }}
             icon={<Trash size="13px" color="#99A3C0" />}
             color="#99A3C0"
@@ -50,9 +51,7 @@ export default function NoteComponent(props) {
         </Box>
       </Box>
       <Box style={{ lineHeight: 1.5 }}>
-        <Text size="small" margin="small">
-          {props.note.note}
-        </Text>
+        <TextInput size="small" value={props.note.note} />
       </Box>
     </Box>
   );
