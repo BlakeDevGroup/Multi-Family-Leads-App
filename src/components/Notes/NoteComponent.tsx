@@ -1,11 +1,17 @@
-import { Box, Text, Button, TextInput } from "grommet";
+import { Box, Text, Button, TextArea } from "grommet";
 import { Edit, Trash } from "grommet-icons";
 import NoteApi from "../../core/notes/Note.api";
 import { Note } from "../../core/notes/Note";
+import { is } from "@reduxjs/toolkit/node_modules/immer/dist/internal";
+import { useEffect, useState } from "react";
 
 const api = new NoteApi();
 
 export default function NoteComponent(props) {
+  const [note, setNote] = useState("");
+
+  useEffect(() => setNote(props.note.note), [props.note]);
+
   return (
     <Box
       className="input-text"
@@ -50,8 +56,16 @@ export default function NoteComponent(props) {
           />
         </Box>
       </Box>
-      <Box style={{ lineHeight: 1.5 }}>
-        <TextInput size="small" value={props.note.note} />
+      <Box style={{ lineHeight: 1.5 }} fill pad={{ top: "medium" }}>
+        <TextArea
+          plain
+          className="notes-style"
+          resize={false}
+          fill={true}
+          size="medium"
+          value={note}
+          onChange={(e) => setNote(e.target.value)}
+        />
       </Box>
     </Box>
   );

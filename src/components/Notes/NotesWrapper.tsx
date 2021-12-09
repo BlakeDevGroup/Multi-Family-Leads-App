@@ -75,7 +75,12 @@ export default function NotesWrapper() {
       </Text>
       <Box margin="xsmall" color="blue" round style={{ overflowY: "auto" }}>
         {notes.map((note) => (
-          <NoteComponent note={note} />
+          <NoteComponent
+            onChange={(e) => {
+              setNote(e.target.value);
+            }}
+            note={note}
+          />
         ))}
       </Box>
     </>
