@@ -1,9 +1,33 @@
-import { Text } from "grommet";
+import { Box, Anchor, Header, Button } from "grommet";
+import { Globe } from "grommet-icons";
+import PropertyAPI from "../../../core/property/Property.api";
 
-export default function LayerHeader() {
+const api = new PropertyAPI();
+
+export default function LayerHeader(props) {
   return (
-    <Text color="#43588F" weight="bold" size="xlarge" alignSelf="center">
-      Central Property Valley Advisers
-    </Text>
+    <Header
+      className="navbar"
+      background="#ffffff"
+      pad="small"
+      height="xxsmall"
+      fill="horizontal"
+      // elevation="xsmall"
+    >
+      <Box>
+        <Anchor
+          icon={<Globe color="#43588F" />}
+          label="Central Property Valley Advisers"
+          color="#43588F"
+        />
+      </Box>
+      <Box>
+        <Button
+          onClick={(e) => {
+            api.put(props.resource.id, props.resource);
+          }}
+        />
+      </Box>
+    </Header>
   );
 }

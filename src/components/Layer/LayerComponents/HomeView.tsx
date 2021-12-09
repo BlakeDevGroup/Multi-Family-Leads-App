@@ -26,12 +26,14 @@ export default function HomeView(props) {
     setEmail(props.data?.owner_email);
     setNumber(props.data?.owner_number);
     setStreet(props.data?.address?.street);
+    setState(props.data?.address?.state);
     setCity(props.data?.address?.city);
     setZipCode(props.data?.address?.zip_code);
     setNotes(props.data?.notes);
     setUnits(props.data?.units);
     setId(props.data?.id);
   }, [props.data]);
+
   return (
     <Box width="large" overflow="hidden" fill="vertical" direction="column">
       <Box style={{ maxHeight: "50vh", minHeight: "unset" }}>
@@ -40,33 +42,59 @@ export default function HomeView(props) {
           margin={{ top: "small", right: "large", bottom: "small" }}
         >
           <Box fill>
-            <LayerHeader />
+            <LayerHeader
+              resource={{
+                id: id,
+                owner_name: name,
+                owner_entity: entity,
+                owner_email: email,
+                owner_number: number,
+                address: {
+                  street: street,
+                  city: city,
+                  state: state,
+                  zip_code: zipCode,
+                },
+                units: units,
+              }}
+
+              // name={name}
+              // entity={entity}
+              // email={email}
+              // number={number}
+              // street={street}
+              // state={state}
+            />
           </Box>
         </Box>
-        <LayerContacts value={id} />
+        {/* <LayerContacts value={id} /> */}
         <Box direction="row-responsive" margin="small">
           <LayerContacts
             text="Name"
             placeholder="Owner Name..."
             value={name}
-            onChange={setName}
+            onChange={(e) => setName(e.target.value)}
           />
-          <LayerContacts text="Entity" value={entity} onChange={setEntity} />
+          <LayerContacts
+            text="Entity"
+            value={entity}
+            onChange={(e) => setEntity(e.target.value)}
+          />
         </Box>
         <Box direction="row-responsive" margin="small">
           <LayerContacts
             text="Email"
             placeholder="xxxxx"
             value={email}
-            onChange={setEmail}
+            onChange={(e) => setEmail(e.target.value)}
           />
           <LayerContacts
             text="Phone Number"
             value={number}
-            onChange={setNumber}
+            onChange={(e) => setNumber(e.target.value)}
           />
         </Box>
-        <LayerUnits value={units} onChange={setUnits} />
+        <LayerUnits value={units} onChange={(e) => setUnits(e.target.value)} />
         <Box direction="row-responsive">
           <Box
             direction="column"
@@ -82,9 +110,13 @@ export default function HomeView(props) {
               text="Street"
               placeholder="123 Main St"
               value={street}
-              onChange={setStreet}
+              onChange={(e) => setStreet(e.target.value)}
             />
-            <LayerAddress text="City" value={city} onChange={setCity} />
+            <LayerAddress
+              text="City"
+              value={city}
+              onChange={(e) => setCity(e.target.value)}
+            />
           </Box>
           <Box
             basis="small"
@@ -97,12 +129,16 @@ export default function HomeView(props) {
             }}
             fill="horizontal"
           >
-            <LayerAddress text="State" value={state} onChange={setState} />
+            <LayerAddress
+              text="State"
+              value={state}
+              onChange={(e) => setState(e.target.value)}
+            />
             <LayerAddress
               text="Zip Code"
               placeholder="xxxxx"
               value={zipCode}
-              onChange={setZipCode}
+              onChange={(e) => setZipCode(e.target.value)}
             />
           </Box>
         </Box>
