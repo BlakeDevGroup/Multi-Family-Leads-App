@@ -6,7 +6,7 @@ export default class AuthService {
   async login(username, password) {
     const result = await axios.post(
       process.env.NODE_ENV == "production"
-        ? "http://localhost:3500/login"
+        ? "https://multi-family-service.herokuapp.com/login"
         : "http://localhost:3500/login",
       {
         user_name: username,
