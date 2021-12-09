@@ -9,7 +9,7 @@ export default class NoteQuery implements IQuery {
     this.query = axios.create({
       baseURL:
         process.env.NODE_ENV == "production"
-          ? "http://localhost:3500"
+          ? "https://multi-family-service.herokuapp.com"
           : "http://localhost:3500",
     });
   }
