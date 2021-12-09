@@ -1,12 +1,18 @@
 import NoteComponent from "./NoteComponent";
 import { Grommet, Box, Text, Button, TextArea } from "grommet";
 import { Checkmark } from "grommet-icons";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Note } from "../../core/notes/Note";
+import { useDispatch, useSelector } from "react-redux";
+import { addNote } from "../../core/notes/NoteSlice";
 
-export default function NotesWrapper() {
-  const [notes, setNotes] = useState<Note[]>([]);
+export default function NotesWrapper({ propertyId }) {
+  const notes = useSelector((state: any) => {
+    return state.notes.notes.filter((n) => n.property_id == propertyId);
+  });
+  const dispatch = useDispatch();
   const [note, setNote] = useState<string>("");
+
   return (
     <>
       <Box
@@ -54,12 +60,15 @@ export default function NotesWrapper() {
             hoverIndicator={true}
             icon={<Checkmark color="#00FF00" />}
             onClick={(e) => {
-              const newNote: Note = {
-                note: note,
-                dateCreated: new Date().toDateString(),
-                timeCreated: `${new Date().getHours()}:${new Date().getMinutes()}`,
-              };
-              setNotes([newNote].concat(notes));
+              dispatch(
+                addNote({
+                  note: note,
+                  dateCreated: new Date().toDateString(),
+                  timeCreated: `${new Date().getHours()}:${new Date().getMinutes()}`,
+                  property_id: propertyId,
+                })
+              );
+
               setNote("");
             }}
           />
@@ -74,7 +83,7 @@ export default function NotesWrapper() {
         Comments:
       </Text>
       <Box margin="xsmall" color="blue" round style={{ overflowY: "auto" }}>
-        {notes.map((note) => (
+        {notes?.map((note) => (
           <NoteComponent
             onChange={(e) => {
               setNote(e.target.value);

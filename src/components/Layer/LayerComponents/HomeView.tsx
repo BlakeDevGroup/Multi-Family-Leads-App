@@ -146,7 +146,7 @@ export default function HomeView(props) {
         </Box>
       </Box>
       <Box style={{ maxHeight: "50vh" }}>
-        <NotesWrapper />
+        <NotesWrapper propertyId={id} />
       </Box>
     </Box>
   );

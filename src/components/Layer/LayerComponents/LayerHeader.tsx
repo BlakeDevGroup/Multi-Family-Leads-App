@@ -2,10 +2,16 @@ import { Box, Anchor, Header, Button } from "grommet";
 import { Globe } from "grommet-icons";
 import PropertyAPI from "../../../core/property/Property.api";
 import "./SubmitButton.css";
+import {
+  updateProperty,
+  addProperty,
+} from "../../../core/property/PropertySlice";
+import { useDispatch } from "react-redux";
 
 const api = new PropertyAPI();
 
 export default function LayerHeader(props) {
+  const dispatch = useDispatch();
   return (
     <Header
       className="navbar"
@@ -30,9 +36,9 @@ export default function LayerHeader(props) {
           size="medium"
           onClick={(e) => {
             if (props.action == "create") {
-              api.create(props.resource);
+              dispatch(addProperty(props.resource));
             } else if (props.action == "put") {
-              api.put(props.resource.id, props.resource);
+              dispatch(updateProperty(props.resource));
             }
             props.setOpen(false);
           }}

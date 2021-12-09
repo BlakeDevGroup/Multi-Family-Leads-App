@@ -4,11 +4,12 @@ import NoteApi from "../../core/notes/Note.api";
 import { Note } from "../../core/notes/Note";
 import { is } from "@reduxjs/toolkit/node_modules/immer/dist/internal";
 import { useEffect, useState } from "react";
-
-const api = new NoteApi();
+import { useDispatch } from "react-redux";
+import { updateNote, deleteNote } from "../../core/notes/NoteSlice";
 
 export default function NoteComponent(props) {
   const [note, setNote] = useState("");
+  const dispatch = useDispatch();
 
   useEffect(() => setNote(props.note.note), [props.note]);
 
@@ -31,10 +32,10 @@ export default function NoteComponent(props) {
             color="#99A3C0"
             style={{ lineHeight: 1.5 }}
           >
-            {props.note.dateCreated.substring(4)}
+            {props.note?.dateCreated?.substring(4)}
           </Text>
           <Text size="small" color="#99A3C0" style={{ lineHeight: 1.5 }}>
-            {props.note.timeCreated}
+            {props.note?.timeCreated}
           </Text>
         </Box>
         <Box direction="row-responsive">
@@ -43,13 +44,21 @@ export default function NoteComponent(props) {
             icon={<Edit size="13px" color="#99A3C0" />}
             color="#99A3C0"
             onClick={(e) => {
-              api.put(props.note.id, props.note);
+              dispatch(
+                updateNote(
+                  Object.assign({}, props.note, {
+                    note: note,
+                    last_modified: new Date().toUTCString(),
+                    modified_by: "user",
+                  })
+                )
+              );
             }}
           />
           <Button
             hoverIndicator="background"
             onClick={(e) => {
-              api.delete(props.note.id);
+              dispatch(deleteNote(props.note));
             }}
             icon={<Trash size="13px" color="#99A3C0" />}
             color="#99A3C0"

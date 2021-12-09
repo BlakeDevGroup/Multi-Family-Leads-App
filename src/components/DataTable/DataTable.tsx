@@ -8,7 +8,12 @@ import "./DataTable.css";
 import MainLayer from "../Layer/Layer";
 import HomeView from "../Layer/LayerComponents/HomeView";
 import NavBar from "../NavBar/NavBar";
+import { useDispatch, useSelector } from "react-redux";
+import { setProperties } from "../../core/property/PropertySlice";
+import NoteApi from "../../core/notes/Note.api";
+import { setNotes } from "../../core/notes/NoteSlice";
 const propertyAPI = new PropertyAPI();
+const noteAPI = new NoteApi();
 
 const columns = [
   {
@@ -24,7 +29,6 @@ const columns = [
   {
     property: "address.street",
     header: <Text color="#99A3C0">Street</Text>,
-    primary: true,
     search: true,
   },
   {
@@ -62,7 +66,11 @@ const columns = [
 
 export default function DataTableComponent(props) {
   const [open, setOpen] = useState(false);
-  const [data, setData] = useState([]);
+  const data = useSelector((state: any) => {
+    console.log(state.properties?.properties);
+    return state.properties?.properties;
+  });
+  const dispatch = useDispatch();
   const [component, setComponent] = useState(
     <HomeView
       data={{
@@ -78,8 +86,11 @@ export default function DataTableComponent(props) {
 
   useEffect(() => {
     propertyAPI.getAll().then((data) => {
-      console.log(data);
-      setData(data);
+      dispatch(setProperties(data));
+    });
+
+    noteAPI.getAll().then((data) => {
+      dispatch(setNotes(data));
     });
   }, []);
 
