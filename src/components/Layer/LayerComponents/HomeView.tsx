@@ -43,6 +43,7 @@ export default function HomeView(props) {
         >
           <Box fill>
             <LayerHeader
+              action={props.action}
               resource={{
                 id: id,
                 owner_name: name,

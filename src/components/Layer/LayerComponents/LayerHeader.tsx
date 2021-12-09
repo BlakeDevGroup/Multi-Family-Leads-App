@@ -24,7 +24,11 @@ export default function LayerHeader(props) {
       <Box>
         <Button
           onClick={(e) => {
-            api.put(props.resource.id, props.resource);
+            if (props.action == "create") {
+              api.create(props.resource);
+            } else if (props.action == "put") {
+              api.put(props.resource.id, props.resource);
+            }
           }}
         />
       </Box>
