@@ -4,8 +4,16 @@ import { User, Home, Document, Calculator } from "grommet-icons";
 
 export default function FixedSideBarComponent(props) {
   return (
-    <Box background="#030848" pad="15px" style={{maxWidth: "90px", minWidth: "90px", height: "calc(100vh - 48px)"}}  >
-      <Nav  gap="large" margin={{ top: "xlarge" }}>
+    <Box
+      background="#030848"
+      pad="15px"
+      style={{
+        maxWidth: "90px",
+        minWidth: "90px",
+        height: "calc(100vh - 48px)",
+      }}
+    >
+      <Nav gap="large" margin={{ top: "xlarge" }}>
         <Button
           color="#2A2C64"
           plain={false}

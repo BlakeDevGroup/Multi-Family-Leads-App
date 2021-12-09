@@ -1,7 +1,7 @@
 import { TextInput, Text, Box } from "grommet";
 import "../Layer.css";
 
-export default function LayerAddress(props) {
+export default function LayerInput(props) {
   return (
     <Box
       className="input-text"
@@ -28,6 +28,7 @@ export default function LayerAddress(props) {
         height="auto"
         className="text-input mf-layer__input-text"
         value={props.value}
+        onChange={props.onChange}
       />
     </Box>
   );

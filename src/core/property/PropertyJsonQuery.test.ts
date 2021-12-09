@@ -38,23 +38,17 @@ describe("PropertyJsonQuery", () => {
     it("should send success when id is found", async () => {
       const ID = "110 Tucker St";
       const expected: Property = {
-        property_id: "110 Tucker St",
+        id: "110 Tucker St",
         address: {
           street: "110 Tucker St",
           city: "Arvin",
           state: "CA",
           zip_code: "93203",
-          county: "",
         },
-        owner_id: "",
         owner_name: "Villanueva Leonardo / Villanueva Lud...",
         owner_email: "",
         owner_number: "",
-        price: 1,
         units: 5,
-        sqft: 0,
-        buildings: 0,
-        year_built: 0,
         notes: [],
       };
 
@@ -84,7 +78,7 @@ describe("PropertyJsonQuery", () => {
       expect(spySuccess.args[0][0]).to.equal(
         "Successfully retrieved properties"
       );
-      expect(spySuccess.args[0][1].length).to.equal(8458);
+      expect(spySuccess.args[0][1].length).to.equal(556);
     });
   });
 });

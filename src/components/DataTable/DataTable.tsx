@@ -5,11 +5,22 @@ import { Address } from "../../core/address/Address";
 import { useState, useEffect } from "react";
 import { DataTable, Text, Box } from "grommet";
 import "./DataTable.css";
+import MainLayer from "../Layer/Layer";
+import HomeView from "../Layer/LayerComponents/HomeView";
+import NavBar from "../NavBar/NavBar";
 const propertyAPI = new PropertyAPI();
-const addressToString = (address: Address) => {
-  return `${address.street}, ${address.city}, ${address.state} ${address.zip_code}`;
-};
+
 const columns = [
+  {
+    property: "owner_name",
+    header: <Text color="#99A3C0">Name</Text>,
+    search: true,
+  },
+  {
+    property: "owner_entity",
+    header: <Text color="#99A3C0">Entity</Text>,
+    search: true,
+  },
   {
     property: "address.street",
     header: <Text color="#99A3C0">Street</Text>,
@@ -36,62 +47,65 @@ const columns = [
     header: <Text color="#99A3C0">Units</Text>,
     search: true,
   },
+
   {
-    property: "",
-    header: <Text color="#99A3C0">Ownership Entity</Text>,
+    property: "owner_number",
+    header: <Text color="#99A3C0">Phone Number</Text>,
     search: true,
   },
   {
-    property: "owner_name",
-    header: <Text color="#99A3C0">Contact Person</Text>,
+    property: "owner_email",
+    header: <Text color="#99A3C0">Email</Text>,
     search: true,
-
-    // pin: true,
-  },
-  {
-    property: "",
-    header: <Text color="#99A3C0">Contact Phone</Text>,
-    search: true,
-
-    // pin: true,
-  },
-  {
-    property: "",
-    header: <Text color="#99A3C0">Contact Email</Text>,
-    search: true,
-
-    // pin: true,
   },
 ];
 
 export default function DataTableComponent(props) {
+  const [open, setOpen] = useState(false);
+  const [data, setData] = useState([]);
+  const [component, setComponent] = useState(
+    <HomeView
+      data={{
+        address: { street: "", city: "", state: "", zip_code: "" },
+        owner_email: "",
+        owner_entity: "",
+        owner_name: "",
+        owner_number: "",
+        units: "",
+      }}
+    />
+  );
+
   useEffect(() => {
-    propertyAPI.getAll().then((data) => props.setData(data));
+    propertyAPI.getAll().then((data) => {
+      console.log(data);
+      setData(data);
+    });
   }, []);
 
   return (
-    <Box
-    height="calc(100vh - 48px)" 
-    width="calc(100vw - 90px)" 
-    overflow="scroll"
-    fill="vertical"
-      margin="large"
-      elevation="large"
-      round={true}
-      background="#ffffff"
-    >
-      <DataTable
-      
-        fill
-        pin
-        
-        size="large"
-        border={{ side: "bottom", color: "#EEF1F7", size: "small" }}
-        paginate={{size: "medium", }}
-        columns={columns}
-        data={props.data}
-        onClickRow={props.onClickRow}
+    <>
+      <NavBar
+        onOpen={() => {
+          setOpen(true);
+          setComponent(<HomeView data={{}} />);
+        }}
       />
-    </Box>
+      <Box background="white" margin="2vh">
+        <DataTable
+          border={{ side: "bottom", color: "#EEF1F7", size: "small" }}
+          paginate={{ size: "medium" }}
+          columns={columns}
+          data={data}
+          onClickRow={({ datum }) => {
+            setOpen(true);
+            setComponent(<HomeView data={datum} />);
+          }}
+        />
+        <MainLayer open={open} onClose={() => setOpen(false)}>
+          {component}
+        </MainLayer>
+      </Box>
+    </>
   );
 }
