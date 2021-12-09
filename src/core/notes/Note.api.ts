@@ -24,8 +24,8 @@ export default class NoteApi {
   async create(resource: Note) {
     return this.query.create(resource);
   }
-  async delete(id: string) {
-    return this.query.deleteById(id);
+  async delete(property_id: string, id: string) {
+    return this.query.deleteByID(property_id, id);
   }
   async getAll() {
     try {

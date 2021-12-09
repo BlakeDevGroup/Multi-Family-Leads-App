@@ -3,8 +3,9 @@ import { Checkmark, View, Hide } from "grommet-icons";
 import { useEffect, useState } from "react";
 import "./LoginPage.css";
 import { authenticateUser } from "../../common/auth/AuthSlice";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useLocation } from "react-router";
+import useAuth from "../Routes/useAuth";
 
 export default function LoginPage() {
   const [reveal, setReveal] = useState(false);
@@ -13,12 +14,16 @@ export default function LoginPage() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const location = useLocation();
+  const token = useAuth();
 
   function handleSubmit(e) {
     dispatch(authenticateUser({ userName: userName, password: password }));
-
-    navigate(location.state?.from?.pathname || "/", { replace: true });
   }
+
+  useEffect(() => {
+    if (token)
+      navigate(location.state?.from?.pathname || "/", { replace: true });
+  }, [token]);
 
   return (
     <Box fill={true} background="transparent" align="center">

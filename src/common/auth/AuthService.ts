@@ -1,12 +1,18 @@
 import axios from "axios";
 import { sendSuccess, sendFailure } from "../message/message.service";
+import Cookies from "universal-cookie";
 
 export default class AuthService {
   async login(username, password) {
-    const result = await axios.post("http://localhost:3500/login", {
-      user_name: username,
-      password: password,
-    });
+    const result = await axios.post(
+      process.env.NODE_ENV == "production"
+        ? "http://localhost:3500/login"
+        : "http://localhost:3500/login",
+      {
+        user_name: username,
+        password: password,
+      }
+    );
 
     if (result.data.error) {
       return sendFailure(
@@ -15,6 +21,7 @@ export default class AuthService {
         result.data.status
       );
     }
+    new Cookies().set("token", result.data);
 
     return sendSuccess("Successfully authenticated user", result.data);
   }

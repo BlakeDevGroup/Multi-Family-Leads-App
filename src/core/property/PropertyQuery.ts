@@ -7,7 +7,10 @@ export default class PropertyQuery implements IQuery {
   query;
   constructor() {
     this.query = axios.create({
-      baseURL: "http://localhost:3500/property",
+      baseURL:
+        process.env.NODE_ENV == "production"
+          ? "http://localhost:3500/property"
+          : "http://localhost:3500/property",
     });
   }
   async readById(id: string): Promise<any> {

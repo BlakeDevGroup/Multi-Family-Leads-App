@@ -10,6 +10,7 @@ import { Grommet } from "grommet";
 import AuthService from "./common/auth/AuthService";
 import store from "./store";
 import { Provider } from "react-redux";
+import NoteApi from "./core/notes/Note.api";
 
 const theme = {
   global: {
@@ -21,12 +22,6 @@ const theme = {
     },
   },
 };
-
-const auth = new AuthService();
-
-auth.login("user", "users").then(function (result) {
-  console.log(result);
-});
 
 ReactDOM.render(
   <React.StrictMode>
