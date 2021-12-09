@@ -9,7 +9,7 @@ export default class PropertyQuery implements IQuery {
     this.query = axios.create({
       baseURL:
         process.env.NODE_ENV == "production"
-          ? "http://localhost:3500/property"
+          ? "https://multi-family-service.herokuapp.com/property"
           : "http://localhost:3500/property",
     });
   }
