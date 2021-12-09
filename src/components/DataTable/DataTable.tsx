@@ -88,7 +88,9 @@ export default function DataTableComponent(props) {
       <NavBar
         onOpen={() => {
           setOpen(true);
-          setComponent(<HomeView data={{}} action="create" />);
+          setComponent(
+            <HomeView setOpen={setOpen} data={{}} action="create" />
+          );
         }}
       />
       <Box background="white" margin="2vh">
@@ -99,7 +101,9 @@ export default function DataTableComponent(props) {
           data={data}
           onClickRow={({ datum }) => {
             setOpen(true);
-            setComponent(<HomeView data={datum} action="put" />);
+            setComponent(
+              <HomeView setOpen={setOpen} data={datum} action="put" />
+            );
           }}
         />
         <MainLayer open={open} onClose={() => setOpen(false)}>
