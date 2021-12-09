@@ -49,6 +49,7 @@ describe("PropertyJsonQuery", () => {
         owner_email: "",
         owner_number: "",
         units: 5,
+
         notes: [],
       };
 
@@ -78,7 +79,7 @@ describe("PropertyJsonQuery", () => {
       expect(spySuccess.args[0][0]).to.equal(
         "Successfully retrieved properties"
       );
-      expect(spySuccess.args[0][1].length).to.equal(556);
+      expect(spySuccess.args[0][1].length).to.equal(19);
     });
   });
 });
