@@ -22,12 +22,12 @@ export default function LayerHeader(props) {
           color="#43588F"
         />
       </Box>
-      <Box>
+      <Box pad="small" height="xxsmall">
         <Button
           className="text-color"
           label="Submit"
           color="#E9ECF1"
-          size="large"
+          size="medium"
           onClick={(e) => {
             if (props.action == "create") {
               api.create(props.resource);
