@@ -1,5 +1,5 @@
 import { Header, Anchor, Box, WorldMap } from "grommet";
-import { Globe as GrommetIcon, Menu as MenuIcon } from "grommet-icons";
+import { Globe } from "grommet-icons";
 import LeftLayerButton from "../Layer/LayerComponents/TestLayerButton";
 import "./NavBar.css";
 
@@ -15,7 +15,7 @@ export default function MainNavBar(props) {
     >
       <Box>
         <Anchor
-          icon={<GrommetIcon color="#43588F" />}
+          icon={<Globe color="#43588F" />}
           label="Central Property Valley Advisers"
           color="#43588F"
         />

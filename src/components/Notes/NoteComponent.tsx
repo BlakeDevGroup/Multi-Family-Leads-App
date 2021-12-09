@@ -1,13 +1,17 @@
-import { Grommet, Box, Text, TextArea, Button } from "grommet";
-import { Checkmark } from "grommet-icons";
+import { Box, Text, Button, TextArea } from "grommet";
+import { Edit, Trash } from "grommet-icons";
+import NoteApi from "../../core/notes/Note.api";
+import { Note } from "../../core/notes/Note";
+import { is } from "@reduxjs/toolkit/node_modules/immer/dist/internal";
+import { useEffect, useState } from "react";
 
-export type NoteItem = {
-  note: string;
-  dateCreated: string;
-  timeCreated: string;
-};
+const api = new NoteApi();
 
 export default function NoteComponent(props) {
+  const [note, setNote] = useState("");
+
+  useEffect(() => setNote(props.note.note), [props.note]);
+
   return (
     <Box
       className="input-text"
@@ -19,23 +23,49 @@ export default function NoteComponent(props) {
       round={{ size: "8px" }}
       style={{ minHeight: "75px", maxWidth: "95%" }}
     >
-      <Box direction="row-responsive">
-        <Text
-          margin={{ right: "xsmall" }}
-          size="small"
-          color="#99A3C0"
-          style={{ lineHeight: 1.5 }}
-        >
-          {props.note.dateCreated.substring(4)}
-        </Text>
-        <Text size="small" color="#99A3C0" style={{ lineHeight: 1.5 }}>
-          {props.note.timeCreated}
-        </Text>
+      <Box direction="row-responsive" justify="between" fill="horizontal">
+        <Box direction="row-responsive">
+          <Text
+            margin={{ right: "xsmall" }}
+            size="small"
+            color="#99A3C0"
+            style={{ lineHeight: 1.5 }}
+          >
+            {props.note.dateCreated.substring(4)}
+          </Text>
+          <Text size="small" color="#99A3C0" style={{ lineHeight: 1.5 }}>
+            {props.note.timeCreated}
+          </Text>
+        </Box>
+        <Box direction="row-responsive">
+          <Button
+            hoverIndicator="background"
+            icon={<Edit size="13px" color="#99A3C0" />}
+            color="#99A3C0"
+            onClick={(e) => {
+              api.put(props.note.id, props.note);
+            }}
+          />
+          <Button
+            hoverIndicator="background"
+            onClick={(e) => {
+              api.delete(props.note.id);
+            }}
+            icon={<Trash size="13px" color="#99A3C0" />}
+            color="#99A3C0"
+          />
+        </Box>
       </Box>
-      <Box style={{ lineHeight: 1.5 }}>
-        <Text size="small" margin="small">
-          {props.note.note}
-        </Text>
+      <Box style={{ lineHeight: 1.5 }} fill pad={{ top: "medium" }}>
+        <TextArea
+          plain
+          className="notes-style"
+          resize={false}
+          fill={true}
+          size="medium"
+          value={note}
+          onChange={(e) => setNote(e.target.value)}
+        />
       </Box>
     </Box>
   );
