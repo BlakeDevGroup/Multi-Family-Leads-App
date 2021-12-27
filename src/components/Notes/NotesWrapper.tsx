@@ -63,9 +63,11 @@ export default function NotesWrapper({ propertyId }) {
               dispatch(
                 addNote({
                   note: note,
-                  dateCreated: new Date().toDateString(),
-                  timeCreated: `${new Date().getHours()}:${new Date().getMinutes()}`,
+                  created_timestamp: new Date().toUTCString(),
+                  created_by: `user`,
                   property_id: propertyId,
+                  last_modified: "",
+                  modified_by: "",
                 })
               );
 
