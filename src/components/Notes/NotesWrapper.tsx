@@ -65,10 +65,10 @@ export default function NotesWrapper({ propertyId }) {
                 addNote({
                   note: note,
                   created_timestamp: date,
-                  created_by: `user`,
+                  created_by: "user",
                   property_id: propertyId,
                   last_modified: date,
-                  modified_by: `user`,
+                  modified_by: "user",
                 })
               );
 

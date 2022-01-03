@@ -11,7 +11,6 @@ export default function NoteComponent(props) {
   const [note, setNote] = useState("");
   const dispatch = useDispatch();
 
-  useEffect(() => console.log(props));
   useEffect(() => setNote(props.note.note), [props.note]);
   return (
     <Box
@@ -46,7 +45,7 @@ export default function NoteComponent(props) {
                   Object.assign({}, props.note, {
                     note: note,
                     last_modified: new Date(),
-                    modified_by: `user`,
+                    modified_by: "user",
                   })
                 )
               );
