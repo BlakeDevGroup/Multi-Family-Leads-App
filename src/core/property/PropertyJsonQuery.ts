@@ -52,12 +52,15 @@ export default class PropertyJsonQuery implements IQuery {
   private propertyFromData(property: any): Property {
     return {
       id: property.id,
-      address: property.Address,
+      city: property.Address,
+      state: property.Address,
+      street: property.Address,
+      zip_code: property.Address,
       owner_name: property.Name,
       owner_email: property.Email,
       owner_number: property.PhoneNumber,
       units: parseInt(property.Units),
-      notes: [],
+      owner_entity: property.Entity,
     };
   }
 }

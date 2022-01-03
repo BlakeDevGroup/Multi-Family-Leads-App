@@ -12,7 +12,8 @@ export const addNote = createAsyncThunk(
 
     if (result.data.error) return;
 
-    return result.data;
+    console.log(Object.assign(result.data, data));
+    return Object.assign(result.data, data);
   }
 );
 
