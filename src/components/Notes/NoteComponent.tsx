@@ -46,7 +46,7 @@ export default function NoteComponent(props) {
                   Object.assign({}, props.note, {
                     note: note,
                     last_modified: new Date(),
-                    modified_by: "user",
+                    modified_by: `user`,
                   })
                 )
               );
