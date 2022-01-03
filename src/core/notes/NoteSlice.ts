@@ -12,7 +12,7 @@ export const addNote = createAsyncThunk(
 
     if (result.data.error) return;
 
-    return result.data;
+    return Object.assign(result.data, data);
   }
 );
 

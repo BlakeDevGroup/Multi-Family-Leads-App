@@ -2,10 +2,13 @@ import { Address } from "../address/Address";
 
 export type Property = {
   id?: string;
-  address: Address;
+  street: string;
+  city: string;
+  state: string;
+  zip_code: string;
   owner_name: string;
   owner_email: string;
+  owner_entity: string;
   owner_number: string;
   units: number;
-  notes: string[];
 };

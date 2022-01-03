@@ -25,10 +25,10 @@ export default function HomeView(props) {
     setEntity(props.data?.owner_entity);
     setEmail(props.data?.owner_email);
     setNumber(props.data?.owner_number);
-    setStreet(props.data?.address?.street);
-    setState(props.data?.address?.state);
-    setCity(props.data?.address?.city);
-    setZipCode(props.data?.address?.zip_code);
+    setStreet(props.data?.street);
+    setState(props.data?.state);
+    setCity(props.data?.city);
+    setZipCode(props.data?.zip_code);
     setNotes(props.data?.notes);
     setUnits(props.data?.units);
     setId(props.data?.id);
@@ -51,12 +51,10 @@ export default function HomeView(props) {
                 owner_entity: entity,
                 owner_email: email,
                 owner_number: number,
-                address: {
-                  street: street,
-                  city: city,
-                  state: state,
-                  zip_code: zipCode,
-                },
+                street: street,
+                city: city,
+                state: state,
+                zip_code: zipCode,
                 units: units,
               }}
 

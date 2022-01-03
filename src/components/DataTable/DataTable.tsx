@@ -27,22 +27,22 @@ const columns = [
     search: true,
   },
   {
-    property: "address.street",
+    property: "street",
     header: <Text color="#99A3C0">Street</Text>,
     search: true,
   },
   {
-    property: "address.city",
+    property: "city",
     header: <Text color="#99A3C0">City</Text>,
     search: true,
   },
   {
-    property: "address.state",
+    property: "state",
     header: <Text color="#99A3C0">State</Text>,
     search: true,
   },
   {
-    property: "address.zip_code",
+    property: "zip_code",
     header: <Text color="#99A3C0">Zip Code</Text>,
     search: true,
   },

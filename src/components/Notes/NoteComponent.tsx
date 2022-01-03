@@ -12,7 +12,6 @@ export default function NoteComponent(props) {
   const dispatch = useDispatch();
 
   useEffect(() => setNote(props.note.note), [props.note]);
-
   return (
     <Box
       className="input-text"
@@ -32,10 +31,7 @@ export default function NoteComponent(props) {
             color="#99A3C0"
             style={{ lineHeight: 1.5 }}
           >
-            {props.note?.dateCreated?.substring(4)}
-          </Text>
-          <Text size="small" color="#99A3C0" style={{ lineHeight: 1.5 }}>
-            {props.note?.timeCreated}
+            {new Date(props.note?.last_modified).toLocaleString()}
           </Text>
         </Box>
         <Box direction="row-responsive">
@@ -48,7 +44,7 @@ export default function NoteComponent(props) {
                 updateNote(
                   Object.assign({}, props.note, {
                     note: note,
-                    last_modified: new Date().toUTCString(),
+                    last_modified: new Date(),
                     modified_by: "user",
                   })
                 )

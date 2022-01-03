@@ -60,12 +60,15 @@ export default function NotesWrapper({ propertyId }) {
             hoverIndicator={true}
             icon={<Checkmark color="#00FF00" />}
             onClick={(e) => {
+              const date = new Date();
               dispatch(
                 addNote({
                   note: note,
-                  dateCreated: new Date().toDateString(),
-                  timeCreated: `${new Date().getHours()}:${new Date().getMinutes()}`,
+                  created_timestamp: date,
+                  created_by: "user",
                   property_id: propertyId,
+                  last_modified: date,
+                  modified_by: "user",
                 })
               );
 
