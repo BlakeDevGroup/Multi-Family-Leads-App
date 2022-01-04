@@ -24,13 +24,13 @@ export default function HomeView(props) {
     setName(props.data?.owner_name);
     setEntity(props.data?.owner_entity);
     setEmail(props.data?.owner_email);
-    setNumber(props.data?.owner_number);
+    setNumber(props.data?.owner_number || 0);
     setStreet(props.data?.street);
     setState(props.data?.state);
     setCity(props.data?.city);
-    setZipCode(props.data?.zip_code);
+    setZipCode(props.data?.zip_code || 0);
     setNotes(props.data?.notes);
-    setUnits(props.data?.units);
+    setUnits(props.data?.units || 0);
     setId(props.data?.id);
   }, [props.data]);
 
