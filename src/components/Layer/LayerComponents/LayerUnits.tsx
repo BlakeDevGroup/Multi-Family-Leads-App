@@ -4,7 +4,7 @@ export default function LayerUnits(props) {
   return (
     <Box
       className="input-text"
-      margin={{ left: "small" }}
+      margin={{ left: "small", top: "medium" }}
       border={{ color: "#e9ecf1", size: "small" }}
       pad="4px"
       round={{ size: "8px" }}

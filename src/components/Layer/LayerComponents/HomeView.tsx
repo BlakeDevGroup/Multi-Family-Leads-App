@@ -59,13 +59,6 @@ export default function HomeView(props) {
                 },
                 units: units,
               }}
-
-              // name={name}
-              // entity={entity}
-              // email={email}
-              // number={number}
-              // street={street}
-              // state={state}
             />
           </Box>
         </Box>
