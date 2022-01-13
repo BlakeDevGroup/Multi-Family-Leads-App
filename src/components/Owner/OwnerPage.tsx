@@ -6,6 +6,7 @@ import { NumericValidationScope } from "../../common/validation/impl/scopes/Nume
 import ValidationBroker from "../../common/validation/impl/ValidationBroker";
 import LayerContacts from "../Layer/LayerComponents/LayerContacts";
 import LayerHeader from "../Layer/LayerComponents/LayerHeader";
+import LayerNumber from "../Layer/LayerComponents/LayerNumber";
 
 const columns = [
   {
@@ -137,10 +138,10 @@ export default function OwnerPage({ setOpen, action = "create", data }) {
             }
             validationText="Please enter a valid email address"
           />
-          <LayerContacts
+          <LayerNumber
             text="Phone Number"
             value={number}
-            onChange={(e) => setNumber(e.target.value)}
+            onChange={setNumber}
             validationFn={(value) =>
               ValidationBroker.validate(new NumericValidationScope(value))
             }
