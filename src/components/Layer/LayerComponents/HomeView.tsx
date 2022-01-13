@@ -6,6 +6,9 @@ import LayerAddress from "./LayerAddress";
 import "../Layer.css";
 import NotesWrapper from "../../Notes/NotesWrapper";
 import { useEffect, useState } from "react";
+import ValidationBroker from "../../../common/validation/impl/ValidationBroker";
+import { EmailValidationScope } from "../../../common/validation/impl/scopes/EmailValidationScope";
+import { NumericValidationScope } from "../../../common/validation/impl/scopes/NumericValidationScope";
 
 export default function HomeView(props) {
   const [name, setName] = useState("");
@@ -24,13 +27,13 @@ export default function HomeView(props) {
     setName(props.data?.owner_name);
     setEntity(props.data?.owner_entity);
     setEmail(props.data?.owner_email);
-    setNumber(props.data?.owner_number || 0);
+    setNumber(props.data?.owner_number);
     setStreet(props.data?.street);
     setState(props.data?.state);
     setCity(props.data?.city);
-    setZipCode(props.data?.zip_code || 0);
+    setZipCode(props.data?.zip_code);
     setNotes(props.data?.notes);
-    setUnits(props.data?.units || 0);
+    setUnits(props.data?.units);
     setId(props.data?.id);
   }, [props.data]);
 
@@ -87,14 +90,29 @@ export default function HomeView(props) {
             placeholder="xxxxx"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
+            validationFn={(value) =>
+              ValidationBroker.validate(new EmailValidationScope(value))
+            }
+            validationText="Please enter a valid email address"
           />
           <LayerContacts
             text="Phone Number"
             value={number}
             onChange={(e) => setNumber(e.target.value)}
+            validationFn={(value) =>
+              ValidationBroker.validate(new NumericValidationScope(value))
+            }
+            validationText="Phone Number can only contain numbers"
           />
         </Box>
-        <LayerUnits value={units} onChange={(e) => setUnits(e.target.value)} />
+        <LayerUnits
+          value={units}
+          onChange={(e) => setUnits(e.target.value)}
+          validationFn={(value) =>
+            ValidationBroker.validate(new NumericValidationScope(value))
+          }
+          validationText="units must be numbers"
+        />
         <Box direction="row-responsive">
           <Box
             direction="column"
