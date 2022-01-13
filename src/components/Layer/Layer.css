@@ -25,3 +25,8 @@
 .comment-header {
   font-weight: 700;
 }
+
+.input-not-validated {
+  box-shadow: 0 0 2px 2px #f44336;
+  outline: none;
+}

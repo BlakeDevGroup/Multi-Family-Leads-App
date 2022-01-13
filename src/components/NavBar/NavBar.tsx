@@ -16,7 +16,7 @@ export default function MainNavBar(props) {
       <Box>
         <Anchor
           icon={<Globe color="#43588F" />}
-          label="Central Property Valley Advisers"
+          label="Central Valley Property Advisors"
           color="#43588F"
         />
       </Box>
