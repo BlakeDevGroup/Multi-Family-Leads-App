@@ -11,7 +11,7 @@ export const addProperty = createAsyncThunk(
 
     if (result.data.error) return;
 
-    return Object.assign(result.data, data);
+    return Object.assign({}, data, result.data);
   }
 );
 
