@@ -6,7 +6,6 @@ import { useState } from "react";
 
 export default function LayerNumber(props) {
   const [isValidated, setIsValidated] = useState(true);
-  const [phone, setPhone] = useState("");
   return (
     <Box
       className="input-text"
@@ -33,10 +32,9 @@ export default function LayerNumber(props) {
         className={`text-input mf-layer__input-text 
         ${isValidated ? "" : "input-not-validated"}`}
         type=""
-        value={phone}
+        value={formatPhoneNumber(props.value)}
         onChange={(e) => {
           props.onChange(e.target.value.replace(/\D/g, ""));
-          setPhone(formatPhoneNumber(e.target.value));
         }}
         onBlur={() => {
           if (props.validationFn)

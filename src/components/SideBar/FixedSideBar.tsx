@@ -71,7 +71,7 @@ export default function FixedSideBarComponent(props) {
             }}
           />
         </Link>
-        <Button
+        {/* <Button
           color="#2A2C64"
           plain={false}
           icon={<Document color="#9394B0" />}
@@ -96,7 +96,7 @@ export default function FixedSideBarComponent(props) {
               </Box>
             ),
           }}
-        />
+        /> */}
       </Nav>
     </Box>
   );

@@ -51,7 +51,7 @@ const testData = [
     units: "300",
   },
   {
-    street: "6214 E Lake Samammish PKWY NE",
+    street: "6214 E Lake Sammamish PKWY NE",
     city: "Redmond",
     state: "WA",
     zip_code: "98052",
