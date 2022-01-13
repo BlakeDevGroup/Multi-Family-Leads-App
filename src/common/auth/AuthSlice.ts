@@ -18,6 +18,16 @@ export const authenticateUser = createAsyncThunk(
     return { token: result.data, user: user };
   }
 );
+
+export const getUser = createAsyncThunk(
+  "auth/getUser",
+  async (data: any, thunkAPI) => {
+    const user = jwt.verify(data, "42616896-e9e6-4fd7-80af-e0c1b325899b" || "");
+
+    return { user: user };
+  }
+);
+
 export const AuthCalendarSlice = createSlice({
   name: "auth",
   initialState: {
@@ -32,6 +42,10 @@ export const AuthCalendarSlice = createSlice({
       if (action.payload?.user) {
         state.user = action.payload?.user;
       }
+    });
+
+    builder.addCase(getUser.fulfilled, (state, action) => {
+      state.user = action.payload?.user;
     });
   },
 });

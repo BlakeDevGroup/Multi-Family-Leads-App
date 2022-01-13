@@ -1,17 +1,17 @@
 import { Box, Text, Button, TextArea } from "grommet";
 import { Edit, Trash } from "grommet-icons";
-import NoteApi from "../../core/notes/Note.api";
-import { Note } from "../../core/notes/Note";
-import { is } from "@reduxjs/toolkit/node_modules/immer/dist/internal";
 import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { updateNote, deleteNote } from "../../core/notes/NoteSlice";
+import useUser from "../Routes/useUser";
 
 export default function NoteComponent(props) {
   const [note, setNote] = useState("");
   const dispatch = useDispatch();
+  const user = useUser();
 
   useEffect(() => setNote(props.note.note), [props.note]);
+  useEffect(() => console.log(user), [user]);
   return (
     <Box
       className="input-text"
@@ -51,14 +51,17 @@ export default function NoteComponent(props) {
               );
             }}
           />
-          <Button
-            hoverIndicator="background"
-            onClick={(e) => {
-              dispatch(deleteNote(props.note));
-            }}
-            icon={<Trash size="13px" color="#99A3C0" />}
-            color="#99A3C0"
-          />
+          {
+            <Button
+              hoverIndicator="background"
+              onClick={(e) => {
+                dispatch(deleteNote(props.note));
+              }}
+              disabled={user.user_name == "user" ? true : false}
+              icon={<Trash size="13px" color="#99A3C0" />}
+              color="#99A3C0"
+            />
+          }
         </Box>
       </Box>
       <Box style={{ lineHeight: 1.5 }} fill pad={{ top: "medium" }}>
