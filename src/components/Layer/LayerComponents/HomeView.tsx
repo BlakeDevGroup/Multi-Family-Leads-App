@@ -9,6 +9,7 @@ import { useEffect, useState } from "react";
 import ValidationBroker from "../../../common/validation/impl/ValidationBroker";
 import { EmailValidationScope } from "../../../common/validation/impl/scopes/EmailValidationScope";
 import { NumericValidationScope } from "../../../common/validation/impl/scopes/NumericValidationScope";
+import LayerNumber from "./LayerNumber";
 
 export default function HomeView(props) {
   const [name, setName] = useState("");
@@ -95,10 +96,10 @@ export default function HomeView(props) {
             }
             validationText="Please enter a valid email address"
           />
-          <LayerContacts
+          <LayerNumber
             text="Phone Number"
             value={number}
-            onChange={(e) => setNumber(e.target.value)}
+            onChange={setNumber}
             validationFn={(value) =>
               ValidationBroker.validate(new NumericValidationScope(value))
             }
@@ -157,13 +158,19 @@ export default function HomeView(props) {
               placeholder="xxxxx"
               value={zipCode}
               onChange={(e) => setZipCode(e.target.value)}
+              validationFn={(value) =>
+                ValidationBroker.validate(new NumericValidationScope(value))
+              }
+              validationText="zipcode must be numbers"
             />
           </Box>
         </Box>
       </Box>
-      <Box style={{ maxHeight: "50vh" }}>
-        <NotesWrapper propertyId={id} />
-      </Box>
+      {props.action == "put" && (
+        <Box style={{ maxHeight: "50vh" }}>
+          <NotesWrapper propertyId={id} />
+        </Box>
+      )}
     </Box>
   );
 }

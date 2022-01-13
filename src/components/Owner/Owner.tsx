@@ -32,7 +32,7 @@ const columns = [
 const data = [
   {
     owner_name: "Caleb Blake",
-    owner_entity: "CodeX Development Group",
+    owner_entity: "CodeX",
     owner_number: "8635129916",
     owner_email: "cdblake31@gmail.com",
   },

@@ -30,8 +30,8 @@ export default function LayerUnits(props) {
         value={props.value}
         onChange={props.onChange}
         onBlur={() => {
-          console.log(props.value, props.validationFn(props.value));
-          setIsValidated(props.validationFn(props.value));
+          if (props.validationFn)
+            setIsValidated(props.validationFn(props.value));
         }}
       />
       <Text
