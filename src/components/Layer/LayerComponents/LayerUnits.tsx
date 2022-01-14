@@ -26,7 +26,9 @@ export default function LayerUnits(props) {
         plain
         textAlign="center"
         // height="auto"
-        className={`units ${isValidated ? "" : "input-not-validated"}`}
+        className={`units mf-layer__input-text ${
+          isValidated ? "" : "input-not-validated"
+        }`}
         value={props.value}
         onChange={props.onChange}
         onBlur={() => {
