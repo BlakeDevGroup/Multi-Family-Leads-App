@@ -10,6 +10,7 @@ import ValidationBroker from "../../../common/validation/impl/ValidationBroker";
 import { EmailValidationScope } from "../../../common/validation/impl/scopes/EmailValidationScope";
 import { NumericValidationScope } from "../../../common/validation/impl/scopes/NumericValidationScope";
 import LayerNumber from "./LayerNumber";
+import StateDropdown from "./StateDropdown";
 
 export default function HomeView(props) {
   const [name, setName] = useState("");
@@ -18,7 +19,7 @@ export default function HomeView(props) {
   const [number, setNumber] = useState("");
   const [units, setUnits] = useState("");
   const [street, setStreet] = useState("");
-  const [state, setState] = useState("");
+  const [state, setState] = useState("CA");
   const [city, setCity] = useState("");
   const [zipCode, setZipCode] = useState("");
   const [Notes, setNotes] = useState("");
@@ -43,7 +44,7 @@ export default function HomeView(props) {
       <Box style={{ maxHeight: "50vh", minHeight: "unset" }}>
         <Box
           direction="row-responsive"
-          margin={{ top: "small", right: "large", bottom: "small" }}
+          margin={{ top: "small", right: "large" }}
         >
           <Box fill>
             <LayerHeader
@@ -72,7 +73,7 @@ export default function HomeView(props) {
           </Box>
         </Box>
         {/* <LayerContacts value={id} /> */}
-        <Box direction="row-responsive" margin="small">
+        <Box direction="row-responsive">
           <LayerContacts
             text="Name"
             placeholder="Owner Name..."
@@ -85,7 +86,7 @@ export default function HomeView(props) {
             onChange={(e) => setEntity(e.target.value)}
           />
         </Box>
-        <Box direction="row-responsive" margin="small">
+        <Box direction="row-responsive">
           <LayerContacts
             text="Email"
             placeholder="xxxxx"
@@ -119,7 +120,6 @@ export default function HomeView(props) {
             direction="column"
             margin={{
               top: "small",
-              bottom: "small",
               left: "small",
               right: "xxsmall",
             }}
@@ -142,13 +142,12 @@ export default function HomeView(props) {
             direction="column"
             margin={{
               top: "small",
-              bottom: "small",
               left: "xxsmall",
               right: "small",
             }}
             fill="horizontal"
           >
-            <LayerAddress
+            <StateDropdown
               text="State"
               value={state}
               onChange={(e) => setState(e.target.value)}

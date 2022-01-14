@@ -25,4 +25,8 @@ export default class AuthService {
 
     return sendSuccess("Successfully authenticated user", result.data);
   }
+
+  async logout() {
+    new Cookies().remove("token");
+  }
 }

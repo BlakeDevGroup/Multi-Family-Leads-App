@@ -1,4 +1,10 @@
 .text-color {
   color: #43588f !important;
   background-color: #e9ecf1 !important;
+  border: none !important;
+}
+
+.delete-button {
+  color: white !important;
+  background-color: #fe3839 !important;
 }

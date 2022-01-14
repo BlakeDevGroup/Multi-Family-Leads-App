@@ -18,7 +18,7 @@ export default function NotesWrapper({ propertyId }) {
       <Box
         margin="small"
         direction="row-responsive"
-        style={{ minHeight: "100px" }}
+        style={{ minHeight: "50px" }}
       >
         <Box
           pad={{ left: "small" }}

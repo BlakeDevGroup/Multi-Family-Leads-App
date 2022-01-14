@@ -48,6 +48,7 @@ export default function LayerInput(props) {
         style={{
           visibility: `${isValidated ? "hidden" : "visible"}`,
           whiteSpace: "nowrap",
+          minHeight: "18px",
         }}
       >
         {props.validationText}

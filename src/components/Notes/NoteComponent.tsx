@@ -24,44 +24,44 @@ export default function NoteComponent(props) {
       style={{ minHeight: "75px", maxWidth: "95%" }}
     >
       <Box direction="row-responsive" justify="between" fill="horizontal">
+        <Text
+          margin={{ right: "xsmall" }}
+          size="small"
+          color="#708090"
+          style={{ lineHeight: 1.5 }}
+        >
+          {new Date(props.note?.last_modified).toLocaleString()}
+        </Text>
         <Box direction="row-responsive">
-          <Text
-            margin={{ right: "xsmall" }}
-            size="small"
-            color="#99A3C0"
-            style={{ lineHeight: 1.5 }}
-          >
-            {new Date(props.note?.last_modified).toLocaleString()}
-          </Text>
-        </Box>
-        <Box direction="row-responsive">
-          <Button
-            hoverIndicator="background"
-            icon={<Edit size="13px" color="#99A3C0" />}
-            color="#99A3C0"
-            onClick={(e) => {
-              dispatch(
-                updateNote(
-                  Object.assign({}, props.note, {
-                    note: note,
-                    last_modified: new Date(),
-                    modified_by: "user",
-                  })
-                )
-              );
-            }}
-          />
-          {
+          <Box>
+            <Button
+              hoverIndicator="background"
+              icon={<Edit size="small" color="#708090" />}
+              color="#708090"
+              onClick={(e) => {
+                dispatch(
+                  updateNote(
+                    Object.assign({}, props.note, {
+                      note: note,
+                      last_modified: new Date(),
+                      modified_by: "user",
+                    })
+                  )
+                );
+              }}
+            />
+          </Box>
+          <Box>
             <Button
               hoverIndicator="background"
               onClick={(e) => {
                 dispatch(deleteNote(props.note));
               }}
               disabled={user.user_name == "user" ? true : false}
-              icon={<Trash size="13px" color="#99A3C0" />}
-              color="#99A3C0"
+              icon={<Trash size="small" color="#708090" />}
+              color="#708090"
             />
-          }
+          </Box>
         </Box>
       </Box>
       <Box style={{ lineHeight: 1.5 }} fill pad={{ top: "medium" }}>

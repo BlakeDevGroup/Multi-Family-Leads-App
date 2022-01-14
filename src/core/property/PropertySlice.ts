@@ -28,12 +28,12 @@ export const updateProperty = createAsyncThunk(
 
 export const deleteProperty = createAsyncThunk(
   "property/delete",
-  async (data: any, thunkAPI) => {
-    const result = await api.delete(data.id);
+  async (id: string, thunkAPI) => {
+    const result = await api.delete(id);
 
     if (result.data.error) return;
 
-    return data.id;
+    return id;
   }
 );
 

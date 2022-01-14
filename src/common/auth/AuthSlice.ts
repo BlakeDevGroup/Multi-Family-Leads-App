@@ -1,6 +1,7 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import AuthService from "./AuthService";
 import jwt from "jsonwebtoken";
+import { create } from "domain";
 
 const authService = new AuthService();
 
@@ -28,6 +29,9 @@ export const getUser = createAsyncThunk(
   }
 );
 
+export const logoutUser = createAsyncThunk("auth/logoutUser", async () => {
+  authService.logout();
+});
 export const AuthCalendarSlice = createSlice({
   name: "auth",
   initialState: {
@@ -46,6 +50,10 @@ export const AuthCalendarSlice = createSlice({
 
     builder.addCase(getUser.fulfilled, (state, action) => {
       state.user = action.payload?.user;
+    });
+
+    builder.addCase(logoutUser.fulfilled, (state, action) => {
+      state.token = "";
     });
   },
 });

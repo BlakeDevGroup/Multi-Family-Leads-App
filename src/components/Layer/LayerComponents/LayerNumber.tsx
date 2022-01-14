@@ -10,7 +10,7 @@ export default function LayerNumber(props) {
     <Box
       className="input-text"
       width="100%"
-      margin={{ bottom: "xsmall", right: "xsmall" }}
+      margin={{ right: "xsmall" }}
       border={{ color: "#e9ecf1", size: "small" }}
       pad={{ top: "2px", left: "3px", right: "3px" }}
     >
