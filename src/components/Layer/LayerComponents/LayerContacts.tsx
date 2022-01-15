@@ -5,7 +5,7 @@ export default function LayerInput(props) {
   return (
     <Box
       className="input-text"
-      fill={props.fill}
+      width="100%"
       margin={{ bottom: "xsmall" }}
       border={{ color: "#e9ecf1", size: "small" }}
       pad="8px"
@@ -28,6 +28,7 @@ export default function LayerInput(props) {
         height="auto"
         className="text-input mf-layer__input-text"
         value={props.value}
+        onChange={props.onChange}
       />
     </Box>
   );

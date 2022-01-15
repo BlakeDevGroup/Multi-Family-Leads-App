@@ -1,5 +1,6 @@
 import { Property } from "./Property";
-import Query from "./PropertyJsonQuery";
+// import Query from "./PropertyQuery";
+import Query from "./PropertyQuery";
 import propertyData from "./properties.json";
 
 export default class PropertyAPI {
@@ -18,6 +19,19 @@ export default class PropertyAPI {
       return e;
     }
   }
+
+  async put(id: string, resource: Property) {
+    return this.query.putById(id, resource);
+  }
+
+  async create(resource: Property) {
+    return this.query.create(resource);
+  }
+
+  async delete(id: string) {
+    return this.query.deleteById(id);
+  }
+
   async getAll() {
     try {
       const payload = await this.query.list();
@@ -30,14 +44,5 @@ export default class PropertyAPI {
     } catch (e: any) {
       return e;
     }
-  }
-  async put(resource: Property) {
-    return this.query.putById(resource);
-  }
-  async create(resource: Property) {
-    return this.query.create(resource);
-  }
-  async delete(id: string) {
-    return this.query.deleteById(id);
   }
 }
