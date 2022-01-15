@@ -57,9 +57,19 @@
 .input-title {
   margin: 2em 0 1em 1em;
   color: #b4b4b4;
-
 }
 
 .home-view-container {
   width: 768px;
+}
+
+.header-wrapper {
+  display: flex;
+  flex-direction: row;
+  /* justify-content: space-between; */
+}
+
+.close-button-wrapper {
+  padding: 10px;
+  position: absolute;
 }

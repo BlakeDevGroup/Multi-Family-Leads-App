@@ -73,6 +73,7 @@ export default function DataTableComponent(props) {
   const dispatch = useDispatch();
   const [component, setComponent] = useState(
     <HomeView
+      setOpen={setOpen}
       data={{
         address: { street: "", city: "", state: "", zip_code: "" },
         owner_email: "",

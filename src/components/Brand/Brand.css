@@ -3,8 +3,18 @@
   width: auto;
   max-width: 250px;
   max-height: 250px;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  /* position: absolute; */
+  /* width: 50%; */
 }
 
 .logo-wrapper {
   margin: 30px 30px 100px 30px;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 50%;
+  /* position: ; */
 }

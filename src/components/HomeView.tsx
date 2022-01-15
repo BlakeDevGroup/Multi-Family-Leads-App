@@ -1,4 +1,3 @@
-import LayerHeader from "./Layer/LayerComponents/LayerHeader";
 import NotesWrapper from "./Notes/NotesWrapper";
 import { useEffect, useState } from "react";
 import ValidationBroker from "../common/validation/impl/ValidationBroker";
@@ -11,11 +10,13 @@ import AdapterDateFns from "@mui/lab/AdapterDateFns";
 import LocalizationProvider from "@mui/lab/LocalizationProvider";
 import DatePicker from "@mui/lab/DatePicker";
 import TextField from "@mui/material/TextField";
+import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import "@fontsource/roboto/300.css";
 import "@fontsource/roboto/500.css";
-import CompanyLogo from "../static/cropped-centralvalleylogo.png";
+import CloseIcon from "@mui/icons-material/Close";
 import { Brand } from "./Brand/Brand";
+import IconButton from "@mui/material/IconButton";
 
 export default function HomeView(props) {
   const [name, setName] = useState("");
@@ -31,6 +32,10 @@ export default function HomeView(props) {
   const [id, setId] = useState("");
   const [purchasePrice, setPurchasePrice] = useState("");
   const [purchaseDate, setPurchaseDate] = useState("");
+
+  function handleClick() {
+    props.setOpen(false);
+  }
 
   useEffect(() => {
     setName(props.data?.owner_name);
@@ -51,7 +56,14 @@ export default function HomeView(props) {
   return (
     <div className="home-view-container">
       <div>
-        <Brand />
+        <div className="header-wrapper">
+          <Brand />
+          <div className="close-button-wrapper">
+            <IconButton onClick={handleClick} size="large">
+              <CloseIcon />
+            </IconButton>
+          </div>
+        </div>
         <div className="input-title">
           <Typography style={{ fontWeight: 300 }}>Owner Information</Typography>
         </div>
@@ -148,7 +160,7 @@ export default function HomeView(props) {
           />
           <LocalizationProvider dateAdapter={AdapterDateFns}>
             <DatePicker
-              label="Basic example"
+              label="Purchase date"
               value={purchaseDate}
               onChange={(newValue) => {
                 if (typeof newValue == "string") {
@@ -160,6 +172,10 @@ export default function HomeView(props) {
               renderInput={(params) => <TextField {...params} />}
             />
           </LocalizationProvider>
+          {/* <div>
+            <Button></Button>
+            <Button></Button>
+          </div> */}
         </div>
       </div>
       {props.action == "put" && (
