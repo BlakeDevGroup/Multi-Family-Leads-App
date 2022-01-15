@@ -6,7 +6,7 @@ import { useState, useEffect } from "react";
 import { DataTable, Text, Box } from "grommet";
 import "./DataTable.css";
 import MainLayer from "../Layer/Layer";
-import HomeView from "../Layer/LayerComponents/HomeView";
+import HomeView from "../HomeView";
 import NavBar from "../NavBar/NavBar";
 import { useDispatch, useSelector } from "react-redux";
 import { setProperties } from "../../core/property/PropertySlice";

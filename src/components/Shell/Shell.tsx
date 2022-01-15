@@ -1,7 +1,5 @@
-import { Box, Main } from "grommet";
-import NavBar from "../NavBar/NavBar";
+import { Main } from "grommet";
 import { useState } from "react";
-import MainLayer from "../Layer/Layer";
 import FixedSideBarComponent from "../SideBar/FixedSideBar";
 import "./shell.css";
 
