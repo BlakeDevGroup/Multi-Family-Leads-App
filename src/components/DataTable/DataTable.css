@@ -1,6 +1,15 @@
 .data-table {
   color: #43588f;
+  max-width: 85vw;
+  /* max-height: 10vh; */
+  margin: 1%;
+  padding: 1%;
+  /* flex-grow: inherit; */
   
+}
+
+.data-table-height {
+  max-height: 90vh;
 }
 
 

@@ -1,184 +1,175 @@
-import {
-  Box,
-  Layer,
-  TextInput,
-  Text,
-  TextArea,
-  Button,
-  DataTable,
-} from "grommet";
-import { Checkmark } from "grommet-icons";
-import { useState } from "react";
-import LeftLayerNotes from "./LayerNotes";
+import { Box } from "grommet";
 import LayerContacts from "./LayerContacts";
-import LayerNotes from "./LayerNotes";
 import LayerHeader from "./LayerHeader";
-import NoteButton from "./NotesButton";
 import LayerUnits from "./LayerUnits";
+import LayerAddress from "./LayerAddress";
 import "../Layer.css";
+import NotesWrapper from "../../Notes/NotesWrapper";
+import { useEffect, useState } from "react";
+import ValidationBroker from "../../../common/validation/impl/ValidationBroker";
+import { EmailValidationScope } from "../../../common/validation/impl/scopes/EmailValidationScope";
+import { NumericValidationScope } from "../../../common/validation/impl/scopes/NumericValidationScope";
+import LayerNumber from "./LayerNumber";
+import StateDropdown from "./StateDropdown";
 
-type NoteItem = {
-  note: string;
-  created: string;
-};
 export default function HomeView(props) {
-  const [notes, setNotes] = useState<NoteItem[]>([]);
-  const [note, setNote] = useState<string>("");
-  return (
-    <Box width="large" overflow="auto" fill="vertical">
-      <Box
-        direction="row-responsive"
-        margin={{ top: "small", right: "large", bottom: "small" }}
-      >
-        <Box fill>
-          <LayerHeader />
-        </Box>
-      </Box>
+  const [name, setName] = useState("");
+  const [entity, setEntity] = useState("");
+  const [email, setEmail] = useState("");
+  const [number, setNumber] = useState("");
+  const [units, setUnits] = useState("");
+  const [street, setStreet] = useState("");
+  const [state, setState] = useState("CA");
+  const [city, setCity] = useState("");
+  const [zipCode, setZipCode] = useState("");
+  const [Notes, setNotes] = useState("");
+  const [id, setId] = useState("");
 
-      <Box direction="row-responsive" margin="small">
-        <LayerContacts
-          fill={"horizontal"}
-          text="Contact Person"
-          placeholder="First Last"
-          value={props.data ? props.data.owner_name : ""}
-        />
-        <LayerContacts
-          fill={"horizontal"}
-          text="Contact Number"
-          placeholder="xxx-xxx-xxxx"
-          value={props.data ? props.data.owner_number : ""}
-        />
-      </Box>
-      <Box direction="row-responsive" margin="small">
-        <LayerContacts
-          fill={"horizontal"}
-          text="Ownership Entity"
-          placeholder="Company"
-          value={props.data ? props.data.owner_entity : ""}
-        />
-        <LayerContacts
-          fill={"horizontal"}
-          text="Contact Email"
-          placeholder="Email@email.com"
-          value={props.data ? props.data.owner_email : ""}
-        />
-      </Box>
-      <LayerUnits value={props.data ? props.data.units : ""} />
-      <Box direction="row-responsive">
+  useEffect(() => {
+    setName(props.data?.owner_name);
+    setEntity(props.data?.owner_entity);
+    setEmail(props.data?.owner_email);
+    setNumber(props.data?.owner_number);
+    setStreet(props.data?.street);
+    setState(props.data?.state);
+    setCity(props.data?.city);
+    setZipCode(props.data?.zip_code);
+    setNotes(props.data?.notes);
+    setUnits(props.data?.units);
+    setId(props.data?.id);
+  }, [props.data]);
+
+  return (
+    <Box width="large" overflow="hidden" fill="vertical" direction="column">
+      <Box style={{ maxHeight: "50vh", minHeight: "unset" }}>
         <Box
-          direction="column"
-          margin={{
-            top: "small",
-            bottom: "small",
-            left: "small",
-            right: "xxsmall",
-          }}
-          fill="horizontal"
+          direction="row-responsive"
+          margin={{ top: "small", right: "large" }}
         >
-          <LayerContacts
-            text="Street"
-            placeholder="123 Main St"
-            value={props.data ? props.data.address.street : ""}
-          />
-          <LayerContacts
-            text="City"
-            value={props.data ? props.data.address.city : ""}
-          />
-        </Box>
-        <Box
-          basis="small"
-          direction="column"
-          margin={{
-            top: "small",
-            bottom: "small",
-            left: "xxsmall",
-            right: "small",
-          }}
-          fill="horizontal"
-        >
-          <LayerContacts
-            text="State"
-            value={props.data ? props.data.address.state : ""}
-          />
-          <LayerContacts
-            text="Zip Code"
-            placeholder="xxxxx"
-            value={props.data ? props.data.address.zip_code : ""}
-          />
-        </Box>
-      </Box>
-      <Box margin="small" direction="row-responsive">
-        <Box
-          pad={{ left: "small" }}
-          className="notes-box"
-          round={{ size: "8px" }}
-          fill
-          border={{ color: "#e9ecf1", size: "small" }}
-        >
-          <Text
-            color="#99A3C0"
-            textAlign="start"
-            size="xsmall"
-            // margin={{ left: "5px" }}
-            className="notes-style"
-          >
-            Notes
-          </Text>
-          <TextArea
-            plain
-            className="notes-style"
-            resize={false}
-            // placeholder="Notes"
-            value={note}
-            onChange={(e) => setNote(e.target.value)}
-          />
-        </Box>
-        <Box margin="xsmall" color="blue" round>
-          <Button
-            plain={false}
-            color="#00FF00"
-            hoverIndicator={true}
-            icon={<Checkmark color="#00FF00" />}
-            onClick={(e) => {
-              setNotes(
-                [{ note: note, created: new Date().toDateString() }].concat(
-                  notes
-                )
-              );
-            }}
-          />
-        </Box>
-        {/* <LayerNotes setNotes={setNotes}/>
-        <NoteButton /> */}
-      </Box>
-      <Box margin="xsmall" color="blue" round>
-        {notes.map((note) => (
-          <Box direction="row">
-            <Box
-              className="input-text"
-              fill={props.fill}
-              margin={{ bottom: "xsmall" }}
-              border={{ color: "#e9ecf1", size: "small" }}
-              pad="8px"
-              round={{ size: "8px" }}
-              width="70%"
-            >
-              {note.note}
-            </Box>
-            <Box
-              className="input-text"
-              fill={props.fill}
-              margin={{ bottom: "xsmall" }}
-              border={{ color: "#e9ecf1", size: "small" }}
-              pad="8px"
-              round={{ size: "8px" }}
-              width="30%"
-            >
-              {note.created}
-            </Box>
+          <Box fill>
+            <LayerHeader
+              setOpen={props.setOpen}
+              action={props.action}
+              resource={{
+                id: id,
+                owner_name: name,
+                owner_entity: entity,
+                owner_email: email,
+                owner_number: number,
+                street: street,
+                city: city,
+                state: state,
+                zip_code: zipCode,
+                units: units,
+              }}
+
+              // name={name}
+              // entity={entity}
+              // email={email}
+              // number={number}
+              // street={street}
+              // state={state}
+            />
           </Box>
-        ))}
+        </Box>
+        {/* <LayerContacts value={id} /> */}
+        <Box direction="row-responsive">
+          <LayerContacts
+            text="Name"
+            placeholder="Owner Name..."
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+          />
+          <LayerContacts
+            text="Entity"
+            value={entity}
+            onChange={(e) => setEntity(e.target.value)}
+          />
+        </Box>
+        <Box direction="row-responsive">
+          <LayerContacts
+            text="Email"
+            placeholder="xxxxx"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            validationFn={(value) =>
+              ValidationBroker.validate(new EmailValidationScope(value))
+            }
+            validationText="Please enter a valid email address"
+          />
+          <LayerNumber
+            text="Phone Number"
+            value={number}
+            onChange={setNumber}
+            validationFn={(value) =>
+              ValidationBroker.validate(new NumericValidationScope(value))
+            }
+            validationText="Phone Number can only contain numbers"
+          />
+        </Box>
+        <LayerUnits
+          value={units}
+          onChange={(e) => setUnits(e.target.value)}
+          validationFn={(value) =>
+            ValidationBroker.validate(new NumericValidationScope(value))
+          }
+          validationText="units must be numbers"
+        />
+        <Box direction="row-responsive">
+          <Box
+            direction="column"
+            margin={{
+              top: "small",
+              left: "small",
+              right: "xxsmall",
+            }}
+            fill="horizontal"
+          >
+            <LayerAddress
+              text="Street"
+              placeholder="123 Main St"
+              value={street}
+              onChange={(e) => setStreet(e.target.value)}
+            />
+            <LayerAddress
+              text="City"
+              value={city}
+              onChange={(e) => setCity(e.target.value)}
+            />
+          </Box>
+          <Box
+            basis="small"
+            direction="column"
+            margin={{
+              top: "small",
+              left: "xxsmall",
+              right: "small",
+            }}
+            fill="horizontal"
+          >
+            <StateDropdown
+              text="State"
+              value={state}
+              onChange={(e) => setState(e.target.value)}
+            />
+            <LayerAddress
+              text="Zip Code"
+              placeholder="xxxxx"
+              value={zipCode}
+              onChange={(e) => setZipCode(e.target.value)}
+              validationFn={(value) =>
+                ValidationBroker.validate(new NumericValidationScope(value))
+              }
+              validationText="zipcode must be numbers"
+            />
+          </Box>
+        </Box>
       </Box>
+      {props.action == "put" && (
+        <Box style={{ maxHeight: "50vh" }}>
+          <NotesWrapper propertyId={id} />
+        </Box>
+      )}
     </Box>
   );
 }

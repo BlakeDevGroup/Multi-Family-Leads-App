@@ -1,10 +1,16 @@
 .input-text {
   color: #43588f;
+  word-wrap: break-word;
+  min-height: 75px !important;
 }
 
 .mf-layer__input-text {
   line-height: 1.25 !important;
   padding: 0 5px 0 !important;
+}
+
+.mf-layer__input-text:focus {
+  box-shadow: 0 0 2px 2px #43588f !important;
 }
 
 .notes-box {
@@ -18,4 +24,13 @@
 
 .units {
   padding: 0 5px 0 5px !important;
+}
+
+.comment-header {
+  font-weight: 700;
+}
+
+.input-not-validated {
+  box-shadow: 0 0 2px 2px #f44336;
+  outline: none;
 }

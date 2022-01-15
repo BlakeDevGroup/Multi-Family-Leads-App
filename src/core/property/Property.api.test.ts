@@ -9,23 +9,17 @@ import sinonchai from "sinon-chai";
 chai.use(sinonchai);
 const ID = "015-400-17-00-4";
 const RESOURCE: Property = {
-  property_id: "003-352-11-00-9",
+  id: "003-352-11-00-9",
   address: {
     street: "2018 19Th St",
     city: "Bakersfield",
     state: "CA",
     zip_code: "93301",
-    county: "Kern County",
   },
-  owner_id: "",
   owner_name: "",
   owner_email: "",
   owner_number: "",
-  price: 1,
   units: 6,
-  sqft: 3846,
-  buildings: 1,
-  year_built: 1900,
   notes: [],
 };
 let propertyAPI: PropertyAPI;
@@ -60,9 +54,9 @@ describe("PropertyAPI", () => {
   it("should call putById", async () => {
     const spy = sandbox.spy(propertyAPI["query"], "putById");
 
-    propertyAPI.put(RESOURCE);
+    propertyAPI.put(ID, RESOURCE);
 
-    expect(spy).calledOnceWith(RESOURCE);
+    expect(spy).calledOnceWith(ID, RESOURCE);
 
     spy.restore();
   });
