@@ -13,6 +13,9 @@ import DatePicker from "@mui/lab/DatePicker";
 import TextField from "@mui/material/TextField";
 import Typography from "@mui/material/Typography";
 import "@fontsource/roboto/300.css";
+import "@fontsource/roboto/500.css";
+import CompanyLogo from "../static/cropped-centralvalleylogo.png";
+import { Brand } from "./Brand/Brand";
 
 export default function HomeView(props) {
   const [name, setName] = useState("");
@@ -48,8 +51,9 @@ export default function HomeView(props) {
   return (
     <div className="home-view-container">
       <div>
+        <Brand />
         <div className="input-title">
-          <Typography>Owner Information</Typography>
+          <Typography style={{ fontWeight: 300 }}>Owner Information</Typography>
         </div>
         <div className="controlled-input controlled-input-rows">
           <ControlledInput
@@ -87,7 +91,9 @@ export default function HomeView(props) {
           />
         </div>
         <div className="input-title">
-          <Typography>Property Information</Typography>
+          <Typography style={{ fontWeight: 300 }}>
+            Property Information
+          </Typography>
         </div>
         <div className="controlled-input controlled-input-rows">
           <ControlledInput

@@ -1,0 +1,10 @@
+.logo-styles {
+  height: auto;
+  width: auto;
+  max-width: 250px;
+  max-height: 250px;
+}
+
+.logo-wrapper {
+  margin: 30px 30px 100px 30px;
+}
