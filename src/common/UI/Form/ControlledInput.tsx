@@ -1,4 +1,4 @@
-import TextField from "@mui/material/TextField";
+import { FormControl, TextField } from "@mui/material";
 import "./Form.css";
 import { useState } from "react";
 
@@ -11,7 +11,6 @@ export function ControlledInput(props) {
       helperText={isValidated ? undefined : props.validationText}
       label={props.label}
       size="medium"
-      className="text-input mf-layer__input-text"
       type="email"
       value={props.value}
       onChange={props.onChange}

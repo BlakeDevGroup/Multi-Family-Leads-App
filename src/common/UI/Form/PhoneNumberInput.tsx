@@ -11,7 +11,6 @@ export function PhoneNumberInput(props) {
       error={!isValidated}
       helperText={isValidated ? undefined : props.validationText}
       label={props.text}
-      className="text-input mf-layer__input-text"
       type=""
       value={formatPhoneNumber(props.value)}
       onChange={(e) => {

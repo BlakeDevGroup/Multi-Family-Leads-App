@@ -47,8 +47,13 @@
 .controlled-input-rows {
   display: flex;
   flex-direction: row;
+  gap: 1%;
 }
 
 .name-controlled-input {
   width: 379px;
+}
+
+.three-row-width {
+  width: 261px;
 }

@@ -122,8 +122,8 @@ export default function HomeView(props) {
           <ControlledInput
             label="Zipcode"
             placeholder="xxxxx"
-            value={units}
-            onChange={(e) => setUnits(e.target.value)}
+            value={zipCode}
+            onChange={(e) => setZipCode(e.target.value)}
             validationFn={(value) =>
               ValidationBroker.validate(new NumericValidationScope(value))
             }

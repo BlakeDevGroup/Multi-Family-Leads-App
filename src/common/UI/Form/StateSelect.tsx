@@ -1,23 +1,30 @@
 import Select from "@mui/material/Select";
 import MenuItem from "@mui/material/MenuItem";
+import InputLabel from "@mui/material/InputLabel";
+import FormControl from "@mui/material/FormControl";
 import { useState } from "react";
 import "./Form.css";
 
 export function StateSelect(props) {
   return (
-    <Select
-      MenuProps={MenuProps}
-      placeholder={props.placeholder}
-      className="text-input mf-layer__input-text"
-      value={props.value}
-      onChange={props.onChange}
-    >
-      {states.map((state) => (
-        <MenuItem key={state} value={state}>
-          {state}
-        </MenuItem>
-      ))}
-    </Select>
+    <FormControl style={{ width: "100%" }}>
+      <InputLabel id="select-id">{props.label}</InputLabel>
+      <Select
+        autoWidth={false}
+        labelId="select-id"
+        label={props.label}
+        MenuProps={MenuProps}
+        placeholder={props.placeholder}
+        value={props.value}
+        onChange={props.onChange}
+      >
+        {states.map((state) => (
+          <MenuItem key={state} value={state}>
+            {state}
+          </MenuItem>
+        ))}
+      </Select>
+    </FormControl>
   );
 }
 
