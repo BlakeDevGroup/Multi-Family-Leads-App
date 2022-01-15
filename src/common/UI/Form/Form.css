@@ -36,7 +36,7 @@
 }
 
 .controlled-input {
-  margin: 5px;
+  margin: 10px;
 }
 
 .units-controlled-input {
@@ -54,6 +54,10 @@
   width: 379px;
 }
 
-.three-row-width {
-  width: 261px;
+.input-title {
+  margin: 2em 0 1em 1em;
+}
+
+.home-view-container {
+  width: 768px;
 }

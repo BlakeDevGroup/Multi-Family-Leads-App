@@ -1,4 +1,4 @@
-import { FormControl, TextField } from "@mui/material";
+import { TextField } from "@mui/material";
 import "./Form.css";
 import { useState } from "react";
 
@@ -10,8 +10,6 @@ export function ControlledInput(props) {
       error={!isValidated}
       helperText={isValidated ? undefined : props.validationText}
       label={props.label}
-      size="medium"
-      type="email"
       value={props.value}
       onChange={props.onChange}
       onBlur={() => {

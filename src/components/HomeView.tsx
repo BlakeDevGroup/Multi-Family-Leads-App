@@ -1,8 +1,4 @@
-import { Box } from "grommet";
 import LayerHeader from "./Layer/LayerComponents/LayerHeader";
-import LayerUnits from "./Layer/LayerComponents/LayerUnits";
-import LayerAddress from "./Layer/LayerComponents/LayerAddress";
-import "./Layer/Layer.css";
 import NotesWrapper from "./Notes/NotesWrapper";
 import { useEffect, useState } from "react";
 import ValidationBroker from "../common/validation/impl/ValidationBroker";
@@ -11,6 +7,12 @@ import { NumericValidationScope } from "../common/validation/impl/scopes/Numeric
 import { PhoneNumberInput } from "../common/UI/Form/PhoneNumberInput";
 import { StateSelect } from "../common/UI/Form/StateSelect";
 import { ControlledInput } from "../common/UI/Form/ControlledInput";
+import AdapterDateFns from "@mui/lab/AdapterDateFns";
+import LocalizationProvider from "@mui/lab/LocalizationProvider";
+import DatePicker from "@mui/lab/DatePicker";
+import TextField from "@mui/material/TextField";
+import Typography from "@mui/material/Typography";
+import "@fontsource/roboto/300.css";
 
 export default function HomeView(props) {
   const [name, setName] = useState("");
@@ -24,6 +26,8 @@ export default function HomeView(props) {
   const [zipCode, setZipCode] = useState("");
   const [Notes, setNotes] = useState("");
   const [id, setId] = useState("");
+  const [purchasePrice, setPurchasePrice] = useState("");
+  const [purchaseDate, setPurchaseDate] = useState("");
 
   useEffect(() => {
     setName(props.data?.owner_name);
@@ -37,34 +41,16 @@ export default function HomeView(props) {
     setNotes(props.data?.notes);
     setUnits(props.data?.units);
     setId(props.data?.id);
+    setPurchasePrice(props.data?.purchasePrice);
+    setPurchaseDate(props.data?.purchaseDate);
   }, [props.data]);
 
   return (
-    <Box width="large" overflow="hidden" fill="vertical" direction="column">
-      <Box style={{ maxHeight: "50vh", minHeight: "unset" }}>
-        <Box
-          direction="row-responsive"
-          margin={{ top: "small", right: "large" }}
-        >
-          <Box fill>
-            <LayerHeader
-              setOpen={props.setOpen}
-              action={props.action}
-              resource={{
-                id: id,
-                owner_name: name,
-                owner_entity: entity,
-                owner_email: email,
-                owner_number: number,
-                street: street,
-                city: city,
-                state: state,
-                zip_code: zipCode,
-                units: units,
-              }}
-            />
-          </Box>
-        </Box>
+    <div className="home-view-container">
+      <div>
+        <div className="input-title">
+          <Typography>Owner Information</Typography>
+        </div>
         <div className="controlled-input controlled-input-rows">
           <ControlledInput
             label="Name"
@@ -100,6 +86,9 @@ export default function HomeView(props) {
             validationText="Please enter a valid email address"
           />
         </div>
+        <div className="input-title">
+          <Typography>Property Information</Typography>
+        </div>
         <div className="controlled-input controlled-input-rows">
           <ControlledInput
             label="Street"
@@ -127,7 +116,7 @@ export default function HomeView(props) {
             validationFn={(value) =>
               ValidationBroker.validate(new NumericValidationScope(value))
             }
-            validationText="zipcode must be numbers"
+            validationText="Enter numeric value"
           />
           <ControlledInput
             label="Units"
@@ -136,15 +125,42 @@ export default function HomeView(props) {
             validationFn={(value) =>
               ValidationBroker.validate(new NumericValidationScope(value))
             }
-            validationText="units must be numbers"
+            validationText="Enter numeric value"
           />
         </div>
-      </Box>
+        <div className="controlled-input controlled-input-rows">
+          <ControlledInput
+            label="Purchase price"
+            type="numeric"
+            placeholder="xxxxx"
+            value={purchasePrice}
+            onChange={(e) => setPurchasePrice(e.target.value)}
+            validationFn={(value) =>
+              ValidationBroker.validate(new NumericValidationScope(value))
+            }
+            validationText="Enter numeric value"
+          />
+          <LocalizationProvider dateAdapter={AdapterDateFns}>
+            <DatePicker
+              label="Basic example"
+              value={purchaseDate}
+              onChange={(newValue) => {
+                if (typeof newValue == "string") {
+                  setPurchaseDate(newValue);
+                } else {
+                  setPurchaseDate("");
+                }
+              }}
+              renderInput={(params) => <TextField {...params} />}
+            />
+          </LocalizationProvider>
+        </div>
+      </div>
       {props.action == "put" && (
         <div style={{ maxHeight: "50vh" }}>
           <NotesWrapper propertyId={id} />
         </div>
       )}
-    </Box>
+    </div>
   );
 }
