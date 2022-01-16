@@ -73,3 +73,13 @@
   padding: 10px;
   position: absolute;
 }
+
+.submit-delete-wrapper {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+.button {
+  margin: 5px;
+}

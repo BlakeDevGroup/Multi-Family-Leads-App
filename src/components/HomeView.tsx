@@ -9,14 +9,18 @@ import { ControlledInput } from "../common/UI/Form/ControlledInput";
 import AdapterDateFns from "@mui/lab/AdapterDateFns";
 import LocalizationProvider from "@mui/lab/LocalizationProvider";
 import DatePicker from "@mui/lab/DatePicker";
-import TextField from "@mui/material/TextField";
-import Button from "@mui/material/Button";
-import Typography from "@mui/material/Typography";
 import "@fontsource/roboto/300.css";
 import "@fontsource/roboto/500.css";
 import CloseIcon from "@mui/icons-material/Close";
 import { Brand } from "./Brand/Brand";
-import IconButton from "@mui/material/IconButton";
+import { Button, Typography, TextField, IconButton } from "@mui/material";
+import { useDispatch } from "react-redux";
+import useUser from "./Routes/useUser";
+import {
+  updateProperty,
+  addProperty,
+  deleteProperty,
+} from "../core/property/PropertySlice";
 
 export default function HomeView(props) {
   const [name, setName] = useState("");
@@ -32,6 +36,9 @@ export default function HomeView(props) {
   const [id, setId] = useState("");
   const [purchasePrice, setPurchasePrice] = useState("");
   const [purchaseDate, setPurchaseDate] = useState("");
+
+  const dispatch = useDispatch();
+  const user = useUser();
 
   function handleClick() {
     props.setOpen(false);
@@ -172,10 +179,35 @@ export default function HomeView(props) {
               renderInput={(params) => <TextField {...params} />}
             />
           </LocalizationProvider>
-          {/* <div>
-            <Button></Button>
-            <Button></Button>
-          </div> */}
+        </div>
+        <div className="submit-delete-wrapper">
+          <div className="button">
+            <Button
+              onClick={(e) => {
+                if (props.action == "create") {
+                  dispatch(addProperty(props.resource));
+                } else if (props.action == "put") {
+                  dispatch(updateProperty(props.resource));
+                }
+                props.setOpen(false);
+              }}
+              variant="contained"
+            >
+              Submit
+            </Button>
+          </div>
+          <div className="button">
+            <Button
+              onClick={(e) => {
+                dispatch(deleteProperty(props.resource.id));
+                props.setOpen(false);
+              }}
+              variant="contained"
+              color="error"
+            >
+              Delete
+            </Button>
+          </div>
         </div>
       </div>
       {props.action == "put" && (
