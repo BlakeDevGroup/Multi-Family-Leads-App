@@ -2,7 +2,14 @@ import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { updateNote, deleteNote } from "../../core/notes/NoteSlice";
 import useUser from "../Routes/useUser";
-import { Button, IconButton, Menu, TextField, Typography } from "@mui/material";
+import {
+  Button,
+  IconButton,
+  Menu,
+  MenuItem,
+  TextField,
+  Typography,
+} from "@mui/material";
 import DeleteOutlineSharpIcon from "@mui/icons-material/DeleteOutlineSharp";
 import EditOutlinedIcon from "@mui/icons-material/EditOutlined";
 import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
@@ -83,9 +90,9 @@ export default function NoteComponent(props) {
               "aria-labelledby": "basic-button",
             }}
           >
-            <Button
-              size="small"
-              endIcon={<EditOutlinedIcon />}
+            <MenuItem
+              className="menu__action-button-group"
+              color="primary"
               onClick={(e) => {
                 dispatch(
                   updateNote(
@@ -100,19 +107,33 @@ export default function NoteComponent(props) {
                 setReadOnly(false);
               }}
             >
-              Edit
-            </Button>
-            <Button
-              endIcon={<DeleteOutlineSharpIcon />}
-              size="small"
+              <Typography
+                variant="button"
+                color="primary"
+                className="menu__action-button-typography"
+                fontSize="small"
+              >
+                Edit
+              </Typography>
+              <EditOutlinedIcon color="primary" fontSize="small" />
+            </MenuItem>
+            <MenuItem
+              className="menu__action-button-group"
               onClick={(e) => {
                 dispatch(deleteNote(props.note));
                 handleClose();
               }}
-              disabled={user.user_name == "user" ? true : false}
             >
-              Delete
-            </Button>
+              <Typography
+                variant="button"
+                color="primary"
+                className="menu__action-button-typography"
+                fontSize="small"
+              >
+                Delete
+              </Typography>
+              <DeleteOutlineSharpIcon color="primary" fontSize="small" />
+            </MenuItem>
           </Menu>
         </div>
         <div className="note-box">
