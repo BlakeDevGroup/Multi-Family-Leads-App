@@ -105,6 +105,7 @@ export default function NoteComponent(props) {
                 );
                 setDisabledEdit(false);
                 setReadOnly(false);
+                handleClose();
               }}
             >
               <Typography
@@ -149,10 +150,12 @@ export default function NoteComponent(props) {
             onChange={(e) => setNote(e.target.value)}
           />
         </div>
-        <div className="note-date">
-          <Typography variant="subtitle2">
-            {new Date(props.note?.last_modified).toLocaleString()}
-          </Typography>
+        <div className="date-edit-container">
+          <div className="note-date">
+            <Typography variant="subtitle2">
+              {new Date(props.note?.last_modified).toLocaleString()}
+            </Typography>
+          </div>
           <div className="edit-save-button">
             <Button
               size="small"
@@ -163,6 +166,16 @@ export default function NoteComponent(props) {
               }}
             >
               Save
+            </Button>
+            <Button
+              size="small"
+              disabled={disabledEdit}
+              onClick={(e) => {
+                setDisabledEdit(true);
+                setReadOnly(true);
+              }}
+            >
+              Cancel
             </Button>
           </div>
         </div>

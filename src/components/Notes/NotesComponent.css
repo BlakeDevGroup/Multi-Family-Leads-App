@@ -7,9 +7,10 @@
 .note-date {
   font-weight: 300;
   color: #b4b4b4;
-  margin: 10px 0 0 15px;
+  margin: 0 0 0 15px;
   display: flex;
   flex-direction: row;
+  align-self: center;
 }
 
 .note-box {
@@ -17,7 +18,7 @@
 }
 
 .edit-save-button {
-  margin: 10px 0 0 15px;
+  /* margin: 0 0 0 15px; */
 }
 
 .menu__action-button-group {
@@ -27,4 +28,10 @@
 
 .menu__action-button-typography {
   margin-right: 10px;
+}
+
+.date-edit-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
 }
