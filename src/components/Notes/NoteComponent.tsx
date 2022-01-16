@@ -4,6 +4,17 @@ import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { updateNote, deleteNote } from "../../core/notes/NoteSlice";
 import useUser from "../Routes/useUser";
+import {
+  IconButton,
+  OutlinedInputProps,
+  TextField,
+  Typography,
+} from "@mui/material";
+import DeleteOutlineSharpIcon from "@mui/icons-material/DeleteOutlineSharp";
+import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
+import { alpha, styled } from "@mui/material/styles";
+import { TextFieldProps } from "@mui/material/TextField";
+import "./NotesComponent.css";
 
 export default function NoteComponent(props) {
   const [note, setNote] = useState("");
@@ -13,27 +24,9 @@ export default function NoteComponent(props) {
   useEffect(() => setNote(props.note.note), [props.note]);
   useEffect(() => console.log(user), [user]);
   return (
-    <Box
-      className="input-text"
-      fill={props.fill}
-      margin="xsmall"
-      align="start"
-      border={{ color: "#e9ecf1", size: "small" }}
-      pad="8px"
-      round={{ size: "8px" }}
-      style={{ minHeight: "75px", maxWidth: "95%" }}
-    >
-      <Box direction="row-responsive" justify="between" fill="horizontal">
-        <Text
-          margin={{ right: "xsmall" }}
-          size="small"
-          color="#708090"
-          style={{ lineHeight: 1.5 }}
-        >
-          {new Date(props.note?.last_modified).toLocaleString()}
-        </Text>
-        <Box direction="row-responsive">
-          <Box>
+    <div>
+      <div>
+        {/* <Box>
             <Button
               hoverIndicator="background"
               icon={<Edit size="small" color="#708090" />}
@@ -61,20 +54,34 @@ export default function NoteComponent(props) {
               icon={<Trash size="small" color="#708090" />}
               color="#708090"
             />
-          </Box>
-        </Box>
-      </Box>
-      <Box style={{ lineHeight: 1.5 }} fill pad={{ top: "medium" }}>
-        <TextArea
-          plain
-          className="notes-style"
-          resize={false}
-          fill={true}
-          size="medium"
-          value={note}
-          onChange={(e) => setNote(e.target.value)}
-        />
-      </Box>
-    </Box>
+          </Box> */}
+      </div>
+
+      <div>
+        <div className="more-actions-button">
+          <IconButton>
+            <MoreHorizIcon />
+          </IconButton>
+        </div>
+        <div className="note-box">
+          <TextField
+            variant="standard"
+            InputProps={{
+              disableUnderline: true,
+            }}
+            fullWidth
+            multiline={true}
+            size="medium"
+            value={note}
+            onChange={(e) => setNote(e.target.value)}
+          />
+        </div>
+        <div className="note-date">
+          <Typography variant="subtitle2">
+            {new Date(props.note?.last_modified).toLocaleString()}
+          </Typography>
+        </div>
+      </div>
+    </div>
   );
 }

@@ -5,6 +5,15 @@ import { useEffect, useState } from "react";
 import { Note } from "../../core/notes/Note";
 import { useDispatch, useSelector } from "react-redux";
 import { addNote } from "../../core/notes/NoteSlice";
+import SectionTitle from "../Typography/SectionTitle";
+import SendRoundedIcon from "@mui/icons-material/SendRounded";
+import {
+  FilledInput,
+  FormControl,
+  IconButton,
+  InputAdornment,
+  OutlinedInput,
+} from "@mui/material";
 
 export default function NotesWrapper({ propertyId }) {
   const notes = useSelector((state: any) => {
@@ -13,88 +22,83 @@ export default function NotesWrapper({ propertyId }) {
   const dispatch = useDispatch();
   const [note, setNote] = useState<string>("");
 
+  // const handleClickAddComment = () => {
+  //   setValues({
+  //     ...values,
+  //     showPassword: !values.showPassword,
+  //   });
+  // };
+
   return (
     <>
-      <Box
-        margin="small"
-        direction="row-responsive"
-        style={{ minHeight: "50px" }}
-      >
-        <Box
-          pad={{ left: "small" }}
-          className="notes-box"
-          round={{ size: "8px" }}
-          fill
-          border={{ color: "#e9ecf1", size: "small" }}
-        >
-          <Text
-            color="#99A3C0"
-            textAlign="start"
-            size="xsmall"
-            className="notes-style"
-            margin="xsmall"
-          >
-            Notes{" "}
-          </Text>
+      <SectionTitle label={"Comments"} />
 
-          <TextArea
-            plain
-            className="notes-style"
-            resize={false}
-            fill={true}
-            value={note}
-            onChange={(e) => setNote(e.target.value)}
-            size="medium"
-          />
-        </Box>
-        <Box
-          margin="xsmall"
-          color="blue"
-          round
-          align="center"
-          alignSelf="center"
-        >
-          <Button
-            plain={false}
-            color="#00FF00"
-            hoverIndicator={true}
-            icon={<Checkmark color="#00FF00" />}
-            onClick={(e) => {
-              const date = new Date();
-              dispatch(
-                addNote({
-                  note: note,
-                  created_timestamp: date,
-                  created_by: "user",
-                  property_id: propertyId,
-                  last_modified: date,
-                  modified_by: "user",
-                })
-              );
-
-              setNote("");
-            }}
-          />
-        </Box>
-      </Box>
-      <Text
-        margin="small"
-        size="large"
-        color="#43588F"
-        className="comment-header"
+      <FormControl
+        variant="outlined"
+        style={{ display: "flex", gap: "1%", margin: "10px" }}
       >
-        Comments:
-      </Text>
-      <Box margin="xsmall" color="blue" round style={{ overflowY: "auto" }}>
-        {notes?.map((note) => (
-          <NoteComponent
-            onChange={(e) => {
-              setNote(e.target.value);
-            }}
-            note={note}
-          />
-        ))}
-      </Box>
+        <FilledInput
+          value={note}
+          multiline={true}
+          onKeyDown={(e) => {
+            if (e.shiftKey == true && e.key == "Enter") return;
+            if (e.key !== "Enter") return;
+            e.preventDefault();
+            const date = new Date();
+            dispatch(
+              addNote({
+                note: note,
+                created_timestamp: date,
+                created_by: "user",
+                property_id: propertyId,
+                last_modified: date,
+                modified_by: "user",
+              })
+            );
+
+            setNote("");
+          }}
+          onChange={(e) => {
+            setNote(e.target.value);
+          }}
+          placeholder={"Type comment here"}
+          endAdornment={
+            <InputAdornment position="end">
+              <IconButton
+                color="primary"
+                onClick={(e) => {
+                  const date = new Date();
+                  dispatch(
+                    addNote({
+                      note: note,
+                      created_timestamp: date,
+                      created_by: "user",
+                      property_id: propertyId,
+                      last_modified: date,
+                      modified_by: "user",
+                    })
+                  );
+
+                  setNote("");
+                }}
+                // onMouseDown={handleMouseDownPassword}
+                edge="end"
+              >
+                <SendRoundedIcon />
+              </IconButton>
+            </InputAdornment>
+          }
+        />
+      </FormControl>
+
+      {notes?.map((note) => (
+        <NoteComponent
+          onChange={(e) => {
+            setNote(e.target.value);
+          }}
+          note={note}
+        />
+      ))}
     </>
   );
 }

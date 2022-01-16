@@ -1,0 +1,15 @@
+.more-actions-button {
+  display: flex;
+  justify-content: end;
+  margin-right: 10px;
+}
+
+.note-date {
+  font-weight: 300;
+  color: #b4b4b4;
+  margin: 10px 0 0 15px;
+}
+
+.note-box {
+  margin: 10px 10px 10px 15px;
+}

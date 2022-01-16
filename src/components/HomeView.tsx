@@ -15,6 +15,7 @@ import CloseIcon from "@mui/icons-material/Close";
 import { Brand } from "./Brand/Brand";
 import { Button, Typography, TextField, IconButton } from "@mui/material";
 import { useDispatch } from "react-redux";
+import SectionTitle from "./Typography/SectionTitle";
 import useUser from "./Routes/useUser";
 import {
   updateProperty,
@@ -71,9 +72,7 @@ export default function HomeView(props) {
             </IconButton>
           </div>
         </div>
-        <div className="input-title">
-          <Typography style={{ fontWeight: 300 }}>Owner Information</Typography>
-        </div>
+        <SectionTitle label={"Owner Information"} />
         <div className="controlled-input controlled-input-rows">
           <ControlledInput
             label="Name"
@@ -110,9 +109,7 @@ export default function HomeView(props) {
           />
         </div>
         <div className="input-title">
-          <Typography style={{ fontWeight: 300 }}>
-            Property Information
-          </Typography>
+          <SectionTitle label={"Property Information"} />
         </div>
         <div className="controlled-input controlled-input-rows">
           <ControlledInput
