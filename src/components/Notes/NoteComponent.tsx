@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { updateNote, deleteNote } from "../../core/notes/NoteSlice";
 import useUser from "../Routes/useUser";
-import { IconButton, Menu, TextField, Typography } from "@mui/material";
+import { Button, IconButton, Menu, TextField, Typography } from "@mui/material";
 import DeleteOutlineSharpIcon from "@mui/icons-material/DeleteOutlineSharp";
 import EditOutlinedIcon from "@mui/icons-material/EditOutlined";
 import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
@@ -12,6 +12,8 @@ import React from "react";
 export default function NoteComponent(props) {
   const [note, setNote] = useState("");
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
+  const [readOnly, setReadOnly] = useState(true);
+  const [disabledEdit, setDisabledEdit] = useState(true);
   const dispatch = useDispatch();
   const user = useUser();
 
@@ -81,8 +83,9 @@ export default function NoteComponent(props) {
               "aria-labelledby": "basic-button",
             }}
           >
-            <IconButton
+            <Button
               size="small"
+              endIcon={<EditOutlinedIcon />}
               onClick={(e) => {
                 dispatch(
                   updateNote(
@@ -93,19 +96,23 @@ export default function NoteComponent(props) {
                     })
                   )
                 );
+                setDisabledEdit(false);
+                setReadOnly(false);
               }}
             >
-              <EditOutlinedIcon />
-            </IconButton>
-            <IconButton
+              Edit
+            </Button>
+            <Button
+              endIcon={<DeleteOutlineSharpIcon />}
               size="small"
               onClick={(e) => {
                 dispatch(deleteNote(props.note));
+                handleClose();
               }}
               disabled={user.user_name == "user" ? true : false}
             >
-              <DeleteOutlineSharpIcon />
-            </IconButton>
+              Delete
+            </Button>
           </Menu>
         </div>
         <div className="note-box">
@@ -113,7 +120,7 @@ export default function NoteComponent(props) {
             variant="standard"
             InputProps={{
               disableUnderline: true,
-              readOnly: true,
+              readOnly: readOnly,
             }}
             fullWidth
             multiline={true}
@@ -125,6 +132,18 @@ export default function NoteComponent(props) {
           <Typography variant="subtitle2">
             {new Date(props.note?.last_modified).toLocaleString()}
           </Typography>
+          <div className="edit-save-button">
+            <Button
+              size="small"
+              disabled={disabledEdit}
+              onClick={(e) => {
+                setDisabledEdit(true);
+                setReadOnly(true);
+              }}
+            >
+              Save
+            </Button>
+          </div>
         </div>
       </div>
     </div>

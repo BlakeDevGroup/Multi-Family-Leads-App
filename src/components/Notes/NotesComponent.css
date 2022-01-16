@@ -8,8 +8,14 @@
   font-weight: 300;
   color: #b4b4b4;
   margin: 10px 0 0 15px;
+  display: flex;
+  flex-direction: row;
 }
 
 .note-box {
   margin: 10px 10px 10px 15px;
+}
+
+.edit-save-button {
+  margin: 10px 0 0 15px;
 }
