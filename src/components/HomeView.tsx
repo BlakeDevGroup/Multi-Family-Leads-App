@@ -185,9 +185,39 @@ export default function HomeView(props) {
             <Button
               onClick={(e) => {
                 if (props.action == "create") {
-                  dispatch(addProperty(props.resource));
+                  dispatch(
+                    addProperty({
+                      id: id,
+                      owner_name: name,
+                      owner_entity: entity,
+                      owner_email: email,
+                      owner_number: number,
+                      street: street,
+                      city: city,
+                      state: state,
+                      zip_code: zipCode,
+                      units: units,
+                      purchase_price: purchasePrice,
+                      purchase_date: purchaseDate,
+                    })
+                  );
                 } else if (props.action == "put") {
-                  dispatch(updateProperty(props.resource));
+                  dispatch(
+                    updateProperty({
+                      id: id,
+                      owner_name: name,
+                      owner_entity: entity,
+                      owner_email: email,
+                      owner_number: number,
+                      street: street,
+                      city: city,
+                      state: state,
+                      zip_code: zipCode,
+                      units: units,
+                      purchase_price: purchasePrice,
+                      purchase_date: purchaseDate,
+                    })
+                  );
                 }
                 props.setOpen(false);
               }}
@@ -199,7 +229,7 @@ export default function HomeView(props) {
           <div className="button">
             <Button
               onClick={(e) => {
-                dispatch(deleteProperty(props.resource.id));
+                dispatch(deleteProperty(id));
                 props.setOpen(false);
               }}
               variant="contained"
