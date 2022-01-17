@@ -22,6 +22,7 @@ import {
   addProperty,
   deleteProperty,
 } from "../core/property/PropertySlice";
+import ConfirmationModal from "./Notes/ConfirmationModal";
 
 export default function HomeView(props) {
   const [name, setName] = useState("");
@@ -37,6 +38,7 @@ export default function HomeView(props) {
   const [id, setId] = useState("");
   const [purchasePrice, setPurchasePrice] = useState("");
   const [purchaseDate, setPurchaseDate] = useState("");
+  const [showModal, setShowModal] = useState(false);
 
   const dispatch = useDispatch();
   const user = useUser();
@@ -225,10 +227,10 @@ export default function HomeView(props) {
           </div>
           <div className="button">
             <Button
-              onClick={(e) => {
-                dispatch(deleteProperty(id));
-                props.setOpen(false);
+              onClick={() => {
+                setShowModal(true);
               }}
+              disabled={props.action == "create" ? true : false}
               variant="contained"
               color="error"
             >
@@ -242,6 +244,18 @@ export default function HomeView(props) {
           <NotesWrapper propertyId={id} />
         </div>
       )}
+      <ConfirmationModal
+        open={showModal}
+        onClose={() => {
+          setShowModal(false);
+        }}
+        mainTitle={"Delete Property?"}
+        subTitle={"Are you sure you want to delete this property?"}
+        onConfirm={() => {
+          dispatch(deleteProperty(id));
+          props.setOpen(false);
+        }}
+      />
     </div>
   );
 }

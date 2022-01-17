@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { updateNote, deleteNote, addNote } from "../../core/notes/NoteSlice";
 import useUser from "../Routes/useUser";
@@ -16,6 +16,7 @@ import EditOutlinedIcon from "@mui/icons-material/EditOutlined";
 import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
 import "./NotesComponent.css";
 import React from "react";
+import ConfirmationModal from "./ConfirmationModal";
 
 export default function NoteComponent(props, { propertyId }) {
   const [note, setNote] = useState("");
@@ -23,6 +24,10 @@ export default function NoteComponent(props, { propertyId }) {
   const [readOnly, setReadOnly] = useState(true);
   const [disabledEdit, setDisabledEdit] = useState(true);
   const [commentState, setCommentState] = useState(false);
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
+  const [removeNote, setRemoveNote] = useState(false);
+
+  const noteInput: React.RefObject<HTMLInputElement> = React.createRef();
 
   const commentComponents = {
     Comment: (
@@ -40,7 +45,13 @@ export default function NoteComponent(props, { propertyId }) {
     ),
     EditableComment: (
       <FilledInput
-        // style={{ color: "grey" }}
+        inputRef={(input) => {
+          if (input) {
+            input.focus();
+            input.selectionStart = note.length;
+            input.selectionEnd = note.length;
+          }
+        }}
         readOnly={false}
         value={note}
         fullWidth
@@ -146,7 +157,8 @@ export default function NoteComponent(props, { propertyId }) {
             <MenuItem
               className="menu__action-button-group"
               onClick={(e) => {
-                dispatch(deleteNote(props.note));
+                // dispatch(deleteNote(props.note));
+                setShowDeleteModal(true);
                 handleClose();
               }}
             >
@@ -161,6 +173,17 @@ export default function NoteComponent(props, { propertyId }) {
               <DeleteOutlineSharpIcon color="primary" fontSize="small" />
             </MenuItem>
           </Menu>
+          <ConfirmationModal
+            open={showDeleteModal}
+            onClose={() => {
+              setShowDeleteModal(false);
+            }}
+            mainTitle={"Confirm Deletion?"}
+            subTitle={"Are you sure you want to delete comment?"}
+            onConfirm={() => {
+              dispatch(deleteNote(props.note));
+            }}
+          />
         </div>
         <div className="note-box">
           {commentState === true && commentComponents.EditableComment}
@@ -180,7 +203,6 @@ export default function NoteComponent(props, { propertyId }) {
                 setCommentState(false);
                 setDisabledEdit(true);
                 setReadOnly(true);
-                console.log(note);
               }}
             >
               Save
@@ -202,32 +224,3 @@ export default function NoteComponent(props, { propertyId }) {
     </div>
   );
 }
-
-// const components = {
-//   Comment: (
-//     <TextField
-//       variant="standard"
-//       InputProps={{
-//         disableUnderline: true,
-//         readOnly: readOnly,
-//       }}
-//       fullWidth
-//       multiline={true}
-//       value={note}
-//       onChange={(e) => setNote(e.target.value)}
-//     />
-//   ),
-//   EditableComment: (
-//     <TextField
-//       variant="standard"
-//       InputProps={{
-//         disableUnderline: true,
-//         readOnly: readOnly,
-//       }}
-//       fullWidth
-//       multiline={true}
-//       value={note}
-//       onChange={(e) => setNote(e.target.value)}
-//     />
-//   ),
-// };
