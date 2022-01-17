@@ -1,7 +1,5 @@
 import { TextInput, Text, Box } from "grommet";
 import "../Layer.css";
-import ValidationBroker from "../../../common/validation/impl/ValidationBroker";
-import { EmailValidationScope } from "../../../common/validation/impl/scopes/EmailValidationScope";
 import { useState } from "react";
 
 export default function LayerNumber(props) {

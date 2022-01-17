@@ -11,27 +11,30 @@ import AuthService from "./common/auth/AuthService";
 import store from "./store";
 import { Provider } from "react-redux";
 import NoteApi from "./core/notes/Note.api";
+import { createTheme, ThemeProvider } from "@mui/material/styles";
 
-const theme = {
-  global: {
-    font: {
-      family: "Roboto",
+const theme = createTheme({
+  palette: {
+    primary: {
+      // Purple
+      main: "#3D3E93",
     },
-    animation: {
-      duration: ".5s",
+    secondary: {
+      // Orange
+      main: "#FFB005",
     },
   },
-};
+});
 
 ReactDOM.render(
   <React.StrictMode>
-    <Grommet theme={theme}>
+    <ThemeProvider theme={theme}>
       <Provider store={store}>
         <BrowserRouter>
           <Shell view={<Router />} />
         </BrowserRouter>
       </Provider>
-    </Grommet>
+    </ThemeProvider>
   </React.StrictMode>,
   document.getElementById("root")
 );

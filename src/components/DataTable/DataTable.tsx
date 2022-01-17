@@ -6,7 +6,7 @@ import { useState, useEffect } from "react";
 import { DataTable, Text, Box } from "grommet";
 import "./DataTable.css";
 import MainLayer from "../Layer/Layer";
-import HomeView from "../Layer/LayerComponents/HomeView";
+import HomeView from "../HomeView";
 import NavBar from "../NavBar/NavBar";
 import { useDispatch, useSelector } from "react-redux";
 import { setProperties } from "../../core/property/PropertySlice";
@@ -67,12 +67,13 @@ const columns = [
 export default function DataTableComponent(props) {
   const [open, setOpen] = useState(false);
   const data = useSelector((state: any) => {
-    console.log(state.properties?.properties);
+    // console.log(state.properties?.properties);
     return state.properties?.properties;
   });
   const dispatch = useDispatch();
   const [component, setComponent] = useState(
     <HomeView
+      setOpen={setOpen}
       data={{
         address: { street: "", city: "", state: "", zip_code: "" },
         owner_email: "",

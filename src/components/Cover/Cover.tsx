@@ -1,5 +1,4 @@
-import { Box, Layer } from "grommet";
-import React, { useEffect, useState } from "react";
+import { Layer } from "grommet";
 import { Close } from "grommet-icons";
 export default function Cover({ isOpen = false, onClickOutside, children }) {
   return (
