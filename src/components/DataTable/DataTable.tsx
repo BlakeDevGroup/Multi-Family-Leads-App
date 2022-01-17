@@ -67,7 +67,7 @@ const columns = [
 export default function DataTableComponent(props) {
   const [open, setOpen] = useState(false);
   const data = useSelector((state: any) => {
-    console.log(state.properties?.properties);
+    // console.log(state.properties?.properties);
     return state.properties?.properties;
   });
   const dispatch = useDispatch();

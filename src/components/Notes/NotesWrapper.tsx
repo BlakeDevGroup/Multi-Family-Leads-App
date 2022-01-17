@@ -1,6 +1,4 @@
 import NoteComponent from "./NoteComponent";
-import { Grommet, Box, Text, Button, TextArea } from "grommet";
-import { Checkmark } from "grommet-icons";
 import { useEffect, useState } from "react";
 import { Note } from "../../core/notes/Note";
 import { useDispatch, useSelector } from "react-redux";
@@ -81,7 +79,6 @@ export default function NotesWrapper({ propertyId }) {
 
                   setNote("");
                 }}
-                // onMouseDown={handleMouseDownPassword}
                 edge="end"
               >
                 <SendRoundedIcon />

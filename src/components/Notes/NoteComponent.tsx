@@ -1,9 +1,10 @@
 import { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
-import { updateNote, deleteNote } from "../../core/notes/NoteSlice";
+import { useDispatch, useSelector } from "react-redux";
+import { updateNote, deleteNote, addNote } from "../../core/notes/NoteSlice";
 import useUser from "../Routes/useUser";
 import {
   Button,
+  FilledInput,
   IconButton,
   Menu,
   MenuItem,
@@ -16,11 +17,63 @@ import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
 import "./NotesComponent.css";
 import React from "react";
 
-export default function NoteComponent(props) {
+export default function NoteComponent(props, { propertyId }) {
   const [note, setNote] = useState("");
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const [readOnly, setReadOnly] = useState(true);
   const [disabledEdit, setDisabledEdit] = useState(true);
+  const [commentState, setCommentState] = useState(false);
+
+  const commentComponents = {
+    Comment: (
+      <TextField
+        variant="standard"
+        InputProps={{
+          disableUnderline: true,
+          readOnly: readOnly,
+        }}
+        fullWidth
+        multiline={true}
+        value={note}
+        onChange={(e) => setNote(e.target.value)}
+      />
+    ),
+    EditableComment: (
+      <FilledInput
+        // style={{ color: "grey" }}
+        readOnly={false}
+        value={note}
+        fullWidth
+        multiline={true}
+        disableUnderline={true}
+        onKeyDown={(e) => {
+          if (e.shiftKey == true && e.key == "Enter") return;
+          if (e.key !== "Enter") return;
+          if (e.key === "Enter") {
+            setCommentState(false);
+            setDisabledEdit(true);
+            setReadOnly(true);
+          }
+          e.preventDefault();
+          const date = new Date();
+          dispatch(
+            addNote({
+              note: note,
+              created_timestamp: date,
+              created_by: "user",
+              property_id: propertyId,
+              last_modified: date,
+              modified_by: "user",
+            })
+          );
+        }}
+        onChange={(e) => {
+          setNote(e.target.value);
+        }}
+      />
+    ),
+  };
+
   const dispatch = useDispatch();
   const user = useUser();
 
@@ -33,43 +86,14 @@ export default function NoteComponent(props) {
 
   const open = Boolean(anchorEl);
   const id = open ? "simple-popper" : undefined;
+  const notes = useSelector((state: any) => {
+    return state.notes.notes.filter((n) => n.property_id == propertyId);
+  });
 
   useEffect(() => setNote(props.note.note), [props.note]);
-  useEffect(() => console.log(user), [user]);
+  // useEffect(() => console.log(user), [user]);
   return (
     <div>
-      <div>
-        {/* <Box>
-          <Button
-            hoverIndicator="background"
-            icon={<Edit size="small" color="#708090" />}
-            color="#708090"
-            onClick={(e) => {
-              dispatch(
-                updateNote(
-                  Object.assign({}, props.note, {
-                    note: note,
-                    last_modified: new Date(),
-                    modified_by: "user",
-                  })
-                )
-              );
-            }}
-          />
-        </Box>
-        <Box>
-          <Button
-            hoverIndicator="background"
-            onClick={(e) => {
-              dispatch(deleteNote(props.note));
-            }}
-            disabled={user.user_name == "user" ? true : false}
-            icon={<Trash size="small" color="#708090" />}
-            color="#708090"
-          />
-        </Box> */}
-      </div>
-
       <div>
         <div className="more-actions-button">
           <IconButton
@@ -105,6 +129,7 @@ export default function NoteComponent(props) {
                 );
                 setDisabledEdit(false);
                 setReadOnly(false);
+                setCommentState(true);
                 handleClose();
               }}
             >
@@ -138,17 +163,8 @@ export default function NoteComponent(props) {
           </Menu>
         </div>
         <div className="note-box">
-          <TextField
-            variant="standard"
-            InputProps={{
-              disableUnderline: true,
-              readOnly: readOnly,
-            }}
-            fullWidth
-            multiline={true}
-            value={note}
-            onChange={(e) => setNote(e.target.value)}
-          />
+          {commentState === true && commentComponents.EditableComment}
+          {commentState === false && commentComponents.Comment}
         </div>
         <div className="date-edit-container">
           <div className="note-date">
@@ -161,8 +177,10 @@ export default function NoteComponent(props) {
               size="small"
               disabled={disabledEdit}
               onClick={(e) => {
+                setCommentState(false);
                 setDisabledEdit(true);
                 setReadOnly(true);
+                console.log(note);
               }}
             >
               Save
@@ -171,6 +189,7 @@ export default function NoteComponent(props) {
               size="small"
               disabled={disabledEdit}
               onClick={(e) => {
+                setCommentState(false);
                 setDisabledEdit(true);
                 setReadOnly(true);
               }}
@@ -183,3 +202,32 @@ export default function NoteComponent(props) {
     </div>
   );
 }
+
+// const components = {
+//   Comment: (
+//     <TextField
+//       variant="standard"
+//       InputProps={{
+//         disableUnderline: true,
+//         readOnly: readOnly,
+//       }}
+//       fullWidth
+//       multiline={true}
+//       value={note}
+//       onChange={(e) => setNote(e.target.value)}
+//     />
+//   ),
+//   EditableComment: (
+//     <TextField
+//       variant="standard"
+//       InputProps={{
+//         disableUnderline: true,
+//         readOnly: readOnly,
+//       }}
+//       fullWidth
+//       multiline={true}
+//       value={note}
+//       onChange={(e) => setNote(e.target.value)}
+//     />
+//   ),
+// };
