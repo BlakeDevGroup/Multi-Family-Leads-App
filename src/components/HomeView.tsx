@@ -23,6 +23,7 @@ import {
   deleteProperty,
 } from "../core/property/PropertySlice";
 import ConfirmationModal from "./Notes/ConfirmationModal";
+import { NumericControlledInput } from "../common/UI/Form/NumericControlledInput";
 
 export default function HomeView(props) {
   const [name, setName] = useState("");
@@ -37,7 +38,7 @@ export default function HomeView(props) {
   const [Notes, setNotes] = useState("");
   const [id, setId] = useState("");
   const [purchasePrice, setPurchasePrice] = useState("");
-  const [purchaseDate, setPurchaseDate] = useState("");
+  const [purchaseDate, setPurchaseDate] = useState<string | null>("");
   const [showModal, setShowModal] = useState(false);
 
   const dispatch = useDispatch();
@@ -59,9 +60,13 @@ export default function HomeView(props) {
     setNotes(props.data?.notes);
     setUnits(props.data?.units);
     setId(props.data?.id);
-    setPurchasePrice(props.data?.purchasePrice);
-    setPurchaseDate(props.data?.purchaseDate);
+    setPurchasePrice(props.data?.purchase_price);
+    setPurchaseDate(props.data?.purchase_date || "");
   }, [props.data]);
+
+  useEffect(() => {
+    console.log(purchaseDate);
+  }, [purchaseDate]);
 
   return (
     <div className="home-view-container">
@@ -153,27 +158,26 @@ export default function HomeView(props) {
           />
         </div>
         <div className="controlled-input controlled-input-rows">
-          <ControlledInput
+          <NumericControlledInput
+            format="currency"
             label="Purchase price"
             type="numeric"
             placeholder="xxxxx"
             value={purchasePrice}
-            onChange={(e) => setPurchasePrice(e.target.value)}
-            validationFn={(value) =>
-              ValidationBroker.validate(new NumericValidationScope(value))
-            }
+            onChange={(e) => {
+              setPurchasePrice(e.target.value);
+            }}
+            // validationFn={(value) =>
+            //   ValidationBroker.validate(new NumericValidationScope(value))
+            // }
             validationText="Enter numeric value"
           />
           <LocalizationProvider dateAdapter={AdapterDateFns}>
             <DatePicker
               label="Purchase date"
-              value={purchaseDate}
-              onChange={(newValue) => {
-                if (typeof newValue == "string") {
-                  setPurchaseDate(newValue);
-                } else {
-                  setPurchaseDate("");
-                }
+              value={purchaseDate || ""}
+              onChange={(newValue: Date | null) => {
+                setPurchaseDate(newValue?.toLocaleDateString() || null);
               }}
               renderInput={(params) => <TextField {...params} />}
             />

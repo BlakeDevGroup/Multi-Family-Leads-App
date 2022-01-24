@@ -11,4 +11,6 @@ export type Property = {
   owner_entity: string;
   owner_number: string;
   units: number;
+  purchase_price: number;
+  purchase_date: string;
 };

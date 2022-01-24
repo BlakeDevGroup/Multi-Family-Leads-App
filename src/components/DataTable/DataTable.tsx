@@ -22,11 +22,6 @@ const columns = [
     search: true,
   },
   {
-    property: "owner_entity",
-    header: <Text color="#99A3C0">Entity</Text>,
-    search: true,
-  },
-  {
     property: "street",
     header: <Text color="#99A3C0">Street</Text>,
     search: true,
@@ -49,6 +44,16 @@ const columns = [
   {
     property: "units",
     header: <Text color="#99A3C0">Units</Text>,
+    search: true,
+  },
+  {
+    property: "purchase_price",
+    header: <Text color="#99A3C0">Purchase Price</Text>,
+    search: true,
+  },
+  {
+    property: "new Date(purchase_date).toLocaleDateString()",
+    header: <Text color="#99A3C0">Purchase Date</Text>,
     search: true,
   },
 

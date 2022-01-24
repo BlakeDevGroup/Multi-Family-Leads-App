@@ -61,6 +61,8 @@ export default class PropertyJsonQuery implements IQuery {
       owner_number: property.PhoneNumber,
       units: parseInt(property.Units),
       owner_entity: property.Entity,
+      purchase_date: "10-24-2021",
+      purchase_price: 0,
     };
   }
 }
