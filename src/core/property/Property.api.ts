@@ -1,5 +1,4 @@
 import { Property } from "./Property";
-// import Query from "./PropertyQuery";
 import Query from "./PropertyQuery";
 import propertyData from "./properties.json";
 

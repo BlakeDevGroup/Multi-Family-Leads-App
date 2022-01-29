@@ -1,12 +1,22 @@
-import { Text, Box, DataTable, Anchor, Header, Button } from "grommet";
+import { Text, Box, DataTable, Anchor, Header } from "grommet";
+import PropertyAPI from "../../core/property/Property.api";
+import NoteApi from "../../core/notes/Note.api";
+import OwnerAPI from "../../core/owner/Owner.api";
 import { Globe } from "grommet-icons";
 import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { EmailValidationScope } from "../../common/validation/impl/scopes/EmailValidationScope";
 import { NumericValidationScope } from "../../common/validation/impl/scopes/NumericValidationScope";
 import ValidationBroker from "../../common/validation/impl/ValidationBroker";
-import LayerContacts from "../Layer/LayerComponents/LayerContacts";
-import LayerHeader from "../Layer/LayerComponents/LayerHeader";
-import LayerNumber from "../Layer/LayerComponents/LayerNumber";
+import { ControlledInput } from "../../common/UI/Form/ControlledInput";
+import { setNotes } from "../../core/notes/NoteSlice";
+import { setProperties } from "../../core/property/PropertySlice";
+import "./Owner.css"
+import { Button } from "@mui/material";
+import HomeView from "../HomeView";
+const propertyAPI = new PropertyAPI();
+const noteAPI = new NoteApi();
+const ownerAPI = new OwnerAPI();
 
 const columns = [
   {
@@ -59,11 +69,37 @@ const testData = [
     units: "50",
   },
 ];
-export default function OwnerPage({ setOpen, action = "create", data }) {
+export default function OwnerPage({ setOpen, action = "put", data }) {
   const [name, setName] = useState("");
   const [entity, setEntity] = useState("");
   const [email, setEmail] = useState("");
   const [number, setNumber] = useState("");
+  const dispatch = useDispatch();
+  const [openLayer, setOpenLayer] = useState(false);
+  const [component, setComponent] = useState(
+    <HomeView
+      setOpen={setOpen}
+      data={{
+        address: { street: "", city: "", state: "", zip_code: "" },
+        owner_email: "",
+        owner_entity: "",
+        owner_name: "",
+        owner_number: "",
+        units: "",
+      }}
+    />
+  );
+
+  useEffect(() => {
+    propertyAPI.getAll().then((data) => {
+      dispatch(setProperties(data));
+    });
+
+    noteAPI.getAll().then((data) => {
+      dispatch(setNotes(data));
+    });
+  }, []);
+
 
   useEffect(() => {
     setName(data?.owner_name);
@@ -94,42 +130,40 @@ export default function OwnerPage({ setOpen, action = "create", data }) {
             fill="horizontal"
             // elevation="xsmall"
           >
-            <Box>
+            <div className="header-layout">
               <Anchor
                 icon={<Globe color="#43588F" />}
                 label="Central Valley Property Advisors"
                 color="#43588F"
               />
-            </Box>
-            <Box pad="small" height="xxsmall">
+            </div>
+            <div className="header-layout">
               <Button
-                className="text-color"
-                label="Submit"
-                color="#E9ECF1"
-                size="medium"
+                variant="contained"
+                color="primary"
                 onClick={(e) => {
                   setOpen(false);
                 }}
-              />
-            </Box>
+              >Submit</Button>
+            </div>
           </Header>
         </Box>
-        <Box direction="row-responsive" margin="small">
-          <LayerContacts
-            text="Name"
+        <div className="inputs-layout" >
+          <ControlledInput
+            label="Name"
             placeholder="Owner Name..."
             value={name}
             onChange={(e) => setName(e.target.value)}
           />
-          <LayerContacts
-            text="Entity"
+          <ControlledInput
+            label="Entity"
             value={entity}
             onChange={(e) => setEntity(e.target.value)}
           />
-        </Box>
-        <Box direction="row-responsive" margin="small">
-          <LayerContacts
-            text="Email"
+        </div>
+        <div className="inputs-layout">
+          <ControlledInput
+            label="Email"
             placeholder="xxxxx"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
@@ -138,8 +172,8 @@ export default function OwnerPage({ setOpen, action = "create", data }) {
             }
             validationText="Please enter a valid email address"
           />
-          <LayerNumber
-            text="Phone Number"
+          <ControlledInput
+            label="Phone Number"
             value={number}
             onChange={setNumber}
             validationFn={(value) =>
@@ -147,7 +181,7 @@ export default function OwnerPage({ setOpen, action = "create", data }) {
             }
             validationText="Phone Number can only contain numbers"
           />
-        </Box>
+        </div>
       </Box>
       {action == "put" && (
         <Box
@@ -169,6 +203,12 @@ export default function OwnerPage({ setOpen, action = "create", data }) {
               paginate={{ size: "medium" }}
               columns={columns}
               data={testData}
+              // onClickRow={({ datum }) => {
+              //   setOpenLayer(true);
+              //   setComponent(
+              //     <HomeView setOpen={setOpen} data={datum} action="put" />
+              //   );
+              // }}
             ></DataTable>
           </Box>
         </Box>

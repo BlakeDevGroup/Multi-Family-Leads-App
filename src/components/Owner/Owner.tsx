@@ -1,10 +1,14 @@
 import { Text, Box, DataTable } from "grommet";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import OwnerAPI from "../../core/owner/Owner.api";
+import { setOwners } from "../../core/owner/OwnerSlice";
 import Cover from "../Cover/Cover";
 import MainLayer from "../Layer/Layer";
 import NavBar from "../NavBar/NavBar";
 import "./Owner.css";
 import OwnerPage from "./OwnerPage";
+const ownerAPI = new OwnerAPI();
 
 const columns = [
   {
@@ -40,6 +44,22 @@ const data = [
 export default function Owner(props) {
   const [open, setOpen] = useState(false);
   const [component, setComponent] = useState({});
+  const data = useSelector((state: any) => {
+    // console.log(state.properties?.properties);
+    return state.properties?.properties;
+  });
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    // propertyAPI.getAll().then((data) => {
+    //   dispatch(setProperties(data));
+    // });
+
+    ownerAPI.getAll().then((data) => {
+      dispatch(setOwners(data));
+    });
+  }, []);
+  
   return (
     <>
       <NavBar
