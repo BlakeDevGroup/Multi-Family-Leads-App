@@ -1,7 +1,9 @@
 import { TextInput, Text, Box } from "grommet";
+import { useState } from "react";
 import "../Layer.css";
 
 export default function LayerInput(props) {
+  const [isValidated, setIsValidated] = useState(true);
   return (
     <Box
       className="input-text"
@@ -26,9 +28,31 @@ export default function LayerInput(props) {
         textAlign="start"
         placeholder={props.placeholder}
         height="auto"
-        className="text-input mf-layer__input-text"
+        className={`text-input mf-layer__input-text ${
+          isValidated ? "" : "input-not-validated"
+        }`}
         value={props.value}
+        onChange={props.onChange}
+        onBlur={() => {
+          if (props.validationFn) {
+            setIsValidated(props.validationFn(props.value));
+          }
+        }}
       />
+      <Text
+        color="#f44336"
+        textAlign="start"
+        size="xsmall"
+        margin={{ left: "5px" }}
+        className="input-header"
+        style={{
+          visibility: `${isValidated ? "hidden" : "visible"}`,
+          whiteSpace: "nowrap",
+          minHeight: "18px",
+        }}
+      >
+        {props.validationText}
+      </Text>
     </Box>
   );
 }

@@ -1,16 +1,14 @@
 import { Address } from "../address/Address";
 
 export type Property = {
-  property_id: string;
-  address: Address;
-  owner_id: string;
+  id?: string;
+  street: string;
+  city: string;
+  state: string;
+  zip_code: string;
   owner_name: string;
   owner_email: string;
+  owner_entity: string;
   owner_number: string;
-  price: number;
   units: number;
-  sqft: number;
-  buildings: number;
-  year_built: number;
-  notes: string[];
 };

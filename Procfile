@@ -1,1 +1,1 @@
-web: serve -s build
+web: set NODE_ENV=production&&env-cmd -e production serve -s build

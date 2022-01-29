@@ -1,0 +1,56 @@
+.more-actions-button {
+  display: flex;
+  justify-content: end;
+  margin-right: 10px;
+}
+
+.note-date {
+  font-weight: 300;
+  color: #b4b4b4;
+  margin: 0 0 0 15px;
+  display: flex;
+  flex-direction: row;
+  align-self: center;
+}
+
+.note-box {
+  margin: 10px 10px 10px 15px;
+}
+
+/* .edit-save-button {
+  margin: 0 0 0 15px;
+} */
+
+.menu__action-button-group {
+  display: flex !important;
+  justify-content: space-between !important;
+}
+
+.menu__action-button-typography {
+  margin-right: 10px !important;
+}
+
+.date-edit-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.delete-modal-button {
+  display: flex;
+  flex-direction: row;
+  justify-content: end;
+  gap: 2%;
+  margin-top: 10px;
+}
+
+.delete-modal-title {
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  margin-left: 10px;
+}
+
+.delete-modal-container {
+  padding: 25px;
+}
