@@ -1,8 +1,6 @@
-import { Header, Anchor, Box } from "grommet";
+import { Header} from "grommet";
 import { Button } from "@mui/material";
-import { Globe } from "grommet-icons";
 import { Link } from "react-router-dom";
-import LeftLayerButton from "../Layer/LayerComponents/TestLayerButton";
 import { Brand } from "../Brand/Brand";
 import AuthService from "../../common/auth/AuthService";
 import "../NavBar/NavBar.css";
@@ -23,27 +21,32 @@ export function WebsiteLevelHeader(props) {
       height="xxsmall"
       elevation="xsmall"
     >
-      <Box>
+      <div className="header-links-wrapper">
+        <div className="branding">
         <Link to="/" >
-          {/* <Anchor
-            icon={<Globe color="#43588F" />}
-            label="Central Valley Property Advisors"
-            color="#43588F"
-          /> */}
-          <Brand sizing="header-styles" />
+          <Brand sizing="header-styles" wrapper="logo-wrapper" />
         </Link>
-      </Box>
-      <Box direction="row-responsive" justify="center">
-        {/* <LeftLayerButton  /> */}
-        <div className="button-wrapper">
+        </div>
+        <div className="header-links-wrapper">
+        <div className="home-link">
+        <Button component={Link} to={'/'} disableRipple size="small" style={{ backgroundColor: 'transparent' }} variant="text">Home</Button>
+        </div>
+        <div className="owner-link">
+        <Button component={Link} to={'/owner'} disableRipple size="small" style={{ backgroundColor: 'transparent'  }} variant="text">Owner</Button>
+        </div>
+        </div>
+      </div>
+      <div className="button-wrapper">
+        <div className="button-styles">
           <Button onClick={props.onOpen} size="small"  variant="contained" startIcon={<AddIcon />}>Create</Button>
         </div>
-        <Link to="/login" style={{ textDecoration: 'none'}}>
-          <div className="button-wrapper" >
+        <Link to="/login" style={{ textDecoration: 'none'}}
+        >
+          <div className="button-styles" >
           <Button size="small"  variant="contained" color="secondary" onClick={() => dispatch(logoutUser())}>Sign out</Button>
           </div>
         </Link>
-      </Box>
+      </div>
     </Header>
   );
 }

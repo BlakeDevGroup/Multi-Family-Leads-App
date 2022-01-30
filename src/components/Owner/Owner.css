@@ -1,14 +1,25 @@
 
+.owner-page-wrapper {
+    overflow: hidden;
+    width: 50vw;
+    padding-right: 10px;
+    margin: auto;
+    height: 75vh;
+    
+}
+
 .inputs-layout {
     display: flex;
     flex-direction: row;
     gap: 1%;
-    margin: 30px 10px 0 10px;
+    margin: 40px 10px 0 10px;
 }
 
 .header-layout {
-    margin-top: 50px;
-    margin-bottom: 20px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin: 20px 30px 0 30px;
 }
 
 .header-wrapper {
@@ -16,3 +27,18 @@
     flex-direction: column;
     justify-content: center;
 }
+
+.owner-content {
+    background-color: #ffffff;
+    margin: 2vh;
+}
+
+.submit-layout {
+    /* margin-top: 50px; */
+    margin-bottom: 20px;
+}
+
+/* .brand-layout {
+    margin-top: 50px;
+    margin-bottom: 20px;
+} */

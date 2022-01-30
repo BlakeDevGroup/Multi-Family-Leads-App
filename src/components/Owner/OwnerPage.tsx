@@ -14,9 +14,11 @@ import { setProperties } from "../../core/property/PropertySlice";
 import "./Owner.css"
 import { Button } from "@mui/material";
 import HomeView from "../HomeView";
+import { Brand } from "../Brand/Brand";
 const propertyAPI = new PropertyAPI();
 const noteAPI = new NoteApi();
 const ownerAPI = new OwnerAPI();
+
 
 const columns = [
   {
@@ -110,44 +112,28 @@ export default function OwnerPage({ setOpen, action = "put", data }) {
 
   return (
     <>
-      <Box
-        width="large"
-        overflow="hidden"
-        fill="vertical"
-        pad={{ right: "10px" }}
-        margin="auto"
+      <div
+        className="owner-page-wrapper"
       >
-        <Box
-          style={{ maxHeight: "50vh", minHeight: "unset" }}
-          direction="column"
-          align="center"
-        >
-          <Header
-            className="navbar"
-            background="#ffffff"
-            pad="small"
-            height="xxsmall"
-            fill="horizontal"
-            // elevation="xsmall"
-          >
+          <div
+          className="header-wrapper">
             <div className="header-layout">
-              <Anchor
-                icon={<Globe color="#43588F" />}
-                label="Central Valley Property Advisors"
-                color="#43588F"
-              />
-            </div>
-            <div className="header-layout">
-              <Button
+              <Brand sizing="owner-styles" />
+              <div className="submit-layout">
+              <Button 
+              className="sumbit-layouts"
                 variant="contained"
                 color="primary"
                 onClick={(e) => {
                   setOpen(false);
                 }}
-              >Submit</Button>
+              >
+                Submit
+              </Button>
+              </div>
             </div>
-          </Header>
-        </Box>
+          </div>
+        
         <div className="inputs-layout" >
           <ControlledInput
             label="Name"
@@ -182,7 +168,7 @@ export default function OwnerPage({ setOpen, action = "put", data }) {
             validationText="Phone Number can only contain numbers"
           />
         </div>
-      </Box>
+      </div>
       {action == "put" && (
         <Box
           overflow="hidden"

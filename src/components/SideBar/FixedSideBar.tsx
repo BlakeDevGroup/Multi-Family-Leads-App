@@ -1,5 +1,5 @@
-import { Box, Text, Button, Nav, Avatar } from "grommet";
-import { User, Home, Document, Calculator } from "grommet-icons";
+import { Box, Text, Button, Nav } from "grommet";
+import { User, Home} from "grommet-icons";
 import { Link } from "react-router-dom";
 // import "./SideBar.css"
 

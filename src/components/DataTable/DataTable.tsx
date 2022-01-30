@@ -1,7 +1,7 @@
-import React from "react";
+// import React from "react";
 import PropertyAPI from "../../core/property/Property.api";
-import { Property } from "../../core/property/Property";
-import { Address } from "../../core/address/Address";
+// import { Property } from "../../core/property/Property";
+// import { Address } from "../../core/address/Address";
 import { useState, useEffect } from "react";
 import { DataTable, Text, Box } from "grommet";
 import "./DataTable.css";

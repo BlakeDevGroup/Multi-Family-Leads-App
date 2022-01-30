@@ -9,6 +9,7 @@ import NavBar from "../NavBar/NavBar";
 import "./Owner.css";
 import OwnerPage from "./OwnerPage";
 const ownerAPI = new OwnerAPI();
+import { WebsiteLevelHeader } from "../Headers/WebsiteLevelHeader";
 
 const columns = [
   {
@@ -45,7 +46,6 @@ export default function Owner(props) {
   const [open, setOpen] = useState(false);
   const [component, setComponent] = useState({});
   const data = useSelector((state: any) => {
-    // console.log(state.properties?.properties);
     return state.properties?.properties;
   });
   const dispatch = useDispatch();
@@ -62,7 +62,7 @@ export default function Owner(props) {
   
   return (
     <>
-      <NavBar
+      <WebsiteLevelHeader
         onOpen={() => {
           setOpen(true);
           setComponent(
@@ -70,7 +70,9 @@ export default function Owner(props) {
           );
         }}
       />
-      <Box background="white" margin="2vh">
+      <div 
+      className="owner-content"
+      >
         <DataTable
           border={{ side: "bottom", color: "#EEF1F7", size: "small" }}
           paginate={{ size: "medium" }}
@@ -86,7 +88,7 @@ export default function Owner(props) {
         <Cover isOpen={open} onClickOutside={() => setOpen(false)}>
           {component}
         </Cover>
-      </Box>
+      </div>
     </>
   );
 }

@@ -3,7 +3,7 @@ import "./Brand.css";
 
 export function Brand(props) {
   return (
-    <div className="logo-wrapper">
+    <div className={props.wrapper}>
       <img
         className={props.sizing}
         src={CompanyLogo}
