@@ -4,9 +4,9 @@ import Query from "./OwnerQuery"
 export default class OwnerAPI {
     private query: Query = new Query();
 
-    async get(id: string) {
+    async get(owner_id: string) {
         try {
-          const payload = await this.query.readById(id);
+          const payload = await this.query.readById(owner_id);
     
           if (payload.data) {
             return payload.data;
@@ -18,16 +18,16 @@ export default class OwnerAPI {
         }
       }
     
-      async put(id: string, resource: Owner) {
-        return this.query.putById(id, resource);
+      async put(owner_id: string, resource: Owner) {
+        return this.query.putById(owner_id, resource);
       }
     
       async create(resource: Owner) {
         return this.query.create(resource);
       }
     
-      async delete(id: string) {
-        return this.query.deleteById(id);
+      async delete(owner_id: string) {
+        return this.query.deleteById(owner_id);
       }
     
       async getAll() {

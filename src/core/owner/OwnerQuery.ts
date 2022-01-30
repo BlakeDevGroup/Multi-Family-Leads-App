@@ -13,8 +13,8 @@ export default class OwnerQuery implements IQuery {
                 : "http://localhost:3500/owner",
         });
     }
-    async readById(id: string): Promise<any> {
-        const result = await this.query.get(`/${id}`);
+    async readById(owner_id: string): Promise<any> {
+        const result = await this.query.get(`/${owner_id}`);
         if (result.data) {
             return MessageService.sendSuccess(
               "Successfully retrieved owner",
@@ -22,7 +22,7 @@ export default class OwnerQuery implements IQuery {
             );
           } else {
             return MessageService.sendFailure(
-              `No owner found with id: ${id}`,
+              `No owner found with id: ${owner_id}`,
               `EntityNotFoundError`,
               404
             );
@@ -43,15 +43,15 @@ export default class OwnerQuery implements IQuery {
             );
           }
         
-          async putById(id: string, resource: Owner) {
-            const result = await this.query.put(`/${id}`, resource);
+          async putById(owner_id: string, resource: Owner) {
+            const result = await this.query.put(`/${owner_id}`, resource);
             return MessageService.sendSuccess(
               "Successfully updated owner",
               result.data
             );
           }
-          async deleteById(id: string) {
-            const result = await this.query.delete(`/${id}`);
+          async deleteById(owner_id: string) {
+            const result = await this.query.delete(`/${owner_id}`);
             return MessageService.sendSuccess(
               "Successfully deleted owner",
               result.data

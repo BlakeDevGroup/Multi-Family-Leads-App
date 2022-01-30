@@ -17,7 +17,7 @@ export const addOwner = createAsyncThunk(
   export const updateOwner = createAsyncThunk(
     "owner/update",
     async (data: any, thunkAPI) => {
-      const result = await api.put(data.id, data);
+      const result = await api.put(data.owner_id, data);
   
       if (result.data.error) return;
   
@@ -27,12 +27,12 @@ export const addOwner = createAsyncThunk(
   
   export const deleteOwner = createAsyncThunk(
     "owner/delete",
-    async (id: string, thunkAPI) => {
-      const result = await api.delete(id);
+    async (owner_id: string, thunkAPI) => {
+      const result = await api.delete(owner_id);
   
       if (result.data.error) return;
   
-      return id;
+      return owner_id;
     }
   );
   
@@ -53,7 +53,7 @@ export const addOwner = createAsyncThunk(
   
       builder.addCase(updateOwner.fulfilled, (state, action) => {
         state.owners = state.owners.map((p) => {
-          if (p.ownder_id == action.payload.id) return action.payload;
+          if (p.ownder_id == action.payload.owner_id) return action.payload;
           return p;
         });
       })
