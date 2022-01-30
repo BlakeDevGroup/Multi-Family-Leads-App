@@ -147,7 +147,7 @@ export default function OwnerPage({ setOpen, action = "put", data }) {
             onChange={(e) => setEntity(e.target.value)}
           />
         </div>
-        <div className="inputs-layout">
+        <div className="inputs-layout" style={{marginTop: "15px"}}>
           <ControlledInput
             label="Email"
             placeholder="xxxxx"
