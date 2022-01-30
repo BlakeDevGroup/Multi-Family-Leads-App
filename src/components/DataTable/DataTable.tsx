@@ -7,11 +7,12 @@ import { DataTable, Text, Box } from "grommet";
 import "./DataTable.css";
 import MainLayer from "../Layer/Layer";
 import HomeView from "../HomeView";
-import NavBar from "../NavBar/NavBar";
+// import NavBar from "../NavBar/NavBar";
 import { useDispatch, useSelector } from "react-redux";
 import { setProperties } from "../../core/property/PropertySlice";
 import NoteApi from "../../core/notes/Note.api";
 import { setNotes } from "../../core/notes/NoteSlice";
+import { WebsiteLevelHeader } from "../Headers/WebsiteLevelHeader";
 const propertyAPI = new PropertyAPI();
 const noteAPI = new NoteApi();
 
@@ -97,7 +98,7 @@ export default function DataTableComponent(props) {
 
   return (
     <>
-      <NavBar
+      <WebsiteLevelHeader
         onOpen={() => {
           setOpen(true);
           setComponent(

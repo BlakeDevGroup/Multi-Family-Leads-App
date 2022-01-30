@@ -24,7 +24,7 @@ export default function MainNavBar(props) {
         <Link to="/">
           <Anchor
             icon={<Globe color="#43588F" />}
-            label="Central Valley Property Advisors"
+            label="Central Valley Property"
             color="#43588F"
           />
         </Link>

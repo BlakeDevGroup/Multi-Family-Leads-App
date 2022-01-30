@@ -42,6 +42,16 @@ export default function HomeView(props) {
 
   const dispatch = useDispatch();
   const user = useUser();
+  
+  useEffect(() => {
+    const close = (e) => {
+      if(e.keyCode === 27){
+        props.setOpen(false)
+      }
+    }
+    window.addEventListener('keydown', close)
+  return () => window.removeEventListener('keydown', close)
+},[])
 
   function handleClick() {
     props.setOpen(false);
@@ -67,10 +77,10 @@ export default function HomeView(props) {
     <div className="home-view-container">
       <div>
         <div className="header-wrapper">
-          <Brand />
+          <Brand sizing="notes-styles" />
           <div className="close-button-wrapper">
             <IconButton onClick={handleClick} size="large">
-              <CloseIcon />
+              <CloseIcon  />
             </IconButton>
           </div>
         </div>
