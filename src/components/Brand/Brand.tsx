@@ -7,7 +7,7 @@ export function Brand(props) {
       <img
         className={props.sizing}
         src={CompanyLogo}
-        alt="Central Valley Logo"
+        alt="Central Valley Property Advisors Logo"
       ></img>
     </div>
   );
