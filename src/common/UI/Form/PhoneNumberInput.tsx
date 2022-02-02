@@ -8,6 +8,7 @@ export function PhoneNumberInput(props) {
   return (
     <TextField
       fullWidth
+      required={props.required}
       error={!isValidated}
       helperText={isValidated ? undefined : props.validationText}
       label={props.text}

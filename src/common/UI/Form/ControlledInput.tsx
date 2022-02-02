@@ -7,6 +7,7 @@ export function ControlledInput(props) {
   return (
     <TextField
       fullWidth
+      required={props.required}
       error={!isValidated}
       helperText={isValidated ? undefined : props.validationText}
       label={props.label}
