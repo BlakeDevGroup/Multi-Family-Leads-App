@@ -1,12 +1,27 @@
-import { Text, Box, DataTable, Anchor, Header, Button } from "grommet";
+import { Text, Box, DataTable, Anchor, Header } from "grommet";
+import PropertyAPI from "../../core/property/Property.api";
+import NoteApi from "../../core/notes/Note.api";
+import OwnerAPI from "../../core/owner/Owner.api";
 import { Globe } from "grommet-icons";
 import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { EmailValidationScope } from "../../common/validation/impl/scopes/EmailValidationScope";
 import { NumericValidationScope } from "../../common/validation/impl/scopes/NumericValidationScope";
 import ValidationBroker from "../../common/validation/impl/ValidationBroker";
-import LayerContacts from "../Layer/LayerComponents/LayerContacts";
-import LayerHeader from "../Layer/LayerComponents/LayerHeader";
-import LayerNumber from "../Layer/LayerComponents/LayerNumber";
+import { ControlledInput } from "../../common/UI/Form/ControlledInput";
+import { setNotes } from "../../core/notes/NoteSlice";
+import { setProperties } from "../../core/property/PropertySlice";
+import "./Owner.css"
+import { Button } from "@mui/material";
+import HomeView from "../HomeView";
+import { Brand } from "../Brand/Brand";
+import { PhoneNumberInput } from "../../common/UI/Form/PhoneNumberInput";
+const propertyAPI = new PropertyAPI();
+const noteAPI = new NoteApi();
+const ownerAPI = new OwnerAPI();
+
+
+
 
 const columns = [
   {
@@ -59,77 +74,70 @@ const testData = [
     units: "50",
   },
 ];
-export default function OwnerPage({ setOpen, action = "create", data }) {
+export default function OwnerPage({ setOpen, action = "put", data }) {
   const [name, setName] = useState("");
   const [entity, setEntity] = useState("");
   const [email, setEmail] = useState("");
   const [number, setNumber] = useState("");
+  const dispatch = useDispatch();
 
   useEffect(() => {
-    setName(data?.owner_name);
-    setEntity(data?.owner_entity);
-    setEmail(data?.owner_email);
-    setNumber(data?.owner_number);
+    const close = (e) => {
+      if(e.keyCode === 27){
+        setOpen(false)
+      }
+    }
+    window.addEventListener('keydown', close)
+    return () => window.removeEventListener('keydown', close)
+  },[])
+
+  useEffect(() => {
+    setName(data?.name);
+    setEntity(data?.entity);
+    setEmail(data?.email);
+    setNumber(data?.number);
   }, [data]);
 
   return (
     <>
-      <Box
-        width="large"
-        overflow="hidden"
-        fill="vertical"
-        pad={{ right: "10px" }}
-        margin="auto"
+      <div
+        className="owner-page-wrapper"
       >
-        <Box
-          style={{ maxHeight: "50vh", minHeight: "unset" }}
-          direction="column"
-          align="center"
-        >
-          <Header
-            className="navbar"
-            background="#ffffff"
-            pad="small"
-            height="xxsmall"
-            fill="horizontal"
-            // elevation="xsmall"
-          >
-            <Box>
-              <Anchor
-                icon={<Globe color="#43588F" />}
-                label="Central Valley Property Advisors"
-                color="#43588F"
-              />
-            </Box>
-            <Box pad="small" height="xxsmall">
-              <Button
-                className="text-color"
-                label="Submit"
-                color="#E9ECF1"
-                size="medium"
+          <div
+          className="header-wrapper">
+            <div className="header-layout">
+              <Brand sizing="owner-styles" />
+              <div className="submit-layout">
+              <Button 
+              className="sumbit-layouts"
+                variant="contained"
+                color="primary"
                 onClick={(e) => {
                   setOpen(false);
                 }}
-              />
-            </Box>
-          </Header>
-        </Box>
-        <Box direction="row-responsive" margin="small">
-          <LayerContacts
-            text="Name"
+              >
+                Submit
+              </Button>
+              </div>
+            </div>
+          </div>
+        
+        <div className="inputs-layout" >
+          <ControlledInput
+            label="Name"
             placeholder="Owner Name..."
             value={name}
             onChange={(e) => setName(e.target.value)}
           />
-          <LayerContacts
-            text="Entity"
+          <ControlledInput
+            label="Entity"
             value={entity}
             onChange={(e) => setEntity(e.target.value)}
           />
-        </Box>
-        <Box direction="row-responsive" margin="small">
-          <LayerContacts
-            text="Email"
+        </div>
+        <div className="inputs-layout" style={{marginTop: "15px"}}>
+          <ControlledInput
+            label="Email"
             placeholder="xxxxx"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
@@ -138,17 +146,13 @@ export default function OwnerPage({ setOpen, action = "create", data }) {
             }
             validationText="Please enter a valid email address"
           />
-          <LayerNumber
+          <PhoneNumberInput
             text="Phone Number"
             value={number}
             onChange={setNumber}
-            validationFn={(value) =>
-              ValidationBroker.validate(new NumericValidationScope(value))
-            }
-            validationText="Phone Number can only contain numbers"
           />
-        </Box>
-      </Box>
+        </div>
+      </div>
       {action == "put" && (
         <Box
           overflow="hidden"
@@ -169,6 +173,12 @@ export default function OwnerPage({ setOpen, action = "create", data }) {
               paginate={{ size: "medium" }}
               columns={columns}
               data={testData}
+              // onClickRow={({ datum }) => {
+              //   setOpenLayer(true);
+              //   setComponent(
+              //     <HomeView setOpen={setOpen} data={datum} action="put" />
+              //   );
+              // }}
             ></DataTable>
           </Box>
         </Box>

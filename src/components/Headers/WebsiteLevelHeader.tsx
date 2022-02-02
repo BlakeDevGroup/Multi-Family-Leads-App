@@ -1,11 +1,13 @@
-import { Header, Anchor, Box, WorldMap, Button } from "grommet";
-import { Globe } from "grommet-icons";
+import { Header} from "grommet";
+import { Button } from "@mui/material";
 import { Link } from "react-router-dom";
-import LeftLayerButton from "../Layer/LayerComponents/TestLayerButton";
+import { Brand } from "../Brand/Brand";
 import AuthService from "../../common/auth/AuthService";
-import "./NavBar.css";
+import "../NavBar/NavBar.css";
 import { useDispatch } from "react-redux";
-import { logoutUser } from "../../common/auth/AuthSlice";
+import { logoutUser } from "../../common/auth/AuthSlice";  
+import AddIcon from '@mui/icons-material/Add';
+import "./Header.css"
 
 const authService = new AuthService();
 
@@ -18,31 +20,33 @@ export function WebsiteLevelHeader(props) {
       pad="small"
       height="xxsmall"
       elevation="xsmall"
-      // margin={{ left: "96px" }}
     >
-      <Box>
-        <Link to="/">
-          <Anchor
-            icon={<Globe color="#43588F" />}
-            label="Central Valley Property Advisors"
-            color="#43588F"
-          />
+      <div className="header-links-wrapper">
+        <div className="branding">
+        <Link to="/" >
+          <Brand sizing="header-styles" wrapper="logo-wrapper" />
         </Link>
-      </Box>
-      <Box direction="row-responsive" justify="center">
-        <LeftLayerButton onOpen={props.onOpen} />
-        <Link to="/login">
-          <Button
-            margin={{ left: "50px" }}
-            label="sign out"
-            className="text-color"
-            color="#E9ECF1"
-            onClick={() => dispatch(logoutUser())}
-            hoverIndicator={false}
-            size="small"
-          ></Button>
+        </div>
+        <div className="header-links-wrapper">
+        <div className="home-link">
+        <Button component={Link} to={'/'} disableRipple size="small" style={{ backgroundColor: 'transparent' }} variant="text">Home</Button>
+        </div>
+        <div className="owner-link">
+        <Button component={Link} to={'/owner'} disableRipple size="small" style={{ backgroundColor: 'transparent'  }} variant="text">Owner</Button>
+        </div>
+        </div>
+      </div>
+      <div className="button-wrapper">
+        <div className="button-styles">
+          <Button onClick={props.onOpen} size="small"  variant="contained" startIcon={<AddIcon />}>Create</Button>
+        </div>
+        <Link to="/login" style={{ textDecoration: 'none'}}
+        >
+          <div className="button-styles" >
+          <Button size="small"  variant="contained" color="secondary" onClick={() => dispatch(logoutUser())}>Sign out</Button>
+          </div>
         </Link>
-      </Box>
+      </div>
     </Header>
   );
 }

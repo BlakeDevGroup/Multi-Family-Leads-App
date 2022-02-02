@@ -1,0 +1,38 @@
+
+.owner-page-wrapper {
+    overflow: hidden;
+    width: 50vw;
+    padding-right: 10px;
+    margin: auto;
+    height: 75vh;
+    
+}
+
+.inputs-layout {
+    display: flex;
+    flex-direction: row;
+    gap: 1%;
+    margin: 35px 10px 0 10px;
+}
+
+.header-layout {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin: 20px 20px 0 20px;
+}
+
+.header-wrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.owner-content {
+    background-color: #ffffff;
+    margin: 2vh;
+}
+
+.submit-layout {
+    margin-bottom: 20px;
+}

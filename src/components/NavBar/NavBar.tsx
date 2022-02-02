@@ -18,7 +18,6 @@ export default function MainNavBar(props) {
       pad="small"
       height="xxsmall"
       elevation="xsmall"
-      // margin={{ left: "96px" }}
     >
       <Box>
         <Link to="/">

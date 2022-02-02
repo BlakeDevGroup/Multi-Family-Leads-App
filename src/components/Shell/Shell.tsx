@@ -9,7 +9,6 @@ export default function Shell({ view }) {
   return (
     <Main background="#f1f5f8" overflow="hidden">
       <div className="mfl-shell-container">
-        <FixedSideBarComponent />
         <div className="mfl-shell-content-body">{view}</div>
       </div>
     </Main>

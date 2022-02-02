@@ -1,29 +1,32 @@
-import { Text, Box, DataTable } from "grommet";
-import { useState } from "react";
+import { Text, DataTable } from "grommet";
+import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import OwnerAPI from "../../core/owner/Owner.api";
+import { setOwners } from "../../core/owner/OwnerSlice";
 import Cover from "../Cover/Cover";
-import MainLayer from "../Layer/Layer";
-import NavBar from "../NavBar/NavBar";
 import "./Owner.css";
 import OwnerPage from "./OwnerPage";
+import { WebsiteLevelHeader } from "../Headers/WebsiteLevelHeader";
 
+const ownerAPI = new OwnerAPI();
 const columns = [
   {
-    property: "owner_name",
+    property: "name",
     header: <Text color="#99A3C0">Name</Text>,
     search: true,
   },
   {
-    property: "owner_entity",
+    property: "entity",
     header: <Text color="#99A3C0">Entity</Text>,
     search: true,
   },
   {
-    property: "owner_number",
+    property: "number",
     header: <Text color="#99A3C0">Phone Number</Text>,
     search: true,
   },
   {
-    property: "owner_email",
+    property: "email",
     header: <Text color="#99A3C0">Email</Text>,
     search: true,
   },
@@ -40,9 +43,26 @@ const data = [
 export default function Owner(props) {
   const [open, setOpen] = useState(false);
   const [component, setComponent] = useState({});
+  const data = useSelector((state: any) => {
+    return state.owners?.owners;
+  });
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    // propertyAPI.getAll().then((data) => {
+    //   dispatch(setProperties(data));
+    // });
+
+    ownerAPI.getAll().then((data) => {
+      dispatch(setOwners(data));
+      console.log(data)
+    });
+  }, []);
+ 
+  
   return (
     <>
-      <NavBar
+      <WebsiteLevelHeader
         onOpen={() => {
           setOpen(true);
           setComponent(
@@ -50,7 +70,9 @@ export default function Owner(props) {
           );
         }}
       />
-      <Box background="white" margin="2vh">
+      <div 
+      className="owner-content"
+      >
         <DataTable
           border={{ side: "bottom", color: "#EEF1F7", size: "small" }}
           paginate={{ size: "medium" }}
@@ -66,7 +88,7 @@ export default function Owner(props) {
         <Cover isOpen={open} onClickOutside={() => setOpen(false)}>
           {component}
         </Cover>
-      </Box>
+      </div>
     </>
   );
 }

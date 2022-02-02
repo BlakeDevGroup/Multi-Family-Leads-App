@@ -1,4 +1,4 @@
-.logo-styles {
+.notes-styles {
   height: auto;
   width: auto;
   max-width: 250px;
@@ -6,8 +6,21 @@
   display: block;
   margin-left: auto;
   margin-right: auto;
-  /* position: absolute; */
-  /* width: 50%; */
+}
+
+.header-styles {
+  height: auto;
+  width: auto;
+  max-width: 150px;
+  max-height: 150px;
+  margin-bottom: 15px;
+}
+
+.owner-styles {
+  height: auto;
+  width: auto;
+  max-width: 200px;
+  max-height: 150px;
 }
 
 .logo-wrapper {
@@ -16,5 +29,4 @@
   margin-left: auto;
   margin-right: auto;
   width: 50%;
-  /* position: ; */
 }

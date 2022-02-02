@@ -6,15 +6,17 @@ export default function Cover({ isOpen = false, onClickOutside, children }) {
       {isOpen && (
         <Layer
           full
-          modal={false}
+          margin="medium"
+          modal={true}
+          position="center"
           animation="slide"
           onClickOutside={onClickOutside}
         >
           <Close
             style={{
               position: "absolute",
-              top: "5px",
-              right: "5px",
+              top: "15px",
+              right: "15px",
               fontSize: "25px",
               cursor: "pointer",
             }}
