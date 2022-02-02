@@ -6,8 +6,6 @@
   display: block;
   margin-left: auto;
   margin-right: auto;
-  /* position: absolute; */
-  /* width: 50%; */
 }
 
 .header-styles {
@@ -32,6 +30,3 @@
   margin-right: auto;
   width: 50%;
 }
-
-
-

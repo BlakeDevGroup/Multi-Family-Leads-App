@@ -1,13 +1,9 @@
-// import React from "react";
 import PropertyAPI from "../../core/property/Property.api";
-// import { Property } from "../../core/property/Property";
-// import { Address } from "../../core/address/Address";
 import { useState, useEffect } from "react";
 import { DataTable, Text, Box } from "grommet";
 import "./DataTable.css";
 import MainLayer from "../Layer/Layer";
 import HomeView from "../HomeView";
-// import NavBar from "../NavBar/NavBar";
 import { useDispatch, useSelector } from "react-redux";
 import { setProperties } from "../../core/property/PropertySlice";
 import NoteApi from "../../core/notes/Note.api";
@@ -68,7 +64,6 @@ const columns = [
 export default function DataTableComponent(props) {
   const [open, setOpen] = useState(false);
   const data = useSelector((state: any) => {
-    // console.log(state.properties?.properties);
     return state.properties?.properties;
   });
   const dispatch = useDispatch();

@@ -15,6 +15,7 @@ import "./Owner.css"
 import { Button } from "@mui/material";
 import HomeView from "../HomeView";
 import { Brand } from "../Brand/Brand";
+import { PhoneNumberInput } from "../../common/UI/Form/PhoneNumberInput";
 const propertyAPI = new PropertyAPI();
 const noteAPI = new NoteApi();
 const ownerAPI = new OwnerAPI();
@@ -79,20 +80,6 @@ export default function OwnerPage({ setOpen, action = "put", data }) {
   const [email, setEmail] = useState("");
   const [number, setNumber] = useState("");
   const dispatch = useDispatch();
-  const [openLayer, setOpenLayer] = useState(false);
-  const [component, setComponent] = useState(
-    <HomeView
-      setOpen={setOpen}
-      data={{
-        address: { street: "", city: "", state: "", zip_code: "" },
-        owner_email: "",
-        owner_entity: "",
-        owner_name: "",
-        owner_number: "",
-        units: "",
-      }}
-    />
-  );
 
   useEffect(() => {
     const close = (e) => {
@@ -101,25 +88,14 @@ export default function OwnerPage({ setOpen, action = "put", data }) {
       }
     }
     window.addEventListener('keydown', close)
-  return () => window.removeEventListener('keydown', close)
-},[])
+    return () => window.removeEventListener('keydown', close)
+  },[])
 
   useEffect(() => {
-    propertyAPI.getAll().then((data) => {
-      dispatch(setProperties(data));
-    });
-
-    noteAPI.getAll().then((data) => {
-      dispatch(setNotes(data));
-    });
-  }, []);
-
-
-  useEffect(() => {
-    setName(data?.owner_name);
-    setEntity(data?.owner_entity);
-    setEmail(data?.owner_email);
-    setNumber(data?.owner_number);
+    setName(data?.name);
+    setEntity(data?.entity);
+    setEmail(data?.email);
+    setNumber(data?.number);
   }, [data]);
 
   return (
@@ -170,14 +146,10 @@ export default function OwnerPage({ setOpen, action = "put", data }) {
             }
             validationText="Please enter a valid email address"
           />
-          <ControlledInput
-            label="Phone Number"
+          <PhoneNumberInput
+            text="Phone Number"
             value={number}
             onChange={setNumber}
-            validationFn={(value) =>
-              ValidationBroker.validate(new NumericValidationScope(value))
-            }
-            validationText="Phone Number can only contain numbers"
           />
         </div>
       </div>
