@@ -80,7 +80,7 @@ export default function HomeView(props) {
           <Brand sizing="notes-styles" wrapper="logo-wrapper" />
           <div className="close-button-wrapper">
             <IconButton onClick={handleClick} size="large">
-              <CloseIcon  />
+              <CloseIcon />
             </IconButton>
           </div>
         </div>

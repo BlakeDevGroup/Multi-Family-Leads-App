@@ -7,9 +7,12 @@ import Cover from "../Cover/Cover";
 import MainLayer from "../Layer/Layer";
 import NavBar from "../NavBar/NavBar";
 import "./Owner.css";
+import PropertyAPI from "../../core/property/Property.api";
 import OwnerPage from "./OwnerPage";
+const propertyAPI = new PropertyAPI();
 const ownerAPI = new OwnerAPI();
 import { WebsiteLevelHeader } from "../Headers/WebsiteLevelHeader";
+import { setProperties } from "../../core/property/PropertySlice";
 
 const columns = [
   {
@@ -51,9 +54,9 @@ export default function Owner(props) {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    // propertyAPI.getAll().then((data) => {
-    //   dispatch(setProperties(data));
-    // });
+    propertyAPI.getAll().then((data) => {
+      dispatch(setProperties(data));
+    });
 
     ownerAPI.getAll().then((data) => {
       dispatch(setOwners(data));
