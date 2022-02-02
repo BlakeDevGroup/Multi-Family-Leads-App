@@ -10,7 +10,7 @@ export default function Cover({ isOpen = false, onClickOutside, children }) {
           modal={true}
           position="center"
           animation="slide"
-          onClickOutside={onClickOutside}
+          // onClickOutside={onClickOutside}
         >
           <Close
             style={{

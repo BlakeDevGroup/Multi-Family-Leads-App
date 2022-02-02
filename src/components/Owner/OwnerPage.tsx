@@ -1,4 +1,4 @@
-import { Text, Box, DataTable} from "grommet";
+import { Text, Box, DataTable } from "grommet";
 import PropertyAPI from "../../core/property/Property.api";
 import NoteApi from "../../core/notes/Note.api";
 import OwnerAPI from "../../core/owner/Owner.api";
@@ -7,16 +7,13 @@ import { useDispatch } from "react-redux";
 import { EmailValidationScope } from "../../common/validation/impl/scopes/EmailValidationScope";
 import ValidationBroker from "../../common/validation/impl/ValidationBroker";
 import { ControlledInput } from "../../common/UI/Form/ControlledInput";
-import "./Owner.css"
+import "./Owner.css";
 import { Button } from "@mui/material";
 import { Brand } from "../Brand/Brand";
 import { PhoneNumberInput } from "../../common/UI/Form/PhoneNumberInput";
 const propertyAPI = new PropertyAPI();
 const noteAPI = new NoteApi();
 const ownerAPI = new OwnerAPI();
-
-
-
 
 const columns = [
   {
@@ -78,13 +75,13 @@ export default function OwnerPage({ setOpen, action = "put", data }) {
 
   useEffect(() => {
     const close = (e) => {
-      if(e.keyCode === 27){
-        setOpen(false)
+      if (e.keyCode === 27) {
+        setOpen(false);
       }
-    }
-    window.addEventListener('keydown', close)
-    return () => window.removeEventListener('keydown', close)
-  },[])
+    };
+    window.addEventListener("keydown", close);
+    return () => window.removeEventListener("keydown", close);
+  }, []);
 
   useEffect(() => {
     setName(data?.name);
@@ -95,16 +92,13 @@ export default function OwnerPage({ setOpen, action = "put", data }) {
 
   return (
     <>
-      <div
-        className="owner-page-wrapper"
-      >
-          <div
-          className="header-wrapper">
-            <div className="header-layout">
-              <Brand sizing="owner-styles" />
-              <div className="submit-layout">
-              <Button 
-              className="sumbit-layouts"
+      <div className="owner-page-wrapper">
+        <div className="header-wrapper">
+          <div className="header-layout">
+            <Brand sizing="owner-styles" />
+            <div className="submit-layout">
+              <Button
+                className="sumbit-layouts"
                 variant="contained"
                 color="primary"
                 onClick={(e) => {
@@ -113,11 +107,11 @@ export default function OwnerPage({ setOpen, action = "put", data }) {
               >
                 Submit
               </Button>
-              </div>
             </div>
           </div>
-        
-        <div className="inputs-layout" >
+        </div>
+
+        <div className="inputs-layout">
           <ControlledInput
             label="Name"
             placeholder="Owner Name..."
@@ -130,7 +124,7 @@ export default function OwnerPage({ setOpen, action = "put", data }) {
             onChange={(e) => setEntity(e.target.value)}
           />
         </div>
-        <div className="inputs-layout" style={{marginTop: "15px"}}>
+        <div className="inputs-layout" style={{ marginTop: "15px" }}>
           <ControlledInput
             label="Email"
             placeholder="xxxxx"

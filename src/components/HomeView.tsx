@@ -42,16 +42,16 @@ export default function HomeView(props) {
 
   const dispatch = useDispatch();
   const user = useUser();
-  
+
   useEffect(() => {
     const close = (e) => {
-      if(e.keyCode === 27){
-        props.setOpen(false)
+      if (e.keyCode === 27) {
+        props.setOpen(false);
       }
-    }
-    window.addEventListener('keydown', close)
-  return () => window.removeEventListener('keydown', close)
-},[])
+    };
+    window.addEventListener("keydown", close);
+    return () => window.removeEventListener("keydown", close);
+  }, []);
 
   function handleClick() {
     props.setOpen(false);
