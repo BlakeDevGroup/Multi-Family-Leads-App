@@ -1,5 +1,5 @@
 import PropertyAPI from "../../core/property/Property.api";
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { DataTable, Text, Box } from "grommet";
 import "./DataTable.css";
 import MainLayer from "../Layer/Layer";
@@ -9,6 +9,8 @@ import { setProperties } from "../../core/property/PropertySlice";
 import NoteApi from "../../core/notes/Note.api";
 import { setNotes } from "../../core/notes/NoteSlice";
 import { WebsiteLevelHeader } from "../Headers/WebsiteLevelHeader";
+import PropertyWorkflow from "../PropertiesWorkflow/PropertyWorkflow";
+import Cover from "../Cover/Cover";
 const propertyAPI = new PropertyAPI();
 const noteAPI = new NoteApi();
 
@@ -67,6 +69,8 @@ export default function DataTableComponent(props) {
     return state.properties?.properties;
   });
   const dispatch = useDispatch();
+  const [coverIsOpen, setCoverIsOpen] = useState(false);
+  const [coverComponent, setCoverComponent] = useState<React.ReactNode>();
   const [component, setComponent] = useState(
     <HomeView
       setOpen={setOpen}
@@ -95,10 +99,10 @@ export default function DataTableComponent(props) {
     <>
       <WebsiteLevelHeader
         onOpen={() => {
-          setOpen(true);
-          setComponent(
-            <HomeView setOpen={setOpen} data={{}} action="create" />
-          );
+          setCoverIsOpen(true);
+          setCoverComponent(
+              <PropertyWorkflow />
+            );
         }}
       />
       <Box background="white" margin="2vh">
@@ -117,6 +121,9 @@ export default function DataTableComponent(props) {
         <MainLayer open={open} onClose={() => setOpen(false)}>
           {component}
         </MainLayer>
+        <Cover isOpen={coverIsOpen} onClickOutside={() => setCoverIsOpen(false)}>
+          {coverComponent}
+        </Cover>
       </Box>
     </>
   );

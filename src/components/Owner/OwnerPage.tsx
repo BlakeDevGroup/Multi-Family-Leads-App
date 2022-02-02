@@ -1,19 +1,14 @@
-import { Text, Box, DataTable, Anchor, Header } from "grommet";
+import { Text, Box, DataTable} from "grommet";
 import PropertyAPI from "../../core/property/Property.api";
 import NoteApi from "../../core/notes/Note.api";
 import OwnerAPI from "../../core/owner/Owner.api";
-import { Globe } from "grommet-icons";
 import { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { EmailValidationScope } from "../../common/validation/impl/scopes/EmailValidationScope";
-import { NumericValidationScope } from "../../common/validation/impl/scopes/NumericValidationScope";
 import ValidationBroker from "../../common/validation/impl/ValidationBroker";
 import { ControlledInput } from "../../common/UI/Form/ControlledInput";
-import { setNotes } from "../../core/notes/NoteSlice";
-import { setProperties } from "../../core/property/PropertySlice";
 import "./Owner.css"
 import { Button } from "@mui/material";
-import HomeView from "../HomeView";
 import { Brand } from "../Brand/Brand";
 import { PhoneNumberInput } from "../../common/UI/Form/PhoneNumberInput";
 const propertyAPI = new PropertyAPI();

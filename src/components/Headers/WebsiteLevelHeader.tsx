@@ -29,10 +29,11 @@ export function WebsiteLevelHeader(props) {
         </div>
         <div className="header-links-wrapper">
         <div className="home-link">
-        <Button component={Link} to={'/'} disableRipple size="small" style={{ backgroundColor: 'transparent' }} variant="text">Home</Button>
+        <Button component={Link} to={'/'} disableRipple size="small" style={{ backgroundColor: 'transparent' }} variant="text">Properties</Button>
         </div>
+        ||
         <div className="owner-link">
-        <Button component={Link} to={'/owner'} disableRipple size="small" style={{ backgroundColor: 'transparent'  }} variant="text">Owner</Button>
+        <Button component={Link} to={'/owner'} disableRipple size="small" style={{ backgroundColor: 'transparent'  }} variant="text">Owners</Button>
         </div>
         </div>
       </div>

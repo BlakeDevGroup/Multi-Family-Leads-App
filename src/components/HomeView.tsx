@@ -13,7 +13,7 @@ import "@fontsource/roboto/300.css";
 import "@fontsource/roboto/500.css";
 import CloseIcon from "@mui/icons-material/Close";
 import { Brand } from "./Brand/Brand";
-import { Button, Typography, TextField, IconButton } from "@mui/material";
+import { Button, TextField, IconButton } from "@mui/material";
 import { useDispatch } from "react-redux";
 import SectionTitle from "./Typography/SectionTitle";
 import useUser from "./Routes/useUser";

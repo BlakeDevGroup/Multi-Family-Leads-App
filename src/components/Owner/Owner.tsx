@@ -55,7 +55,6 @@ export default function Owner(props) {
 
     ownerAPI.getAll().then((data) => {
       dispatch(setOwners(data));
-      console.log(data)
     });
   }, []);
  
