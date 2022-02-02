@@ -20,6 +20,8 @@ const noteAPI = new NoteApi();
 const ownerAPI = new OwnerAPI();
 
 
+
+
 const columns = [
   {
     property: "street",
@@ -91,6 +93,16 @@ export default function OwnerPage({ setOpen, action = "put", data }) {
       }}
     />
   );
+
+  useEffect(() => {
+    const close = (e) => {
+      if(e.keyCode === 27){
+        setOpen(false)
+      }
+    }
+    window.addEventListener('keydown', close)
+  return () => window.removeEventListener('keydown', close)
+},[])
 
   useEffect(() => {
     propertyAPI.getAll().then((data) => {
