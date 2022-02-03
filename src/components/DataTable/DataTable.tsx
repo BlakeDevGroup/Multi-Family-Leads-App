@@ -101,8 +101,12 @@ export default function DataTableComponent(props) {
         onOpen={() => {
           setCoverIsOpen(true);
           setCoverComponent(
-              <PropertyWorkflow />
-            );
+            <PropertyWorkflow
+              onConfirm={() => {
+                setCoverIsOpen(false);
+              }}
+            />
+          );
         }}
       />
       <Box background="white" margin="2vh">
@@ -121,7 +125,10 @@ export default function DataTableComponent(props) {
         <MainLayer open={open} onClose={() => setOpen(false)}>
           {component}
         </MainLayer>
-        <Cover isOpen={coverIsOpen} onClickOutside={() => setCoverIsOpen(false)}>
+        <Cover
+          isOpen={coverIsOpen}
+          onClickOutside={() => setCoverIsOpen(false)}
+        >
           {coverComponent}
         </Cover>
       </Box>

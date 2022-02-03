@@ -7,6 +7,7 @@ import Cover from "../Cover/Cover";
 import "./Owner.css";
 import OwnerPage from "./OwnerPage";
 import { WebsiteLevelHeader } from "../Headers/WebsiteLevelHeader";
+import PropertyWorkflow from "../PropertiesWorkflow/PropertyWorkflow";
 
 const ownerAPI = new OwnerAPI();
 const columns = [
@@ -57,21 +58,26 @@ export default function Owner(props) {
       dispatch(setOwners(data));
     });
   }, []);
- 
-  
+
+  useEffect(() => {
+    const close = (e) => {
+      if (e.keyCode === 27) {
+        setOpen(false);
+      }
+    };
+    window.addEventListener("keydown", close);
+    return () => window.removeEventListener("keydown", close);
+  }, []);
+
   return (
     <>
       <WebsiteLevelHeader
         onOpen={() => {
           setOpen(true);
-          setComponent(
-            <OwnerPage setOpen={setOpen} data={{}} action="create" />
-          );
+          setComponent(<PropertyWorkflow />);
         }}
       />
-      <div 
-      className="owner-content"
-      >
+      <div className="owner-content">
         <DataTable
           border={{ side: "bottom", color: "#EEF1F7", size: "small" }}
           paginate={{ size: "medium" }}
