@@ -1,6 +1,10 @@
+import { IconButton } from "@mui/material";
 import { Layer } from "grommet";
 import { Close } from "grommet-icons";
 import { useEffect } from "react";
+import CloseIcon from "@mui/icons-material/Close";
+import "./Cover.css";
+
 export default function Cover({ isOpen = false, onClickOutside, children }) {
   useEffect(() => {
     const close = (e) => {
@@ -23,16 +27,11 @@ export default function Cover({ isOpen = false, onClickOutside, children }) {
           animation="slide"
           // onClickOutside={onClickOutside}
         >
-          <Close
-            style={{
-              position: "absolute",
-              top: "15px",
-              right: "15px",
-              fontSize: "25px",
-              cursor: "pointer",
-            }}
-            onClick={onClickOutside}
-          ></Close>
+          <div className="cover-close-button">
+            <IconButton onClick={onClickOutside} size="large">
+              <CloseIcon />
+            </IconButton>
+          </div>
 
           {children}
         </Layer>

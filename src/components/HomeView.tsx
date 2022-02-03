@@ -74,7 +74,7 @@ export default function HomeView(props) {
   }, [props.data]);
 
   return (
-    <div className="home-view-container">
+    <div className="home-view-container" style={{ position: "relative" }}>
       <div>
         <div className="header-wrapper">
           <Brand sizing="notes-styles" wrapper="logo-wrapper" />
