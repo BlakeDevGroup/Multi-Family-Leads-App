@@ -157,7 +157,6 @@ export default function NoteComponent(props, { propertyId }) {
             <MenuItem
               className="menu__action-button-group"
               onClick={(e) => {
-                // dispatch(deleteNote(props.note));
                 setShowDeleteModal(true);
                 handleClose();
               }}

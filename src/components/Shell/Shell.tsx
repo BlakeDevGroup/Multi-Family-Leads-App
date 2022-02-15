@@ -1,6 +1,5 @@
 import { Main } from "grommet";
 import { useState } from "react";
-import FixedSideBarComponent from "../SideBar/FixedSideBar";
 import "./shell.css";
 
 export default function Shell({ view }) {

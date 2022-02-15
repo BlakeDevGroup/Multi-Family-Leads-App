@@ -50,12 +50,12 @@ export default function Owner(props) {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    // propertyAPI.getAll().then((data) => {
-    //   dispatch(setProperties(data));
-    // });
-
     ownerAPI.getAll().then((data) => {
       dispatch(setOwners(data));
+    });
+
+    ownerAPI.getProperties("922").then((data) => {
+      console.log(data);
     });
   }, []);
 

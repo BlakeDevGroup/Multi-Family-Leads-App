@@ -11,6 +11,8 @@ import "./Owner.css";
 import { Button } from "@mui/material";
 import { Brand } from "../Brand/Brand";
 import { PhoneNumberInput } from "../../common/UI/Form/PhoneNumberInput";
+import { Owner } from "../../core/owner/Owner";
+import { Property } from "../../core/property/Property";
 const propertyAPI = new PropertyAPI();
 const noteAPI = new NoteApi();
 const ownerAPI = new OwnerAPI();
@@ -66,11 +68,23 @@ const testData = [
     units: "50",
   },
 ];
-export default function OwnerPage({ setOpen, action = "put", data }) {
+
+type OwnerPageProps = {
+  setOpen: Function;
+  action?: string;
+  data: Owner;
+};
+
+export default function OwnerPage({
+  setOpen,
+  action = "put",
+  data,
+}: OwnerPageProps) {
   const [name, setName] = useState("");
   const [entity, setEntity] = useState("");
   const [email, setEmail] = useState("");
   const [number, setNumber] = useState("");
+  const [ownerProperties, setOwnerProperties] = useState<Property[]>();
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -88,6 +102,13 @@ export default function OwnerPage({ setOpen, action = "put", data }) {
     setEntity(data?.entity);
     setEmail(data?.email);
     setNumber(data?.number);
+  }, [data]);
+
+  useEffect(() => {
+    console.log(data);
+    ownerAPI.getProperties(data?.id).then((data) => {
+      setOwnerProperties(data);
+    });
   }, [data]);
 
   return (
@@ -161,13 +182,7 @@ export default function OwnerPage({ setOpen, action = "put", data }) {
               border={{ side: "bottom", color: "#EEF1F7", size: "small" }}
               paginate={{ size: "medium" }}
               columns={columns}
-              data={testData}
-              // onClickRow={({ datum }) => {
-              //   setOpenLayer(true);
-              //   setComponent(
-              //     <HomeView setOpen={setOpen} data={datum} action="put" />
-              //   );
-              // }}
+              data={ownerProperties}
             ></DataTable>
           </Box>
         </Box>

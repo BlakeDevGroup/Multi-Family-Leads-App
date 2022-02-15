@@ -57,4 +57,12 @@ export default class OwnerQuery implements IQuery {
               result.data
             );
           }
+
+          async getPropertiesByOwnerId(owner_id: string): Promise<any> {
+            const result = await this.query.get(`/${owner_id}/properties`);
+            return MessageService.sendSuccess(
+              `Successfully retrieved properties by owner: ${owner_id}`,
+              result.data
+            ); 
+          }
 }

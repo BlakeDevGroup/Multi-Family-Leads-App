@@ -16,12 +16,12 @@ const noteAPI = new NoteApi();
 
 const columns = [
   {
-    property: "owner_name",
+    property: "name",
     header: <Text color="#99A3C0">Name</Text>,
     search: true,
   },
   {
-    property: "owner_entity",
+    property: "entity",
     header: <Text color="#99A3C0">Entity</Text>,
     search: true,
   },
@@ -52,12 +52,12 @@ const columns = [
   },
 
   {
-    property: "owner_number",
+    property: "number",
     header: <Text color="#99A3C0">Phone Number</Text>,
     search: true,
   },
   {
-    property: "owner_email",
+    property: "email",
     header: <Text color="#99A3C0">Email</Text>,
     search: true,
   },
