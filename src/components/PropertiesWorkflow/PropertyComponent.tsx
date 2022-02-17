@@ -2,6 +2,7 @@ import AdapterDateFns from "@mui/lab/AdapterDateFns";
 import DatePicker from "@mui/lab/DatePicker";
 import LocalizationProvider from "@mui/lab/LocalizationProvider";
 import { Button, TextField, Typography } from "@mui/material";
+import { useEffect, useState } from "react";
 import { ControlledInput } from "../../common/UI/Form/ControlledInput";
 import { NumericValidationScope } from "../../common/validation/impl/scopes/NumericValidationScope";
 import ValidationBroker from "../../common/validation/impl/ValidationBroker";
@@ -12,12 +13,48 @@ const propertyAPI = new PropertyAPI();
 type PropertyComponentProps = {
   onNext: Function;
   onBack: Function;
+  setStreet: Function;
+  street: string;
+  setCity: Function;
+  city: string;
+  setState: Function;
+  state: string;
+  setZipcode: Function;
+  zipcode: string;
+  setUnits: Function;
+  units: string;
+  setPurchaseDate: Function;
+  purchaseDate: Date | null;
+  setPurchasePrice: Function;
+  purchasePrice: string;
 };
 
 export default function PropertyComponent({
   onNext,
   onBack,
+  setStreet,
+  street,
+  setCity,
+  city,
+  setState,
+  state,
+  setZipcode,
+  zipcode,
+  setUnits,
+  units,
+  setPurchaseDate,
+  purchaseDate,
+  setPurchasePrice,
+  purchasePrice,
 }: PropertyComponentProps) {
+  const [buttonDisabled, setButtonDisabled] = useState(true);
+
+  useEffect(() => {
+    if (street && city && state && zipcode) {
+      setButtonDisabled(false);
+    } else setButtonDisabled(true);
+  });
+
   return (
     <div>
       <div className="name-number-email">
@@ -27,29 +64,29 @@ export default function PropertyComponent({
             required="required"
             label="Street"
             placeholder="123 Main St"
-            // value={street}
-            // onChange={(e) => setStreet(e.target.value)}
+            value={street}
+            onChange={(e) => setStreet(e.target.value)}
           ></ControlledInput>
           <ControlledInput
             required="required"
             label="City"
-            // value={city}
-            // onChange={(e) => setCity(e.target.value)}
+            value={city}
+            onChange={(e) => setCity(e.target.value)}
           ></ControlledInput>
         </div>
         <div className="property-component-2-row">
           <ControlledInput
             required="required"
             label="State"
-            // value={state}
-            // onChange={(e) => setState(e.target.value)}
+            value={state}
+            onChange={(e) => setState(e.target.value)}
           ></ControlledInput>
           <ControlledInput
             required="required"
             label="Zipcode"
             placeholder="xxxxx"
-            // value={zipCode}
-            // onChange={(e) => setZipCode(e.target.value)}
+            value={zipcode}
+            onChange={(e) => setZipcode(e.target.value)}
             validationFn={(value) =>
               ValidationBroker.validate(new NumericValidationScope(value))
             }
@@ -61,8 +98,8 @@ export default function PropertyComponent({
           <div>
             <ControlledInput
               label="Units"
-              // value={units}
-              // onChange={(e) => setUnits(e.target.value)}
+              value={units}
+              onChange={(e) => setUnits(e.target.value)}
               validationFn={(value) =>
                 ValidationBroker.validate(new NumericValidationScope(value))
               }
@@ -74,8 +111,8 @@ export default function PropertyComponent({
               label="Purchase price"
               type="numeric"
               placeholder="xxxxx"
-              // value={purchasePrice}
-              // onChange={(e) => setPurchasePrice(e.target.value)}
+              value={purchasePrice}
+              onChange={(e) => setPurchasePrice(e.target.value)}
               validationFn={(value) =>
                 ValidationBroker.validate(new NumericValidationScope(value))
               }
@@ -85,16 +122,11 @@ export default function PropertyComponent({
             <LocalizationProvider dateAdapter={AdapterDateFns}>
               <DatePicker
                 label="Purchase date"
-                value={""}
-                onChange={() => {}}
-                //   value={purchaseDate}
-                //   onChange={(newValue) => {
-                //     if (typeof newValue == "string") {
-                //       setPurchaseDate(newValue);
-                //     } else {
-                //       setPurchaseDate("");
-                //     }
-                //   }}
+                inputFormat="MM/dd/yyyy"
+                value={purchaseDate}
+                onChange={(newValue: Date | null) => {
+                  setPurchaseDate(newValue);
+                }}
                 renderInput={(params) => <TextField {...params} />}
               />
             </LocalizationProvider>
@@ -115,6 +147,7 @@ export default function PropertyComponent({
               </Button>
               <Button
                 disableRipple
+                disabled={buttonDisabled}
                 variant="contained"
                 onClick={() => {
                   onNext();

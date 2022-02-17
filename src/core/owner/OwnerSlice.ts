@@ -5,7 +5,7 @@ const api = new OwnerAPI();
 
 export const addOwner = createAsyncThunk(
   "owner/add",
-  async (data: any, thunkAPI) => {
+  async (data: Owner, thunkAPI) => {
     const result = await api.create(data);
 
     if (result.data.error) return;
@@ -16,12 +16,13 @@ export const addOwner = createAsyncThunk(
 
 export const updateOwner = createAsyncThunk(
   "owner/update",
-  async (data: any, thunkAPI) => {
-    const result = await api.put(data.owner_id, data);
+  async (data: Owner, thunkAPI) => {
+    if (data?.id) {
+      const result = await api.put(data.id, data);
+      if (result.data.error) return;
 
-    if (result.data.error) return;
-
-    return result.data;
+      return result.data;
+    }
   }
 );
 

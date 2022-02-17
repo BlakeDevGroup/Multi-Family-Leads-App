@@ -1,7 +1,7 @@
 export type Owner = {
   name: string;
-  number: string;
+  phone_number: string;
   email: string;
-  id: string;
+  id?: string;
   entity: string;
 };

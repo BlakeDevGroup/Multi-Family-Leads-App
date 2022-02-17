@@ -1,7 +1,7 @@
 import AdapterDateFns from "@mui/lab/AdapterDateFns";
 import DatePicker from "@mui/lab/DatePicker";
 import LocalizationProvider from "@mui/lab/LocalizationProvider";
-import { Divider, Typography, Button, TextField } from "@mui/material";
+import { Button, TextField } from "@mui/material";
 import { ControlledInput } from "../../common/UI/Form/ControlledInput";
 import { PhoneNumberInput } from "../../common/UI/Form/PhoneNumberInput";
 import { EmailValidationScope } from "../../common/validation/impl/scopes/EmailValidationScope";
@@ -13,11 +13,33 @@ import SectionTitle from "../Typography/SectionTitle";
 type ConfirmationComponentProps = {
   onConfirm: Function;
   onBack: Function;
+  newOwnerName: string;
+  entity: string;
+  email: string;
+  phone: string;
+  street: string;
+  city: string;
+  state: string;
+  zipcode: string;
+  purchasePrice: string;
+  purchaseDate: Date | null;
+  units: string;
 };
 
 export default function ConfirmationComponent({
   onConfirm,
   onBack,
+  newOwnerName,
+  entity,
+  email,
+  phone,
+  street,
+  city,
+  state,
+  zipcode,
+  purchaseDate,
+  purchasePrice,
+  units,
 }: ConfirmationComponentProps) {
   return (
     <div>
@@ -27,14 +49,12 @@ export default function ConfirmationComponent({
           disabled
           label="Name"
           placeholder="Owner Name..."
-          //   value={name}
-          //   onChange={(e) => setName(e.target.value)}
+          value={newOwnerName}
         ></ControlledInput>
         <ControlledInput
           disabled
           label="Entity"
-          //   value={entity}
-          //   onChange={(e) => setEntity(e.target.value)}
+          value={entity}
         ></ControlledInput>
       </div>
       <div className="input-styles">
@@ -42,8 +62,7 @@ export default function ConfirmationComponent({
           disabled
           label="Email"
           placeholder="xxxxx"
-          // value={email}
-          // onChange={(e) => setEmail(e.target.value)}
+          value={email}
           validationFn={(value) =>
             ValidationBroker.validate(new EmailValidationScope(value))
           }
@@ -52,8 +71,7 @@ export default function ConfirmationComponent({
         <PhoneNumberInput
           text="Phone Number"
           disabled
-          //   value={number}
-          //   onChange={setNumber}
+          value={phone}
         ></PhoneNumberInput>
       </div>
       <SectionTitle label={"Property Address"} />
@@ -62,29 +80,18 @@ export default function ConfirmationComponent({
           disabled
           label="Street"
           placeholder="123 Main St"
-          // value={street}
-          // onChange={(e) => setStreet(e.target.value)}
+          value={street}
         ></ControlledInput>
-        <ControlledInput
-          disabled
-          label="City"
-          // value={city}
-          // onChange={(e) => setCity(e.target.value)}
-        ></ControlledInput>
+        <ControlledInput disabled label="City" value={city}></ControlledInput>
       </div>
       <div className="property-component-2-row">
-        <ControlledInput
-          disabled
-          label="State"
-          // value={state}
-          // onChange={(e) => setState(e.target.value)}
-        ></ControlledInput>
+        <ControlledInput disabled label="State" value={state}></ControlledInput>
         <ControlledInput
           disabled
           label="Zipcode"
           placeholder="xxxxx"
-          // value={zipCode}
-          // onChange={(e) => setZipCode(e.target.value)}
+          value={zipcode}
+          l
           validationFn={(value) =>
             ValidationBroker.validate(new NumericValidationScope(value))
           }
@@ -97,8 +104,7 @@ export default function ConfirmationComponent({
           <ControlledInput
             disabled
             label="Units"
-            // value={units}
-            // onChange={(e) => setUnits(e.target.value)}
+            value={units}
             validationFn={(value) =>
               ValidationBroker.validate(new NumericValidationScope(value))
             }
@@ -111,8 +117,7 @@ export default function ConfirmationComponent({
             label="Purchase price"
             type="numeric"
             placeholder="xxxxx"
-            // value={purchasePrice}
-            // onChange={(e) => setPurchasePrice(e.target.value)}
+            value={purchasePrice}
             validationFn={(value) =>
               ValidationBroker.validate(new NumericValidationScope(value))
             }
@@ -121,9 +126,9 @@ export default function ConfirmationComponent({
 
           <LocalizationProvider dateAdapter={AdapterDateFns}>
             <DatePicker
-              readOnly
+              disabled
               label="Purchase date"
-              value={""}
+              value={purchaseDate}
               onChange={() => {}}
               //   value={purchaseDate}
               //   onChange={(newValue) => {

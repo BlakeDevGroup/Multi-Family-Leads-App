@@ -101,14 +101,17 @@ export default function OwnerPage({
     setName(data?.name);
     setEntity(data?.entity);
     setEmail(data?.email);
-    setNumber(data?.number);
+    setNumber(data?.phone_number);
   }, [data]);
 
   useEffect(() => {
     console.log(data);
-    ownerAPI.getProperties(data?.id).then((data) => {
-      setOwnerProperties(data);
-    });
+    if(data?.id) {
+      ownerAPI.getProperties(data.id).then((data) => {
+        setOwnerProperties(data);
+      });
+    };
+   
   }, [data]);
 
   return (

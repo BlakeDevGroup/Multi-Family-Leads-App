@@ -1,6 +1,5 @@
 import { IconButton } from "@mui/material";
 import { Layer } from "grommet";
-import { Close } from "grommet-icons";
 import { useEffect } from "react";
 import CloseIcon from "@mui/icons-material/Close";
 import "./Cover.css";

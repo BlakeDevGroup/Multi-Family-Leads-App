@@ -16,20 +16,53 @@ import ValidationBroker from "../../common/validation/impl/ValidationBroker";
 import { setOwners } from "../../core/owner/OwnerSlice";
 import { EmailValidationScope } from "../../common/validation/impl/scopes/EmailValidationScope";
 import { SelectChangeEvent } from "@mui/material/Select";
-import WorkflowConfirmation from "../../assets/WorkflowConfirmation.svg";
-import OwnerWoman from "../../assets/OwnerWoman.svg";
-import ProfileInfo from "../../assets/ProfileInfo.svg";
+import { Owner } from "../../core/owner/Owner";
 
 const ownerAPI = new OwnerAPI();
 type OwnerComponentProps = {
   onNext: Function;
+  setNewOwnerName: Function;
+  newOwnerName: string;
+  setEntity: Function;
+  entity: string;
+  setEmail: Function;
+  email: string;
+  setPhone: Function;
+  phone: string;
+  setOwnerId: Function;
+  ownerId: string;
 };
 
-export default function OwnerComponent({ onNext }: OwnerComponentProps) {
+export default function OwnerComponent({
+  onNext,
+  setNewOwnerName,
+  newOwnerName,
+  setEntity,
+  entity,
+  setEmail,
+  email,
+  setPhone,
+  phone,
+  setOwnerId,
+  ownerId,
+}: OwnerComponentProps) {
   const [fieldDisabled, setFieldDisabled] = useState(false);
+  const [dropdownDisabled, setDropdownDisabled] = useState(false);
   const [owner, setOwner] = useState("");
+  const [buttonDisabled, setButtonDisabled] = useState(true);
+  // const [newOwnerName, setNewOwnerName] = useState("");
 
-  const owners = useSelector((state: any) => {
+  useEffect(() => {
+    if (!newOwnerName) {
+      setButtonDisabled(true);
+      setDropdownDisabled(false);
+    } else {
+      setButtonDisabled(false);
+      setDropdownDisabled(true);
+    }
+  }, [newOwnerName]);
+
+  const owners: Owner[] = useSelector((state: any) => {
     return state.owners?.owners;
   });
   const dispatch = useDispatch();
@@ -44,12 +77,21 @@ export default function OwnerComponent({ onNext }: OwnerComponentProps) {
     <FormControl sx={{ m: 6, minWidth: 350 }}>
       <Typography style={{ margin: "0 0 10px 0" }}>Select an owner:</Typography>
       <Select
-        onChange={(event: SelectChangeEvent) => {
-          setOwner(event.target.value as string);
-          console.log(event.target.value);
-          event.target.value == ""
-            ? setFieldDisabled(false)
-            : setFieldDisabled(true);
+        disabled={dropdownDisabled}
+        onChange={({ target: { value } }: SelectChangeEvent) => {
+          setOwner(value);
+
+          setOwnerId(
+            owners.filter((owner) => {
+              return owner.name == value;
+            })[0]?.id
+          );
+
+          if (value == "") {
+            setFieldDisabled(false), setButtonDisabled(true);
+          } else {
+            setFieldDisabled(true), setButtonDisabled(false);
+          }
         }}
       >
         <MenuItem value="">
@@ -74,14 +116,16 @@ export default function OwnerComponent({ onNext }: OwnerComponentProps) {
             label="Name"
             placeholder="Owner Name..."
             disabled={fieldDisabled}
-            //   value={name}
-            //   onChange={(e) => setName(e.target.value)}
+            value={newOwnerName}
+            onChange={(e) => {
+              setNewOwnerName(e.target.value);
+            }}
           ></ControlledInput>
           <ControlledInput
             label="Entity"
             disabled={fieldDisabled}
-            //   value={entity}
-            //   onChange={(e) => setEntity(e.target.value)}
+            value={entity}
+            onChange={(e) => setEntity(e.target.value)}
           ></ControlledInput>
         </div>
         <div className="input-styles">
@@ -89,8 +133,8 @@ export default function OwnerComponent({ onNext }: OwnerComponentProps) {
             disabled={fieldDisabled}
             label="Email"
             placeholder="xxxxx"
-            // value={email}
-            // onChange={(e) => setEmail(e.target.value)}
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
             validationFn={(value) =>
               ValidationBroker.validate(new EmailValidationScope(value))
             }
@@ -99,8 +143,8 @@ export default function OwnerComponent({ onNext }: OwnerComponentProps) {
           <PhoneNumberInput
             disabled={fieldDisabled}
             text="Phone Number"
-            //   value={number}
-            //   onChange={setNumber}
+            value={phone}
+            onChange={setPhone}
           ></PhoneNumberInput>
         </div>
         <div className="workflow-required">
@@ -108,11 +152,9 @@ export default function OwnerComponent({ onNext }: OwnerComponentProps) {
         </div>
         <div className="workflow-button">
           <div className="workflow-button-container">
-            {/* <Button variant="contained" color="secondary">
-                Back
-              </Button> */}
             <Button
               disableRipple
+              disabled={buttonDisabled}
               variant="contained"
               onClick={() => {
                 onNext();

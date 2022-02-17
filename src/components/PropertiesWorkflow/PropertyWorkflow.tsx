@@ -4,7 +4,21 @@ import NavigateNextRoundedIcon from "@mui/icons-material/NavigateNextRounded";
 import OwnerComponent from "./OwnerComponent";
 import PropertyComponent from "./PropertyComponent";
 import ConfirmationComponent from "./ConfirmationComponent";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { addProperty } from "../../core/property/PropertySlice";
+import { addOwner } from "../../core/owner/OwnerSlice";
+import { useDispatch } from "react-redux";
+import { useCallback } from "react";
+import { AsyncThunkAction, unwrapResult } from "@reduxjs/toolkit";
+
+// export const useUnwrapAsyncThunk = () => {
+//   const dispatch = useDispatch();
+//   return useCallback(
+//     <R extends any>(asyncThunk: AsyncThunkAction<R, any, any>): Promise<R> =>
+//       dispatch(asyncThunk).then(unwrapResult),
+//     [dispatch]
+//   );
+// };
 
 type PropertyWorkflowProps = {
   onConfirm?: Function;
@@ -12,7 +26,38 @@ type PropertyWorkflowProps = {
 
 export default function PropertyWorkflow({ onConfirm }: PropertyWorkflowProps) {
   const [activePage, setActivePage] = useState("owner");
+  const [newOwnerName, setNewOwnerName] = useState("");
+  const [entity, setEntity] = useState("");
+  const [email, setEmail] = useState("");
+  const [phone, setPhone] = useState("");
+  const [street, setStreet] = useState("");
+  const [city, setCity] = useState("");
+  const [ownerId, setOwnerId] = useState("");
+  const [state, setState] = useState("");
+  const [zipcode, setZipcode] = useState("");
+  const [units, setUnits] = useState("");
+  const [purchaseDate, setPurchaseDate] = useState<Date | null>(new Date());
+  const [purchasePrice, setPurchasePrice] = useState("");
+  const dispatch = useDispatch();
 
+  const completeWorkflow = async () => {
+    /// IF OWNER_ID is FALSE, FIRST CREATE OWNER
+    if (!ownerId) {
+      // const newOwnerId = dispatch(
+      //   addOwner({
+      //     name: newOwnerName,
+      //     entity: entity,
+      //     email: email,
+      //     phone_number: phone,
+      //   })
+      // );
+    }
+
+    /// CREATE PROPERTY
+  };
+  useEffect(() => {
+    console.log(ownerId);
+  }, [ownerId]);
   const ActiveComponent = (value) => {
     if (value === "owner") {
       return (
@@ -20,6 +65,16 @@ export default function PropertyWorkflow({ onConfirm }: PropertyWorkflowProps) {
           onNext={() => {
             setActivePage("property");
           }}
+          setNewOwnerName={setNewOwnerName}
+          newOwnerName={newOwnerName}
+          setEntity={setEntity}
+          entity={entity}
+          setEmail={setEmail}
+          email={email}
+          setPhone={setPhone}
+          phone={phone}
+          setOwnerId={setOwnerId}
+          ownerId={ownerId}
         />
       );
     } else if (value === "property") {
@@ -31,12 +86,38 @@ export default function PropertyWorkflow({ onConfirm }: PropertyWorkflowProps) {
           onBack={() => {
             setActivePage("owner");
           }}
+          setStreet={setStreet}
+          street={street}
+          setCity={setCity}
+          city={city}
+          setState={setState}
+          state={state}
+          setZipcode={setZipcode}
+          zipcode={zipcode}
+          setPurchaseDate={setPurchaseDate}
+          purchaseDate={purchaseDate}
+          setUnits={setUnits}
+          units={units}
+          setPurchasePrice={setPurchasePrice}
+          purchasePrice={purchasePrice}
         />
       );
     } else if (value === "confirmation") {
       return (
         <ConfirmationComponent
+          newOwnerName={newOwnerName}
+          entity={entity}
+          email={email}
+          phone={phone}
+          street={street}
+          city={city}
+          state={state}
+          zipcode={zipcode}
+          purchasePrice={purchasePrice}
+          purchaseDate={purchaseDate}
+          units={units}
           onConfirm={() => {
+            completeWorkflow();
             if (onConfirm) onConfirm();
           }}
           onBack={() => {
