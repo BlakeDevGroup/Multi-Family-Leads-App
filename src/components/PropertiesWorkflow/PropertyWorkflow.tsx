@@ -11,6 +11,7 @@ import { useDispatch } from "react-redux";
 import { useCallback } from "react";
 import { AsyncThunkAction, unwrapResult } from "@reduxjs/toolkit";
 import { useAppDispatch } from "../../store";
+import { Owner } from "../../core/owner/Owner";
 
 // export const useUnwrapAsyncThunk = () => {
 //   const dispatch = useDispatch();
@@ -39,6 +40,7 @@ export default function PropertyWorkflow({ onConfirm }: PropertyWorkflowProps) {
   const [units, setUnits] = useState("");
   const [purchaseDate, setPurchaseDate] = useState<Date | null>(new Date());
   const [purchasePrice, setPurchasePrice] = useState("");
+  const [currentOwner, setCurrentOwner] = useState<Owner>();
   const dispatch = useAppDispatch();
 
   const completeWorkflow = async () => {
@@ -88,6 +90,8 @@ export default function PropertyWorkflow({ onConfirm }: PropertyWorkflowProps) {
           phone={phone}
           setOwnerId={setOwnerId}
           ownerId={ownerId}
+          currentOwner={currentOwner}
+          setCurrentOwner={setCurrentOwner}
         />
       );
     } else if (value === "property") {
@@ -129,6 +133,7 @@ export default function PropertyWorkflow({ onConfirm }: PropertyWorkflowProps) {
           purchasePrice={purchasePrice}
           purchaseDate={purchaseDate}
           units={units}
+          currentOwner={currentOwner}
           onConfirm={() => {
             completeWorkflow();
             if (onConfirm) onConfirm();

@@ -2,11 +2,13 @@ import AdapterDateFns from "@mui/lab/AdapterDateFns";
 import DatePicker from "@mui/lab/DatePicker";
 import LocalizationProvider from "@mui/lab/LocalizationProvider";
 import { Button, TextField } from "@mui/material";
+import { useEffect } from "react";
 import { ControlledInput } from "../../common/UI/Form/ControlledInput";
 import { PhoneNumberInput } from "../../common/UI/Form/PhoneNumberInput";
 import { EmailValidationScope } from "../../common/validation/impl/scopes/EmailValidationScope";
 import { NumericValidationScope } from "../../common/validation/impl/scopes/NumericValidationScope";
 import ValidationBroker from "../../common/validation/impl/ValidationBroker";
+import { Owner } from "../../core/owner/Owner";
 import "../Notes/NotesComponent.css";
 import SectionTitle from "../Typography/SectionTitle";
 
@@ -24,6 +26,7 @@ type ConfirmationComponentProps = {
   purchasePrice: string;
   purchaseDate: Date | null;
   units: string;
+  currentOwner: Owner | undefined;
 };
 
 export default function ConfirmationComponent({
@@ -40,7 +43,11 @@ export default function ConfirmationComponent({
   purchaseDate,
   purchasePrice,
   units,
+  currentOwner,
 }: ConfirmationComponentProps) {
+  useEffect(() => {
+    console.log(currentOwner);
+  }, [currentOwner]);
   return (
     <div>
       <SectionTitle label={"Owner Details"} />
@@ -49,12 +56,12 @@ export default function ConfirmationComponent({
           disabled
           label="Name"
           placeholder="Owner Name..."
-          value={newOwnerName}
+          value={newOwnerName ? newOwnerName : currentOwner?.name}
         ></ControlledInput>
         <ControlledInput
           disabled
           label="Entity"
-          value={entity}
+          value={newOwnerName ? entity : currentOwner?.entity}
         ></ControlledInput>
       </div>
       <div className="input-styles">
@@ -62,7 +69,7 @@ export default function ConfirmationComponent({
           disabled
           label="Email"
           placeholder="xxxxx"
-          value={email}
+          value={newOwnerName ? email : currentOwner?.email}
           validationFn={(value) =>
             ValidationBroker.validate(new EmailValidationScope(value))
           }
@@ -71,7 +78,7 @@ export default function ConfirmationComponent({
         <PhoneNumberInput
           text="Phone Number"
           disabled
-          value={phone}
+          value={newOwnerName ? phone : currentOwner?.phone_number}
         ></PhoneNumberInput>
       </div>
       <SectionTitle label={"Property Address"} />
@@ -130,14 +137,6 @@ export default function ConfirmationComponent({
               label="Purchase date"
               value={purchaseDate}
               onChange={() => {}}
-              //   value={purchaseDate}
-              //   onChange={(newValue) => {
-              //     if (typeof newValue == "string") {
-              //       setPurchaseDate(newValue);
-              //     } else {
-              //       setPurchaseDate("");
-              //     }
-              //   }}
               renderInput={(params) => <TextField {...params} />}
             />
           </LocalizationProvider>

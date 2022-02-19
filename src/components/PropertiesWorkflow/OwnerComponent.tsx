@@ -31,6 +31,8 @@ type OwnerComponentProps = {
   phone: string;
   setOwnerId: Function;
   ownerId: string;
+  setCurrentOwner: Function;
+  currentOwner: Owner | undefined;
 };
 
 export default function OwnerComponent({
@@ -45,6 +47,8 @@ export default function OwnerComponent({
   phone,
   setOwnerId,
   ownerId,
+  currentOwner,
+  setCurrentOwner,
 }: OwnerComponentProps) {
   const [fieldDisabled, setFieldDisabled] = useState(false);
   const [dropdownDisabled, setDropdownDisabled] = useState(false);
@@ -53,7 +57,7 @@ export default function OwnerComponent({
   // const [newOwnerName, setNewOwnerName] = useState("");
 
   useEffect(() => {
-    if (!newOwnerName) {
+    if (!newOwnerName && !phone) {
       setButtonDisabled(true);
       setDropdownDisabled(false);
     } else {
@@ -61,6 +65,8 @@ export default function OwnerComponent({
       setDropdownDisabled(true);
     }
   }, [newOwnerName]);
+
+  console.log(currentOwner);
 
   const owners: Owner[] = useSelector((state: any) => {
     return state.owners?.owners
@@ -95,6 +101,7 @@ export default function OwnerComponent({
         onChange={(event: any, value: Owner | null) => {
           // console.log(value);
           setOwnerValue(value);
+          setCurrentOwner(value);
           if (!value) {
             setButtonDisabled(true);
             setFieldDisabled(false);
@@ -123,6 +130,7 @@ export default function OwnerComponent({
             value={newOwnerName}
             onChange={(e) => {
               setNewOwnerName(e.target.value);
+              setCurrentOwner({});
             }}
           ></ControlledInput>
           <ControlledInput
