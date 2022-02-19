@@ -1,6 +1,4 @@
 import {
-  MenuItem,
-  Select,
   FormControl,
   Typography,
   Button,
@@ -50,7 +48,7 @@ export default function OwnerComponent({
 }: OwnerComponentProps) {
   const [fieldDisabled, setFieldDisabled] = useState(false);
   const [dropdownDisabled, setDropdownDisabled] = useState(false);
-  const [owner, setOwner] = useState("");
+  const [ownerValue, setOwnerValue] = useState<Owner | null>();
   const [buttonDisabled, setButtonDisabled] = useState(true);
   // const [newOwnerName, setNewOwnerName] = useState("");
 
@@ -88,38 +86,27 @@ export default function OwnerComponent({
         options={owners}
         id="auto-complete"
         autoComplete
+        disabled={dropdownDisabled}
+        value={ownerValue}
         includeInputInList
         renderInput={(params) => (
           <TextField {...params} label="autoComplete" variant="standard" />
         )}
-      />
-      {/* <Select
-        disabled={dropdownDisabled}
-        onChange={({ target: { value } }: SelectChangeEvent) => {
-          setOwner(value);
-
-          setOwnerId(
-            owners.filter((owner) => {
-              return owner.name == value;
-            })[0]?.id
-          );
-
-          if (value == "") {
-            setFieldDisabled(false), setButtonDisabled(true);
+        onChange={(event: any, value: Owner | null) => {
+          // console.log(value);
+          setOwnerValue(value);
+          if (!value) {
+            setButtonDisabled(true);
+            setFieldDisabled(false);
           } else {
-            setFieldDisabled(true), setButtonDisabled(false);
+            setEntity("");
+            setEmail("");
+            setPhone("");
+            setButtonDisabled(false);
+            setFieldDisabled(true);
           }
         }}
-      >
-        <MenuItem value="">
-          <em>None</em>
-        </MenuItem>
-        {owners.map((owner) => (
-          <MenuItem key={owner.id} value={owner.name}>
-            {owner.name}
-          </MenuItem>
-        ))}
-      </Select> */}
+      />
       <div className="divider-container">
         <Divider>
           <Chip label="or" />
@@ -159,6 +146,7 @@ export default function OwnerComponent({
           ></ControlledInput>
           <PhoneNumberInput
             disabled={fieldDisabled}
+            required
             text="Phone Number"
             value={phone}
             onChange={setPhone}
