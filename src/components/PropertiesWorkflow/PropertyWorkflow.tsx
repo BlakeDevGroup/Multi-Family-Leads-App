@@ -10,6 +10,7 @@ import { addOwner } from "../../core/owner/OwnerSlice";
 import { useDispatch } from "react-redux";
 import { useCallback } from "react";
 import { AsyncThunkAction, unwrapResult } from "@reduxjs/toolkit";
+import { useAppDispatch } from "../../store";
 
 // export const useUnwrapAsyncThunk = () => {
 //   const dispatch = useDispatch();
@@ -38,22 +39,34 @@ export default function PropertyWorkflow({ onConfirm }: PropertyWorkflowProps) {
   const [units, setUnits] = useState("");
   const [purchaseDate, setPurchaseDate] = useState<Date | null>(new Date());
   const [purchasePrice, setPurchasePrice] = useState("");
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
   const completeWorkflow = async () => {
     /// IF OWNER_ID is FALSE, FIRST CREATE OWNER
+    let owner_id;
     if (!ownerId) {
-      // const newOwnerId = dispatch(
-      //   addOwner({
-      //     name: newOwnerName,
-      //     entity: entity,
-      //     email: email,
-      //     phone_number: phone,
-      //   })
-      // );
+      const payload = await dispatch(
+        addOwner({
+          name: newOwnerName,
+          entity: entity,
+          email: email,
+          phone_number: phone,
+        })
+      );
+      owner_id = payload.payload.id;
+    } else {
+      owner_id = ownerId;
     }
 
-    /// CREATE PROPERTY
+    dispatch(
+      addProperty({
+        city: city,
+        street: street,
+        state: state,
+        zip_code: zipcode,
+        owner_id: owner_id,
+      })
+    );
   };
   useEffect(() => {
     console.log(ownerId);

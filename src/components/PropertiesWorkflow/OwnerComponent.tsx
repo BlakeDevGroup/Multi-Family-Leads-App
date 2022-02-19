@@ -6,6 +6,8 @@ import {
   Button,
   Chip,
   Divider,
+  Autocomplete,
+  TextField,
 } from "@mui/material";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -63,7 +65,13 @@ export default function OwnerComponent({
   }, [newOwnerName]);
 
   const owners: Owner[] = useSelector((state: any) => {
-    return state.owners?.owners;
+    return state.owners?.owners
+      .filter((owner: Owner) => {
+        return !!owner.name;
+      })
+      .map((owner: Owner) => {
+        return Object.assign({}, owner, { label: owner.name });
+      });
   });
   const dispatch = useDispatch();
 
@@ -76,7 +84,16 @@ export default function OwnerComponent({
   return (
     <FormControl sx={{ m: 6, minWidth: 350 }}>
       <Typography style={{ margin: "0 0 10px 0" }}>Select an owner:</Typography>
-      <Select
+      <Autocomplete
+        options={owners}
+        id="auto-complete"
+        autoComplete
+        includeInputInList
+        renderInput={(params) => (
+          <TextField {...params} label="autoComplete" variant="standard" />
+        )}
+      />
+      {/* <Select
         disabled={dropdownDisabled}
         onChange={({ target: { value } }: SelectChangeEvent) => {
           setOwner(value);
@@ -102,7 +119,7 @@ export default function OwnerComponent({
             {owner.name}
           </MenuItem>
         ))}
-      </Select>
+      </Select> */}
       <div className="divider-container">
         <Divider>
           <Chip label="or" />

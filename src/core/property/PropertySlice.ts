@@ -6,7 +6,7 @@ const api = new PropertyAPI();
 
 export const addProperty = createAsyncThunk(
   "property/add",
-  async (data: any, thunkAPI) => {
+  async (data: Property, thunkAPI) => {
     const result = await api.create(data);
 
     if (result.data.error) return;

@@ -37,7 +37,7 @@ export default function HomeView(props) {
   const [Notes, setNotes] = useState("");
   const [id, setId] = useState("");
   const [purchasePrice, setPurchasePrice] = useState("");
-  const [purchaseDate, setPurchaseDate] = useState("");
+  const [purchaseDate, setPurchaseDate] = useState<Date | undefined>();
   const [showModal, setShowModal] = useState(false);
 
   const dispatch = useDispatch();
@@ -182,7 +182,7 @@ export default function HomeView(props) {
                 if (typeof newValue == "string") {
                   setPurchaseDate(newValue);
                 } else {
-                  setPurchaseDate("");
+                  setPurchaseDate(undefined);
                 }
               }}
               renderInput={(params) => <TextField {...params} />}
@@ -197,16 +197,16 @@ export default function HomeView(props) {
                   dispatch(
                     addProperty({
                       id: id,
-                      owner_name: name,
-                      owner_entity: entity,
-                      owner_email: email,
-                      owner_number: number,
+                      name: name,
+                      entity: entity,
+                      email: email,
+                      number: number,
                       street: street,
                       city: city,
                       state: state,
                       zip_code: zipCode,
-                      units: units,
-                      purchase_price: purchasePrice,
+                      units: parseInt(units),
+                      purchase_price: parseInt(purchasePrice),
                       purchase_date: purchaseDate,
                     })
                   );

@@ -3,7 +3,6 @@ import PropertyAPI from "../../core/property/Property.api";
 import NoteApi from "../../core/notes/Note.api";
 import OwnerAPI from "../../core/owner/Owner.api";
 import { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
 import { EmailValidationScope } from "../../common/validation/impl/scopes/EmailValidationScope";
 import ValidationBroker from "../../common/validation/impl/ValidationBroker";
 import { ControlledInput } from "../../common/UI/Form/ControlledInput";
@@ -13,6 +12,7 @@ import { Brand } from "../Brand/Brand";
 import { PhoneNumberInput } from "../../common/UI/Form/PhoneNumberInput";
 import { Owner } from "../../core/owner/Owner";
 import { Property } from "../../core/property/Property";
+import { useAppDispatch } from "../../store";
 const propertyAPI = new PropertyAPI();
 const noteAPI = new NoteApi();
 const ownerAPI = new OwnerAPI();
@@ -85,7 +85,6 @@ export default function OwnerPage({
   const [email, setEmail] = useState("");
   const [number, setNumber] = useState("");
   const [ownerProperties, setOwnerProperties] = useState<Property[]>();
-  const dispatch = useDispatch();
 
   useEffect(() => {
     const close = (e) => {
@@ -106,12 +105,11 @@ export default function OwnerPage({
 
   useEffect(() => {
     console.log(data);
-    if(data?.id) {
+    if (data?.id) {
       ownerAPI.getProperties(data.id).then((data) => {
         setOwnerProperties(data);
       });
-    };
-   
+    }
   }, [data]);
 
   return (
