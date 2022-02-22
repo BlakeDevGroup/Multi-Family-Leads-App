@@ -12,60 +12,84 @@ import { Brand } from "../Brand/Brand";
 import { PhoneNumberInput } from "../../common/UI/Form/PhoneNumberInput";
 import { Owner } from "../../core/owner/Owner";
 import { Property } from "../../core/property/Property";
+import {
+  DataGrid,
+  GridCallbackDetails,
+  GridColDef,
+  GridRowParams,
+  GridValueGetterParams,
+  MuiEvent,
+  GridCellParams,
+} from "@mui/x-data-grid";
 import { useAppDispatch } from "../../store";
 const propertyAPI = new PropertyAPI();
 const noteAPI = new NoteApi();
 const ownerAPI = new OwnerAPI();
 
-const columns = [
+const columns: GridColDef[] = [
   {
-    property: "street",
-    header: <Text color="#99A3C0">Street</Text>,
-    search: true,
+    field: "street",
+    headerName: "Street",
+    width: 150,
+    sortable: true,
+    hideable: false,
+    headerAlign: "left",
+    align: "left",
   },
   {
-    property: "city",
-    header: <Text color="#99A3C0">City</Text>,
-    search: true,
+    field: "city",
+    headerName: "City",
+    width: 150,
+    sortable: true,
+    hideable: false,
+    headerAlign: "left",
+    align: "left",
   },
   {
-    property: "state",
-    header: <Text color="#99A3C0">State</Text>,
-    search: true,
+    field: "state",
+    headerName: "State",
+    width: 150,
+    sortable: true,
+    hideable: false,
+    headerAlign: "left",
+    align: "left",
   },
   {
-    property: "zip_code",
-    header: <Text color="#99A3C0">Zip Code</Text>,
-    search: true,
+    field: "zip_code",
+    headerName: "Zip Code",
+    width: 150,
+    sortable: true,
+    hideable: false,
+    headerAlign: "left",
+    align: "left",
   },
   {
-    property: "units",
-    header: <Text color="#99A3C0">Units</Text>,
-    search: true,
-  },
-];
-
-const testData = [
-  {
-    street: "1960 De La Palma Ave",
-    city: "Bartow",
-    state: "FL",
-    zip_code: "33830",
-    units: "1",
+    field: "units",
+    headerName: "Units",
+    width: 150,
+    sortable: true,
+    hideable: false,
+    headerAlign: "left",
+    align: "left",
   },
   {
-    street: "300 73rd Ave N",
-    city: "St Petersburg",
-    state: "FL",
-    zip_code: "33706",
-    units: "300",
+    field: "purchase_price",
+    headerName: "Purchase Price",
+    width: 150,
+    sortable: true,
+    hideable: false,
+    headerAlign: "center",
+    align: "center",
+    type: "number",
   },
   {
-    street: "6214 E Lake Sammamish PKWY NE",
-    city: "Redmond",
-    state: "WA",
-    zip_code: "98052",
-    units: "50",
+    field: "purchase_date",
+    headerName: "Purchase Year",
+    width: 150,
+    sortable: true,
+    hideable: false,
+    headerAlign: "center",
+    align: "center",
   },
 ];
 
@@ -98,7 +122,6 @@ export default function OwnerPage({
 
   useEffect(() => {
     setName(data?.name);
-    setEntity(data?.entity);
     setEmail(data?.email);
     setNumber(data?.phone_number);
   }, [data]);
@@ -179,12 +202,30 @@ export default function OwnerPage({
             margin="10px"
             style={{ boxShadow: "rgb(0 0 0 / 20%) 1px 1px 5px" }}
           >
-            <DataTable
+            <div
+              style={{
+                height: "90vh",
+                width: "100%",
+              }}
+            >
+              <DataGrid
+                disableSelectionOnClick={true}
+                rows={ownerProperties || []}
+                columns={columns}
+                // getCellParams={(id: any, field: string) => {}}
+                // onRowClick={(
+                //   params: GridRowParams,
+                //   event: MuiEvent<React.MouseEvent>,
+                //   details: GridCallbackDetails
+                // ) => {}
+              />
+            </div>
+            {/* <DataTable
               border={{ side: "bottom", color: "#EEF1F7", size: "small" }}
               paginate={{ size: "medium" }}
               columns={columns}
               data={ownerProperties}
-            ></DataTable>
+            ></DataTable> */}
           </Box>
         </Box>
       )}

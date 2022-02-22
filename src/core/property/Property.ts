@@ -13,5 +13,5 @@ export type Property = {
   number?: string;
   units?: number;
   purchase_price?: number;
-  purchase_date?: Date;
+  purchase_date?: number;
 };

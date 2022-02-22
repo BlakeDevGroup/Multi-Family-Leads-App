@@ -24,7 +24,7 @@ type PropertyComponentProps = {
   setUnits: Function;
   units: string;
   setPurchaseDate: Function;
-  purchaseDate: Date | null;
+  purchaseDate: Date | undefined;
   setPurchasePrice: Function;
   purchasePrice: string;
 };
@@ -121,8 +121,8 @@ export default function PropertyComponent({
 
             <LocalizationProvider dateAdapter={AdapterDateFns}>
               <DatePicker
-                label="Purchase date"
-                inputFormat="MM/dd/yyyy"
+                views={["year"]}
+                label="Purchase Year"
                 value={purchaseDate}
                 onChange={(newValue: Date | null) => {
                   setPurchaseDate(newValue);

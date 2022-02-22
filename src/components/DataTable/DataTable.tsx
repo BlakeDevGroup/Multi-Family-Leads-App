@@ -1,6 +1,6 @@
 import PropertyAPI from "../../core/property/Property.api";
 import React, { useState, useEffect } from "react";
-import { DataTable, Text, Box } from "grommet";
+import { Box } from "grommet";
 import "./DataTable.css";
 import MainLayer from "../Layer/Layer";
 import HomeView from "../HomeView";
@@ -11,61 +11,172 @@ import { setNotes } from "../../core/notes/NoteSlice";
 import { WebsiteLevelHeader } from "../Headers/WebsiteLevelHeader";
 import PropertyWorkflow from "../PropertiesWorkflow/PropertyWorkflow";
 import Cover from "../Cover/Cover";
+import {
+  DataGrid,
+  GridCallbackDetails,
+  GridColDef,
+  GridRowParams,
+  GridValueGetterParams,
+  MuiEvent,
+  GridCellParams,
+} from "@mui/x-data-grid";
+import { Property } from "../../core/property/Property";
+import { RootState } from "../../store";
+
 const propertyAPI = new PropertyAPI();
 const noteAPI = new NoteApi();
 
-const columns = [
+const columns: GridColDef[] = [
   {
-    property: "name",
-    header: <Text color="#99A3C0">Name</Text>,
-    search: true,
+    field: "street",
+    headerName: "Street",
+    width: 200,
+    sortable: true,
+    hideable: false,
+    headerAlign: "left",
+    align: "left",
   },
   {
-    property: "entity",
-    header: <Text color="#99A3C0">Entity</Text>,
-    search: true,
+    field: "city",
+    headerName: "City",
+    width: 100,
+    sortable: true,
+    hideable: false,
+    headerAlign: "left",
+    align: "left",
   },
   {
-    property: "street",
-    header: <Text color="#99A3C0">Street</Text>,
-    search: true,
+    field: "state",
+    headerName: "State",
+    width: 80,
+    sortable: true,
+    hideable: false,
+    headerAlign: "center",
+    align: "center",
   },
   {
-    property: "city",
-    header: <Text color="#99A3C0">City</Text>,
-    search: true,
+    field: "zip_code",
+    headerName: "Zip Code",
+    width: 100,
+    sortable: true,
+    hideable: false,
+    headerAlign: "center",
+    align: "center",
   },
   {
-    property: "state",
-    header: <Text color="#99A3C0">State</Text>,
-    search: true,
+    field: "units",
+    headerName: "Units",
+    width: 80,
+    sortable: true,
+    hideable: false,
+    headerAlign: "center",
+    align: "center",
+    type: "number",
+    // sortComparator: (v1, v2, p1, p2) => {
+    //   // console.log(v1, v2, p1, p2);
+    //   if (v1 === "") {
+    //     v1 = 1000000000;
+    //   }
+    //   if (v2 === "") {
+    //     v2 = 1000000000;
+    //   }
+    //   return v1 - v2;
+    // },
   },
   {
-    property: "zip_code",
-    header: <Text color="#99A3C0">Zip Code</Text>,
-    search: true,
+    field: "purchase_price",
+    headerName: "Purchase Price",
+    width: 150,
+    sortable: true,
+    hideable: false,
+    headerAlign: "center",
+    align: "center",
+    type: "number",
   },
   {
-    property: "units",
-    header: <Text color="#99A3C0">Units</Text>,
-    search: true,
-  },
-
-  {
-    property: "number",
-    header: <Text color="#99A3C0">Phone Number</Text>,
-    search: true,
+    field: "purchase_date",
+    headerName: "Purchase Year",
+    width: 120,
+    sortable: true,
+    hideable: false,
+    headerAlign: "center",
+    align: "center",
   },
   {
-    property: "email",
-    header: <Text color="#99A3C0">Email</Text>,
-    search: true,
+    field: "name",
+    headerName: "Name",
+    width: 150,
+    sortable: true,
+    hideable: false,
+    headerAlign: "left",
+    align: "left",
+  },
+  {
+    field: "phone_number",
+    headerName: "Phone Number",
+    width: 150,
+    sortable: true,
+    hideable: false,
+    headerAlign: "left",
+    align: "center",
+  },
+  {
+    field: "email",
+    headerName: "Email",
+    width: 250,
+    sortable: true,
+    hideable: false,
+    headerAlign: "left",
+    align: "left",
   },
 ];
 
+// const columns = [
+//   {
+//     property: "street",
+//     header: <Text color="#99A3C0">Street</Text>,
+//     search: true,
+//   },
+//   {
+//     property: "city",
+//     header: <Text color="#99A3C0">City</Text>,
+//     search: true,
+//   },
+//   {
+//     property: "state",
+//     header: <Text color="#99A3C0">State</Text>,
+//     search: true,
+//   },
+//   {
+//     property: "zip_code",
+//     header: <Text color="#99A3C0">Zip Code</Text>,
+//     search: true,
+//   },
+//   {
+//     property: "units",
+//     header: <Text color="#99A3C0">Units</Text>,
+//     search: true,
+//   },
+//   {
+//     property: "name",
+//     header: <Text color="#99A3C0">Name</Text>,
+//     search: true,
+//   },
+//   {
+//     property: "email",
+//     header: <Text color="#99A3C0">Email</Text>,
+//     search: true,
+//   },
+//   {
+//     property: "phone_number",
+//     header: <Text color="#99A3C0">Phone Number</Text>,
+//     search: true,
+//   },
+// ];
+
 export default function DataTableComponent(props) {
   const [open, setOpen] = useState(false);
-  const data = useSelector((state: any) => {
+  const rows: Property[] = useSelector((state: RootState) => {
     return state.properties?.properties;
   });
   const dispatch = useDispatch();
@@ -109,8 +220,38 @@ export default function DataTableComponent(props) {
           );
         }}
       />
-      <Box background="white" margin="2vh">
-        <DataTable
+      <div
+        style={{
+          position: "relative",
+          backgroundColor: "white",
+          margin: "2vh",
+        }}
+      >
+        <div
+          style={{
+            height: "90vh",
+            width: "100%",
+          }}
+        >
+          <DataGrid
+            disableSelectionOnClick={true}
+            rows={rows}
+            columns={columns}
+            // getCellParams={(id: any, field: string) => {}}
+            onRowClick={(
+              params: GridRowParams,
+              event: MuiEvent<React.MouseEvent>,
+              details: GridCallbackDetails
+            ) => {
+              setOpen(true);
+              setComponent(
+                <HomeView setOpen={setOpen} data={params.row} action="put" />
+              );
+            }}
+          />
+        </div>
+
+        {/* <DataTable
           border={{ side: "bottom", color: "#EEF1F7", size: "small" }}
           paginate={{ size: "medium" }}
           columns={columns}
@@ -121,7 +262,7 @@ export default function DataTableComponent(props) {
               <HomeView setOpen={setOpen} data={datum} action="put" />
             );
           }}
-        />
+        /> */}
         <MainLayer open={open} onClose={() => setOpen(false)}>
           {component}
         </MainLayer>
@@ -131,7 +272,7 @@ export default function DataTableComponent(props) {
         >
           {coverComponent}
         </Cover>
-      </Box>
+      </div>
     </>
   );
 }

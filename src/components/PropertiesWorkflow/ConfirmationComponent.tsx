@@ -24,7 +24,7 @@ type ConfirmationComponentProps = {
   state: string;
   zipcode: string;
   purchasePrice: string;
-  purchaseDate: Date | null;
+  purchaseDate: Date | undefined;
   units: string;
   currentOwner: Owner | undefined;
 };

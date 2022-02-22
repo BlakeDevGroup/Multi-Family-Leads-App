@@ -17,12 +17,10 @@ import { Button, TextField, IconButton } from "@mui/material";
 import { useDispatch } from "react-redux";
 import SectionTitle from "./Typography/SectionTitle";
 import useUser from "./Routes/useUser";
-import {
-  updateProperty,
-  addProperty,
-  deleteProperty,
-} from "../core/property/PropertySlice";
+import { updateProperty, deleteProperty } from "../core/property/PropertySlice";
 import ConfirmationModal from "./Notes/ConfirmationModal";
+import { updateOwner } from "../core/owner/OwnerSlice";
+import { DocumentUpdate } from "grommet-icons";
 
 export default function HomeView(props) {
   const [name, setName] = useState("");
@@ -36,6 +34,7 @@ export default function HomeView(props) {
   const [zipCode, setZipCode] = useState("");
   const [Notes, setNotes] = useState("");
   const [id, setId] = useState("");
+  const [ownerId, setOwnerId] = useState("");
   const [purchasePrice, setPurchasePrice] = useState("");
   const [purchaseDate, setPurchaseDate] = useState<Date | undefined>();
   const [showModal, setShowModal] = useState(false);
@@ -58,10 +57,10 @@ export default function HomeView(props) {
   }
 
   useEffect(() => {
-    setName(props.data?.owner_name);
-    setEntity(props.data?.owner_entity);
-    setEmail(props.data?.owner_email);
-    setNumber(props.data?.owner_number);
+    setName(props.data?.name);
+    setEmail(props.data?.email);
+    setEntity(props.data?.entity);
+    setNumber(props.data?.phone_number);
     setStreet(props.data?.street);
     setState(props.data?.state);
     setCity(props.data?.city);
@@ -69,8 +68,9 @@ export default function HomeView(props) {
     setNotes(props.data?.notes);
     setUnits(props.data?.units);
     setId(props.data?.id);
-    setPurchasePrice(props.data?.purchasePrice);
-    setPurchaseDate(props.data?.purchaseDate);
+    setPurchasePrice(props.data?.purchase_price);
+    setPurchaseDate(props.data?.purchase_date);
+    setOwnerId(props.data?.owner_id);
   }, [props.data]);
 
   return (
@@ -96,19 +96,14 @@ export default function HomeView(props) {
             className="phone-number-input"
             text="Phone Number"
             value={number}
-            onChange={setNumber}
+            readOnly
             validationFn={(value) =>
               ValidationBroker.validate(new NumericValidationScope(value))
             }
             validationText="Phone Number can only contain numbers"
           />
-          {/* <ControlledInput
-            label="Entity"
-            value={entity}
-            onChange={(e) => setEntity(e.target.value)}
-          /> */}
         </div>
-        <div className="controlled-input">
+        {/* <div className="controlled-input">
           <ControlledInput
             label="Email"
             placeholder="xxxxx"
@@ -119,7 +114,7 @@ export default function HomeView(props) {
             }
             validationText="Please enter a valid email address"
           />
-        </div>
+        </div> */}
         <div className="input-title">
           <SectionTitle label={"Property Information"} />
         </div>
@@ -176,6 +171,7 @@ export default function HomeView(props) {
           />
           <LocalizationProvider dateAdapter={AdapterDateFns}>
             <DatePicker
+              views={["year"]}
               label="Purchase date"
               value={purchaseDate}
               onChange={(newValue) => {
@@ -193,41 +189,19 @@ export default function HomeView(props) {
           <div className="button">
             <Button
               onClick={(e) => {
-                if (props.action == "create") {
-                  dispatch(
-                    addProperty({
-                      id: id,
-                      name: name,
-                      entity: entity,
-                      email: email,
-                      number: number,
-                      street: street,
-                      city: city,
-                      state: state,
-                      zip_code: zipCode,
-                      units: parseInt(units),
-                      purchase_price: parseInt(purchasePrice),
-                      purchase_date: purchaseDate,
-                    })
-                  );
-                } else if (props.action == "put") {
-                  dispatch(
-                    updateProperty({
-                      id: id,
-                      owner_name: name,
-                      owner_entity: entity,
-                      owner_email: email,
-                      owner_number: number,
-                      street: street,
-                      city: city,
-                      state: state,
-                      zip_code: zipCode,
-                      units: units,
-                      purchase_price: purchasePrice,
-                      purchase_date: purchaseDate,
-                    })
-                  );
-                }
+                dispatch(
+                  updateProperty({
+                    id: id,
+                    street: street,
+                    city: city,
+                    state: state,
+                    zip_code: zipCode,
+                    units: units,
+                    purchase_price: purchasePrice,
+                    purchase_date: purchaseDate,
+                    owner_id: ownerId,
+                  })
+                );
                 props.setOpen(false);
               }}
               variant="contained"

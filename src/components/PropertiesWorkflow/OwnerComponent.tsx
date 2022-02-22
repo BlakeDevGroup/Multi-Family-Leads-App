@@ -15,7 +15,6 @@ import OwnerAPI from "../../core/owner/Owner.api";
 import ValidationBroker from "../../common/validation/impl/ValidationBroker";
 import { setOwners } from "../../core/owner/OwnerSlice";
 import { EmailValidationScope } from "../../common/validation/impl/scopes/EmailValidationScope";
-import { SelectChangeEvent } from "@mui/material/Select";
 import { Owner } from "../../core/owner/Owner";
 
 const ownerAPI = new OwnerAPI();
@@ -30,7 +29,6 @@ type OwnerComponentProps = {
   setPhone: Function;
   phone: string;
   setOwnerId: Function;
-  ownerId: string;
   setCurrentOwner: Function;
   currentOwner: Owner | undefined;
 };
@@ -46,7 +44,6 @@ export default function OwnerComponent({
   setPhone,
   phone,
   setOwnerId,
-  ownerId,
   currentOwner,
   setCurrentOwner,
 }: OwnerComponentProps) {
@@ -56,6 +53,7 @@ export default function OwnerComponent({
   const [buttonDisabled, setButtonDisabled] = useState(true);
   // const [newOwnerName, setNewOwnerName] = useState("");
 
+  
   useEffect(() => {
     if (!newOwnerName && !phone) {
       setButtonDisabled(true);

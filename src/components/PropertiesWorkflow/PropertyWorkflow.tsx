@@ -34,11 +34,11 @@ export default function PropertyWorkflow({ onConfirm }: PropertyWorkflowProps) {
   const [phone, setPhone] = useState("");
   const [street, setStreet] = useState("");
   const [city, setCity] = useState("");
-  const [ownerId, setOwnerId] = useState("");
+  const [ownerId, setOwnerId] = useState<Owner>();
   const [state, setState] = useState("");
   const [zipcode, setZipcode] = useState("");
   const [units, setUnits] = useState("");
-  const [purchaseDate, setPurchaseDate] = useState<Date | null>(new Date());
+  const [purchaseDate, setPurchaseDate] = useState<Date | undefined>();
   const [purchasePrice, setPurchasePrice] = useState("");
   const [currentOwner, setCurrentOwner] = useState<Owner>();
   const dispatch = useAppDispatch();
@@ -46,6 +46,7 @@ export default function PropertyWorkflow({ onConfirm }: PropertyWorkflowProps) {
   const completeWorkflow = async () => {
     /// IF OWNER_ID is FALSE, FIRST CREATE OWNER
     let owner_id;
+    console.log(ownerId?.id);
     if (!ownerId) {
       const payload = await dispatch(
         addOwner({
@@ -57,7 +58,7 @@ export default function PropertyWorkflow({ onConfirm }: PropertyWorkflowProps) {
       );
       owner_id = payload.payload.id;
     } else {
-      owner_id = ownerId;
+      owner_id = ownerId.id;
     }
 
     dispatch(
@@ -65,8 +66,11 @@ export default function PropertyWorkflow({ onConfirm }: PropertyWorkflowProps) {
         city: city,
         street: street,
         state: state,
+        units: parseInt(units),
         zip_code: zipcode,
         owner_id: owner_id,
+        purchase_price: parseInt(purchasePrice),
+        purchase_date: purchaseDate?.getFullYear() || undefined,
       })
     );
   };
@@ -89,7 +93,6 @@ export default function PropertyWorkflow({ onConfirm }: PropertyWorkflowProps) {
           setPhone={setPhone}
           phone={phone}
           setOwnerId={setOwnerId}
-          ownerId={ownerId}
           currentOwner={currentOwner}
           setCurrentOwner={setCurrentOwner}
         />
