@@ -29,8 +29,8 @@ const columns: GridColDef[] = [
     sortable: true,
     hideable: false,
     width: 200,
-    headerAlign: "center",
-    align: "center",
+    headerAlign: "left",
+    align: "left",
   },
   {
     field: "entity",
@@ -38,8 +38,8 @@ const columns: GridColDef[] = [
     sortable: true,
     hideable: false,
     width: 200,
-    headerAlign: "center",
-    align: "center",
+    headerAlign: "left",
+    align: "left",
   },
   {
     field: "phone_number",
@@ -56,8 +56,8 @@ const columns: GridColDef[] = [
     sortable: true,
     hideable: false,
     width: 200,
-    headerAlign: "center",
-    align: "center",
+    headerAlign: "left",
+    align: "left",
   },
 ];
 // const columns = [
@@ -117,6 +117,7 @@ export default function OwnerView(props) {
   return (
     <>
       <WebsiteLevelHeader
+        view="owner"
         onOpen={() => {
           setOpen(true);
           setComponent(<PropertyWorkflow />);

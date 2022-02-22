@@ -34,7 +34,7 @@ export default function PropertyWorkflow({ onConfirm }: PropertyWorkflowProps) {
   const [phone, setPhone] = useState("");
   const [street, setStreet] = useState("");
   const [city, setCity] = useState("");
-  const [ownerId, setOwnerId] = useState<Owner>();
+  const [existingOwner, setExistingOwner] = useState<Owner>();
   const [state, setState] = useState("");
   const [zipcode, setZipcode] = useState("");
   const [units, setUnits] = useState("");
@@ -46,8 +46,8 @@ export default function PropertyWorkflow({ onConfirm }: PropertyWorkflowProps) {
   const completeWorkflow = async () => {
     /// IF OWNER_ID is FALSE, FIRST CREATE OWNER
     let owner_id;
-    console.log(ownerId?.id);
-    if (!ownerId) {
+    console.log(existingOwner?.id);
+    if (!existingOwner) {
       const payload = await dispatch(
         addOwner({
           name: newOwnerName,
@@ -58,7 +58,7 @@ export default function PropertyWorkflow({ onConfirm }: PropertyWorkflowProps) {
       );
       owner_id = payload.payload.id;
     } else {
-      owner_id = ownerId.id;
+      owner_id = existingOwner.id;
     }
 
     dispatch(
@@ -75,8 +75,8 @@ export default function PropertyWorkflow({ onConfirm }: PropertyWorkflowProps) {
     );
   };
   useEffect(() => {
-    console.log(ownerId);
-  }, [ownerId]);
+    console.log(existingOwner);
+  }, [existingOwner]);
   const ActiveComponent = (value) => {
     if (value === "owner") {
       return (
@@ -92,7 +92,7 @@ export default function PropertyWorkflow({ onConfirm }: PropertyWorkflowProps) {
           email={email}
           setPhone={setPhone}
           phone={phone}
-          setOwnerId={setOwnerId}
+          setExistingOwner={setExistingOwner}
           currentOwner={currentOwner}
           setCurrentOwner={setCurrentOwner}
         />

@@ -7,7 +7,7 @@ import { EmailValidationScope } from "../../common/validation/impl/scopes/EmailV
 import ValidationBroker from "../../common/validation/impl/ValidationBroker";
 import { ControlledInput } from "../../common/UI/Form/ControlledInput";
 import "./Owner.css";
-import { Button } from "@mui/material";
+import { Button, dialogClasses, Divider, TextField } from "@mui/material";
 import { Brand } from "../Brand/Brand";
 import { PhoneNumberInput } from "../../common/UI/Form/PhoneNumberInput";
 import { Owner } from "../../core/owner/Owner";
@@ -21,7 +21,12 @@ import {
   MuiEvent,
   GridCellParams,
 } from "@mui/x-data-grid";
-import { useAppDispatch } from "../../store";
+import { RootState, useAppDispatch } from "../../store";
+import { useDispatch, useSelector } from "react-redux";
+import NoteComponent from "../Notes/NoteComponent";
+import SectionTitle from "../Typography/SectionTitle";
+import { deleteOwner, updateOwner } from "../../core/owner/OwnerSlice";
+import { Phone } from "grommet-icons";
 const propertyAPI = new PropertyAPI();
 const noteAPI = new NoteApi();
 const ownerAPI = new OwnerAPI();
@@ -108,7 +113,25 @@ export default function OwnerPage({
   const [entity, setEntity] = useState("");
   const [email, setEmail] = useState("");
   const [number, setNumber] = useState("");
-  const [ownerProperties, setOwnerProperties] = useState<Property[]>();
+  const [ownerProperties, setOwnerProperties] = useState<Property[]>([]);
+  const dispatch = useDispatch();
+  const notes = useSelector((state: RootState) => {
+    return state.notes.notes.filter((note) => {
+      let returnNote = false;
+
+      for (let i = 0; i < (ownerProperties?.length || 0); i++) {
+        if (ownerProperties[i].id == note.property_id) {
+          returnNote = true;
+        }
+      }
+
+      if (returnNote) {
+        return returnNote;
+      }
+
+      return false;
+    });
+  });
 
   useEffect(() => {
     const close = (e) => {
@@ -123,6 +146,7 @@ export default function OwnerPage({
   useEffect(() => {
     setName(data?.name);
     setEmail(data?.email);
+    setEntity(data?.entity);
     setNumber(data?.phone_number);
   }, [data]);
 
@@ -135,71 +159,113 @@ export default function OwnerPage({
     }
   }, [data]);
 
+  useEffect(() => {
+    console.log(notes);
+  }, [ownerProperties]);
+
   return (
     <>
       <div className="owner-page-wrapper">
-        <div className="header-wrapper">
+        {/* <div className="header-wrapper">
           <div className="header-layout">
             <Brand sizing="owner-styles" />
-            <div className="submit-layout">
-              <Button
-                className="sumbit-layouts"
-                variant="contained"
-                color="primary"
-                onClick={(e) => {
-                  setOpen(false);
-                }}
-              >
-                Submit
-              </Button>
+          </div>
+        </div> */}
+
+        <div className="owner-page-content-wrapper">
+          <div className="owner-page-inputs-wrapper">
+            <div className="header-layout">
+              <SectionTitle label="Owner Details" />
+              <div className="submit-layout">
+                <Button
+                  sx={{ m: 1 }}
+                  className="sumbit-layout"
+                  variant="contained"
+                  color="primary"
+                  onClick={(e) => {
+                    dispatch(
+                      updateOwner({
+                        name: name,
+                        email: email,
+                        entity: entity,
+                        phone_number: number,
+                        id: data.id,
+                      })
+                    );
+                    setOpen(false);
+                  }}
+                >
+                  Submit
+                </Button>
+                <Button
+                  className="sumbit-layout"
+                  variant="contained"
+                  color="error"
+                  onClick={(e) => {
+                    dispatch(deleteOwner(data.id || ""));
+                    setOpen(false);
+                  }}
+                >
+                  Delete
+                </Button>
+              </div>
+            </div>
+            <div className="inputs-layout">
+              <div className="single-input">
+                <ControlledInput
+                  label="Name"
+                  placeholder="Owner Name..."
+                  value={name}
+                  onChange={(e) => setName(e.target.value)}
+                />
+              </div>
+              <div className="single-input">
+                <ControlledInput
+                  label="Entity"
+                  value={entity}
+                  onChange={(e) => setEntity(e.target.value)}
+                />
+              </div>
+            </div>
+            <div className="inputs-layout">
+              <div className="single-input">
+                <ControlledInput
+                  label="Email"
+                  placeholder="xxxxx"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  validationFn={(value) =>
+                    ValidationBroker.validate(new EmailValidationScope(value))
+                  }
+                  validationText="Please enter a valid email address"
+                />
+              </div>
+              <div className="single-input">
+                <PhoneNumberInput
+                  text="Phone Number"
+                  value={number}
+                  onChange={setNumber}
+                />
+              </div>
+            </div>
+          </div>
+
+          <div className="owner-page-notes-wrapper">
+            <div className="owner-page-notes-header">
+              <SectionTitle label="Comments" />
+            </div>
+            <div>
+              {notes?.map((note) => (
+                <NoteComponent note={note} />
+              ))}
             </div>
           </div>
         </div>
-
-        <div className="inputs-layout">
-          <ControlledInput
-            label="Name"
-            placeholder="Owner Name..."
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-          />
-          <ControlledInput
-            label="Entity"
-            value={entity}
-            onChange={(e) => setEntity(e.target.value)}
-          />
-        </div>
-        <div className="inputs-layout" style={{ marginTop: "15px" }}>
-          <ControlledInput
-            label="Email"
-            placeholder="xxxxx"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            validationFn={(value) =>
-              ValidationBroker.validate(new EmailValidationScope(value))
-            }
-            validationText="Please enter a valid email address"
-          />
-          <PhoneNumberInput
-            text="Phone Number"
-            value={number}
-            onChange={setNumber}
-          />
-        </div>
       </div>
       {action == "put" && (
-        <Box
-          overflow="hidden"
-          fill="vertical"
-          background="#f1f5f8"
-          style={{ boxShadow: "0px 1px 2px rgb(0 0 0 / 20%) inset" }}
-        >
-          <Box
-            direction="column"
-            pad={{ right: "10px" }}
-            justify="start"
-            background="white"
-            margin="10px"
+        <div className="owner-table-wrapper">
+          <div
+            className="owner-data-table"
             style={{ boxShadow: "rgb(0 0 0 / 20%) 1px 1px 5px" }}
           >
             <div
@@ -220,14 +286,8 @@ export default function OwnerPage({
                 // ) => {}
               />
             </div>
-            {/* <DataTable
-              border={{ side: "bottom", color: "#EEF1F7", size: "small" }}
-              paginate={{ size: "medium" }}
-              columns={columns}
-              data={ownerProperties}
-            ></DataTable> */}
-          </Box>
-        </Box>
+          </div>
+        </div>
       )}
     </>
   );

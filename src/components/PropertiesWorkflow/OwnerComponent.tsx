@@ -28,7 +28,7 @@ type OwnerComponentProps = {
   email: string;
   setPhone: Function;
   phone: string;
-  setOwnerId: Function;
+  setExistingOwner: Function;
   setCurrentOwner: Function;
   currentOwner: Owner | undefined;
 };
@@ -43,7 +43,7 @@ export default function OwnerComponent({
   email,
   setPhone,
   phone,
-  setOwnerId,
+  setExistingOwner,
   currentOwner,
   setCurrentOwner,
 }: OwnerComponentProps) {
@@ -53,7 +53,6 @@ export default function OwnerComponent({
   const [buttonDisabled, setButtonDisabled] = useState(true);
   // const [newOwnerName, setNewOwnerName] = useState("");
 
-  
   useEffect(() => {
     if (!newOwnerName && !phone) {
       setButtonDisabled(true);
@@ -94,12 +93,13 @@ export default function OwnerComponent({
         value={ownerValue}
         includeInputInList
         renderInput={(params) => (
-          <TextField {...params} label="autoComplete" variant="standard" />
+          <TextField {...params} label="Select Owner..." variant="standard" />
         )}
         onChange={(event: any, value: Owner | null) => {
           // console.log(value);
           setOwnerValue(value);
           setCurrentOwner(value);
+          setExistingOwner(value);
           if (!value) {
             setButtonDisabled(true);
             setFieldDisabled(false);

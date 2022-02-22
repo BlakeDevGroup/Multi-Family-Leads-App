@@ -54,7 +54,7 @@ export const OwnerSlice = createSlice({
 
     builder.addCase(updateOwner.fulfilled, (state, action) => {
       state.owners = state.owners.map((p) => {
-        if (p.id == action.payload.owner_id) return action.payload;
+        if (p.id == action.payload.id) return action.payload;
         return p;
       });
     });
