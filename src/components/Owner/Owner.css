@@ -1,38 +1,92 @@
-
 .owner-page-wrapper {
-    overflow: hidden;
-    width: 50vw;
-    padding-right: 10px;
-    margin: auto;
-    height: 75vh;
-    
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  width: 100%;
+  padding-right: 10px;
+  margin: auto;
+  height: 75vh;
+}
+.single-input {
+  margin: 10px 0 0 0;
+  width: 50%;
 }
 
 .inputs-layout {
-    display: flex;
-    flex-direction: row;
-    gap: 1%;
-    margin: 35px 10px 0 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
 .header-layout {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    margin: 20px 20px 0 20px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  margin: 5px 25px 0 5px;
 }
 
 .header-wrapper {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 50%;
 }
 
 .owner-content {
-    background-color: #ffffff;
-    margin: 2vh;
+  background-color: #ffffff;
+  margin: 2vh;
 }
 
 .submit-layout {
-    margin-bottom: 20px;
+  margin-top: 20px;
+}
+
+.owner-data-table {
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  /* padding-right: 10px; */
+  margin: 10px;
+  justify-content: start;
+  background-color: white;
+}
+
+.owner-table-wrapper {
+  overflow: hidden;
+  background-color: #f1f5f8;
+  height: auto;
+  display: flex;
+  box-sizing: border-box;
+  max-width: 100%;
+  background-color: #f1f5f8;
+  color: #444444;
+  min-width: 0;
+  min-height: 0;
+  flex-direction: column;
+}
+
+.owner-page-content-wrapper {
+  display: flex;
+  flex-direction: row;
+  /* justify-content: space-between; */
+  width: 100%;
+}
+
+.owner-page-inputs-wrapper {
+  display: flex;
+  flex-direction: column;
+  width: 45%;
+}
+
+.owner-page-notes-wrapper {
+  overflow-y: auto;
+  width: 55%;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  /* max-height: 1vh; */
+}
+.owner-page-notes-header {
+  margin: 5px 25px 0 5px;
 }

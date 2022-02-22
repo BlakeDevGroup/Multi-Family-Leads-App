@@ -1,4 +1,3 @@
-import { TextInput, Text, Box } from "grommet";
 import "./Form.css";
 import TextField from "@mui/material/TextField";
 import { useState } from "react";
@@ -8,13 +7,15 @@ export function PhoneNumberInput(props) {
   return (
     <TextField
       fullWidth
+      disabled={props.disabled}
+      required={props.required}
       error={!isValidated}
       helperText={isValidated ? undefined : props.validationText}
       label={props.text}
       type=""
       value={formatPhoneNumber(props.value)}
       onChange={(e) => {
-        props.onChange(e.target.value.replace(/\D/g, ""));
+        if (props.onChange) props.onChange(e.target.value.replace(/\D/g, ""));
       }}
       onBlur={() => {
         if (props.validationFn) setIsValidated(props.validationFn(props.value));

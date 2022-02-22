@@ -1,187 +1,293 @@
-import { Text, Box, DataTable, Anchor, Header } from "grommet";
+import { Text, Box, DataTable } from "grommet";
 import PropertyAPI from "../../core/property/Property.api";
 import NoteApi from "../../core/notes/Note.api";
 import OwnerAPI from "../../core/owner/Owner.api";
-import { Globe } from "grommet-icons";
 import { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
 import { EmailValidationScope } from "../../common/validation/impl/scopes/EmailValidationScope";
-import { NumericValidationScope } from "../../common/validation/impl/scopes/NumericValidationScope";
 import ValidationBroker from "../../common/validation/impl/ValidationBroker";
 import { ControlledInput } from "../../common/UI/Form/ControlledInput";
-import { setNotes } from "../../core/notes/NoteSlice";
-import { setProperties } from "../../core/property/PropertySlice";
-import "./Owner.css"
-import { Button } from "@mui/material";
-import HomeView from "../HomeView";
+import "./Owner.css";
+import { Button, dialogClasses, Divider, TextField } from "@mui/material";
 import { Brand } from "../Brand/Brand";
 import { PhoneNumberInput } from "../../common/UI/Form/PhoneNumberInput";
+import { Owner } from "../../core/owner/Owner";
+import { Property } from "../../core/property/Property";
+import {
+  DataGrid,
+  GridCallbackDetails,
+  GridColDef,
+  GridRowParams,
+  GridValueGetterParams,
+  MuiEvent,
+  GridCellParams,
+} from "@mui/x-data-grid";
+import { RootState, useAppDispatch } from "../../store";
+import { useDispatch, useSelector } from "react-redux";
+import NoteComponent from "../Notes/NoteComponent";
+import SectionTitle from "../Typography/SectionTitle";
+import { deleteOwner, updateOwner } from "../../core/owner/OwnerSlice";
+import { Phone } from "grommet-icons";
 const propertyAPI = new PropertyAPI();
 const noteAPI = new NoteApi();
 const ownerAPI = new OwnerAPI();
 
-
-
-
-const columns = [
+const columns: GridColDef[] = [
   {
-    property: "street",
-    header: <Text color="#99A3C0">Street</Text>,
-    search: true,
+    field: "street",
+    headerName: "Street",
+    width: 150,
+    sortable: true,
+    hideable: false,
+    headerAlign: "left",
+    align: "left",
   },
   {
-    property: "city",
-    header: <Text color="#99A3C0">City</Text>,
-    search: true,
+    field: "city",
+    headerName: "City",
+    width: 150,
+    sortable: true,
+    hideable: false,
+    headerAlign: "left",
+    align: "left",
   },
   {
-    property: "state",
-    header: <Text color="#99A3C0">State</Text>,
-    search: true,
+    field: "state",
+    headerName: "State",
+    width: 150,
+    sortable: true,
+    hideable: false,
+    headerAlign: "left",
+    align: "left",
   },
   {
-    property: "zip_code",
-    header: <Text color="#99A3C0">Zip Code</Text>,
-    search: true,
+    field: "zip_code",
+    headerName: "Zip Code",
+    width: 150,
+    sortable: true,
+    hideable: false,
+    headerAlign: "left",
+    align: "left",
   },
   {
-    property: "units",
-    header: <Text color="#99A3C0">Units</Text>,
-    search: true,
+    field: "units",
+    headerName: "Units",
+    width: 150,
+    sortable: true,
+    hideable: false,
+    headerAlign: "left",
+    align: "left",
+  },
+  {
+    field: "purchase_price",
+    headerName: "Purchase Price",
+    width: 150,
+    sortable: true,
+    hideable: false,
+    headerAlign: "center",
+    align: "center",
+    type: "number",
+  },
+  {
+    field: "purchase_date",
+    headerName: "Purchase Year",
+    width: 150,
+    sortable: true,
+    hideable: false,
+    headerAlign: "center",
+    align: "center",
   },
 ];
 
-const testData = [
-  {
-    street: "1960 De La Palma Ave",
-    city: "Bartow",
-    state: "FL",
-    zip_code: "33830",
-    units: "1",
-  },
-  {
-    street: "300 73rd Ave N",
-    city: "St Petersburg",
-    state: "FL",
-    zip_code: "33706",
-    units: "300",
-  },
-  {
-    street: "6214 E Lake Sammamish PKWY NE",
-    city: "Redmond",
-    state: "WA",
-    zip_code: "98052",
-    units: "50",
-  },
-];
-export default function OwnerPage({ setOpen, action = "put", data }) {
+type OwnerPageProps = {
+  setOpen: Function;
+  action?: string;
+  data: Owner;
+};
+
+export default function OwnerPage({
+  setOpen,
+  action = "put",
+  data,
+}: OwnerPageProps) {
   const [name, setName] = useState("");
   const [entity, setEntity] = useState("");
   const [email, setEmail] = useState("");
   const [number, setNumber] = useState("");
+  const [ownerProperties, setOwnerProperties] = useState<Property[]>([]);
   const dispatch = useDispatch();
+  const notes = useSelector((state: RootState) => {
+    return state.notes.notes.filter((note) => {
+      let returnNote = false;
+
+      for (let i = 0; i < (ownerProperties?.length || 0); i++) {
+        if (ownerProperties[i].id == note.property_id) {
+          returnNote = true;
+        }
+      }
+
+      if (returnNote) {
+        return returnNote;
+      }
+
+      return false;
+    });
+  });
 
   useEffect(() => {
     const close = (e) => {
-      if(e.keyCode === 27){
-        setOpen(false)
+      if (e.keyCode === 27) {
+        setOpen(false);
       }
-    }
-    window.addEventListener('keydown', close)
-    return () => window.removeEventListener('keydown', close)
-  },[])
+    };
+    window.addEventListener("keydown", close);
+    return () => window.removeEventListener("keydown", close);
+  }, []);
 
   useEffect(() => {
     setName(data?.name);
-    setEntity(data?.entity);
     setEmail(data?.email);
-    setNumber(data?.number);
+    setEntity(data?.entity);
+    setNumber(data?.phone_number);
   }, [data]);
+
+  useEffect(() => {
+    console.log(data);
+    if (data?.id) {
+      ownerAPI.getProperties(data.id).then((data) => {
+        setOwnerProperties(data);
+      });
+    }
+  }, [data]);
+
+  useEffect(() => {
+    console.log(notes);
+  }, [ownerProperties]);
 
   return (
     <>
-      <div
-        className="owner-page-wrapper"
-      >
-          <div
-          className="header-wrapper">
+      <div className="owner-page-wrapper">
+        {/* <div className="header-wrapper">
+          <div className="header-layout">
+            <Brand sizing="owner-styles" />
+          </div>
+        </div> */}
+
+        <div className="owner-page-content-wrapper">
+          <div className="owner-page-inputs-wrapper">
             <div className="header-layout">
-              <Brand sizing="owner-styles" />
+              <SectionTitle label="Owner Details" />
               <div className="submit-layout">
-              <Button 
-              className="sumbit-layouts"
-                variant="contained"
-                color="primary"
-                onClick={(e) => {
-                  setOpen(false);
-                }}
-              >
-                Submit
-              </Button>
+                <Button
+                  sx={{ m: 1 }}
+                  className="sumbit-layout"
+                  variant="contained"
+                  color="primary"
+                  onClick={(e) => {
+                    dispatch(
+                      updateOwner({
+                        name: name,
+                        email: email,
+                        entity: entity,
+                        phone_number: number,
+                        id: data.id,
+                      })
+                    );
+                    setOpen(false);
+                  }}
+                >
+                  Submit
+                </Button>
+                <Button
+                  className="sumbit-layout"
+                  variant="contained"
+                  color="error"
+                  onClick={(e) => {
+                    dispatch(deleteOwner(data.id || ""));
+                    setOpen(false);
+                  }}
+                >
+                  Delete
+                </Button>
+              </div>
+            </div>
+            <div className="inputs-layout">
+              <div className="single-input">
+                <ControlledInput
+                  label="Name"
+                  placeholder="Owner Name..."
+                  value={name}
+                  onChange={(e) => setName(e.target.value)}
+                />
+              </div>
+              <div className="single-input">
+                <ControlledInput
+                  label="Entity"
+                  value={entity}
+                  onChange={(e) => setEntity(e.target.value)}
+                />
+              </div>
+            </div>
+            <div className="inputs-layout">
+              <div className="single-input">
+                <ControlledInput
+                  label="Email"
+                  placeholder="xxxxx"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  validationFn={(value) =>
+                    ValidationBroker.validate(new EmailValidationScope(value))
+                  }
+                  validationText="Please enter a valid email address"
+                />
+              </div>
+              <div className="single-input">
+                <PhoneNumberInput
+                  text="Phone Number"
+                  value={number}
+                  onChange={setNumber}
+                />
               </div>
             </div>
           </div>
-        
-        <div className="inputs-layout" >
-          <ControlledInput
-            label="Name"
-            placeholder="Owner Name..."
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-          />
-          <ControlledInput
-            label="Entity"
-            value={entity}
-            onChange={(e) => setEntity(e.target.value)}
-          />
-        </div>
-        <div className="inputs-layout" style={{marginTop: "15px"}}>
-          <ControlledInput
-            label="Email"
-            placeholder="xxxxx"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            validationFn={(value) =>
-              ValidationBroker.validate(new EmailValidationScope(value))
-            }
-            validationText="Please enter a valid email address"
-          />
-          <PhoneNumberInput
-            text="Phone Number"
-            value={number}
-            onChange={setNumber}
-          />
+
+          <div className="owner-page-notes-wrapper">
+            <div className="owner-page-notes-header">
+              <SectionTitle label="Comments" />
+            </div>
+            <div>
+              {notes?.map((note) => (
+                <NoteComponent note={note} />
+              ))}
+            </div>
+          </div>
         </div>
       </div>
       {action == "put" && (
-        <Box
-          overflow="hidden"
-          fill="vertical"
-          background="#f1f5f8"
-          style={{ boxShadow: "0px 1px 2px rgb(0 0 0 / 20%) inset" }}
-        >
-          <Box
-            direction="column"
-            pad={{ right: "10px" }}
-            justify="start"
-            background="white"
-            margin="10px"
+        <div className="owner-table-wrapper">
+          <div
+            className="owner-data-table"
             style={{ boxShadow: "rgb(0 0 0 / 20%) 1px 1px 5px" }}
           >
-            <DataTable
-              border={{ side: "bottom", color: "#EEF1F7", size: "small" }}
-              paginate={{ size: "medium" }}
-              columns={columns}
-              data={testData}
-              // onClickRow={({ datum }) => {
-              //   setOpenLayer(true);
-              //   setComponent(
-              //     <HomeView setOpen={setOpen} data={datum} action="put" />
-              //   );
-              // }}
-            ></DataTable>
-          </Box>
-        </Box>
+            <div
+              style={{
+                height: "90vh",
+                width: "100%",
+              }}
+            >
+              <DataGrid
+                disableSelectionOnClick={true}
+                rows={ownerProperties || []}
+                columns={columns}
+                // getCellParams={(id: any, field: string) => {}}
+                // onRowClick={(
+                //   params: GridRowParams,
+                //   event: MuiEvent<React.MouseEvent>,
+                //   details: GridCallbackDetails
+                // ) => {}
+              />
+            </div>
+          </div>
+        </div>
       )}
     </>
   );

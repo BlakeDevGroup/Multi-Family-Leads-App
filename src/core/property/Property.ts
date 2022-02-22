@@ -6,9 +6,12 @@ export type Property = {
   city: string;
   state: string;
   zip_code: string;
-  owner_name: string;
-  owner_email: string;
-  owner_entity: string;
-  owner_number: string;
-  units: number;
+  owner_id?: string;
+  name?: string;
+  email?: string;
+  entity?: string;
+  number?: string;
+  units?: number;
+  purchase_price?: number;
+  purchase_date?: number;
 };

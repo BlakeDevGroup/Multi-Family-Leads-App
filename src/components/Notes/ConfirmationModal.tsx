@@ -1,6 +1,5 @@
 import { Button, Dialog, Divider, Typography } from "@mui/material";
 import { useEffect, useState } from "react";
-import { deleteNote } from "../../core/notes/NoteSlice";
 import { useDispatch } from "react-redux";
 
 type ConfirmationModalProps = {

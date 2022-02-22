@@ -43,4 +43,19 @@ export default class OwnerAPI {
           return e;
         }
       }
+
+      async getProperties(owner_id: string) {
+        
+        try {
+          const payload = await this.query.getPropertiesByOwnerId(owner_id);
+    
+          if (payload.data) {
+            return payload.data;
+          } else {
+            return new Error(payload.message);
+          }
+        } catch (e: any) {
+          return e;
+        }
+      }
 }

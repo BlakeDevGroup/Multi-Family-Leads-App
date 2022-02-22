@@ -56,11 +56,11 @@ export default class PropertyJsonQuery implements IQuery {
       state: property.Address,
       street: property.Address,
       zip_code: property.Address,
-      owner_name: property.Name,
-      owner_email: property.Email,
-      owner_number: property.PhoneNumber,
+      name: property.Name,
+      email: property.Email,
+      number: property.PhoneNumber,
       units: parseInt(property.Units),
-      owner_entity: property.Entity,
+      entity: property.Entity,
     };
   }
 }

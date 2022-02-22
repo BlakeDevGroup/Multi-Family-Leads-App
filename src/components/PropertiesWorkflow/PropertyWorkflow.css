@@ -1,0 +1,68 @@
+.breadcrumb-wrapper {
+  display: flex;
+  justify-content: center;
+  margin: 20px 0 0 0;
+}
+
+.active-component {
+  display: flex;
+  justify-content: center;
+}
+
+.divider-container {
+  margin: 40px 0 40px 0;
+}
+.create-owner-wrapper {
+  display: flex;
+  flex-direction: column;
+  column-gap: 5px;
+}
+
+.input-styles {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.workflow-button {
+  position: fixed;
+  bottom: 5%;
+  right: 5%;
+}
+
+.workflow-button-container {
+  display: flex;
+  flex-direction: row;
+  /* gap: 10%; */
+  /* justify-content: end; */
+}
+
+.property-component-2-row {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.property-component-3-row {
+  display: flex;
+  flex-direction: row;
+  gap: 1%;
+}
+
+.workflow-required {
+  display: flex;
+  justify-content: end;
+  color: #b4b4b4;
+}
+
+.owner-workflow-wrapper {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.owner-workflow-svg {
+  width: 500px;
+}
