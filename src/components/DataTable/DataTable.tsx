@@ -225,6 +225,7 @@ export default function DataTableComponent(props) {
           position: "relative",
           backgroundColor: "white",
           margin: "2vh",
+          borderRadius: "10px",
         }}
       >
         <div
@@ -234,6 +235,7 @@ export default function DataTableComponent(props) {
           }}
         >
           <DataGrid
+            style={{ borderRadius: "10px" }}
             disableSelectionOnClick={true}
             rows={rows}
             columns={columns}
@@ -250,19 +252,6 @@ export default function DataTableComponent(props) {
             }}
           />
         </div>
-
-        {/* <DataTable
-          border={{ side: "bottom", color: "#EEF1F7", size: "small" }}
-          paginate={{ size: "medium" }}
-          columns={columns}
-          data={data}
-          onClickRow={({ datum }) => {
-            setOpen(true);
-            setComponent(
-              <HomeView setOpen={setOpen} data={datum} action="put" />
-            );
-          }}
-        /> */}
         <MainLayer open={open} onClose={() => setOpen(false)}>
           {component}
         </MainLayer>

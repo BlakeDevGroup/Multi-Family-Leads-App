@@ -36,6 +36,7 @@
 .owner-content {
   background-color: #ffffff;
   margin: 2vh;
+  border-radius: 10px;
 }
 
 .submit-layout {
@@ -50,9 +51,13 @@
   margin: 10px;
   justify-content: start;
   background-color: white;
+  border-radius: 10px;
 }
 
 .owner-table-wrapper {
+  background: #edc0bf;
+  background: linear-gradient(90deg, #eec8c8 0, #ced3f3 58%);
+  font-family: "Inter", sans-serif;
   overflow: hidden;
   background-color: #f1f5f8;
   height: auto;
@@ -64,6 +69,12 @@
   min-width: 0;
   min-height: 0;
   flex-direction: column;
+}
+
+.owner-table-glass {
+  background: rgba(255, 255, 255, 0.7);
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
 }
 
 .owner-page-content-wrapper {
@@ -87,6 +98,7 @@
   overflow: hidden;
   /* max-height: 1vh; */
 }
+
 .owner-page-notes-header {
   margin: 5px 25px 0 5px;
 }

@@ -6,10 +6,10 @@ export default function Shell({ view }) {
   const [open, setOpen] = useState(false);
 
   return (
-    <Main background="#f1f5f8" overflow="hidden">
+    <div>
       <div className="mfl-shell-container">
         <div className="mfl-shell-content-body">{view}</div>
       </div>
-    </Main>
+    </div>
   );
 }

@@ -1,6 +1,7 @@
 import { Routes, Route } from "react-router";
 import DataTableComponent from "../DataTable/DataTable";
 import LoginPage from "../LoginPage/LoginPage";
+import CreateAccountPage from "../CreateAccountPage/CreateAccountPage";
 import Owner from "../Owner/Owner";
 import useAuth from "./useAuth";
 import RequireAuth from "./RequireAuth";
@@ -26,6 +27,7 @@ export default function Router() {
         }
       />
       <Route path="login" element={<LoginPage />} />
+      <Route path="create_account" element={<CreateAccountPage />} />
     </Routes>
   );
 }

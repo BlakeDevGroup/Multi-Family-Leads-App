@@ -9,7 +9,7 @@ export const addUser = createAsyncThunk(
   async (data: User, thunkAPI) => {
     const result = await api.create(data);
 
-    if (result.data.erro) return;
+    if (result.data.error) return;
 
     return Object.assign({}, data, result.data);
   }

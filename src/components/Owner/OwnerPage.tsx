@@ -264,6 +264,7 @@ export default function OwnerPage({
       </div>
       {action == "put" && (
         <div className="owner-table-wrapper">
+          <div className="owner-table-glass"></div>
           <div
             className="owner-data-table"
             style={{ boxShadow: "rgb(0 0 0 / 20%) 1px 1px 5px" }}
@@ -275,6 +276,7 @@ export default function OwnerPage({
               }}
             >
               <DataGrid
+                style={{ borderRadius: "10px" }}
                 disableSelectionOnClick={true}
                 rows={ownerProperties || []}
                 columns={columns}

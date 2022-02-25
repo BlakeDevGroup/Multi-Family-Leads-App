@@ -131,6 +131,7 @@ export default function OwnerView(props) {
           }}
         >
           <DataGrid
+            style={{ borderRadius: "10px" }}
             disableSelectionOnClick={true}
             rows={rows}
             columns={columns}
