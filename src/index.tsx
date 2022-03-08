@@ -13,12 +13,16 @@ const theme = createTheme({
   palette: {
     primary: {
       // Purple
-      main: "#3D3E93",
+      main: "#6C63FF",
+      contrastText: "#ffffff",
     },
     secondary: {
       // Orange
       main: "#FFB005",
     },
+  },
+  typography: {
+    fontFamily: "Open Sans",
   },
 });
 

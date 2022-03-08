@@ -1,4 +1,3 @@
-import { Text, Box, DataTable } from "grommet";
 import PropertyAPI from "../../core/property/Property.api";
 import NoteApi from "../../core/notes/Note.api";
 import OwnerAPI from "../../core/owner/Owner.api";
@@ -7,26 +6,16 @@ import { EmailValidationScope } from "../../common/validation/impl/scopes/EmailV
 import ValidationBroker from "../../common/validation/impl/ValidationBroker";
 import { ControlledInput } from "../../common/UI/Form/ControlledInput";
 import "./Owner.css";
-import { Button, dialogClasses, Divider, TextField } from "@mui/material";
-import { Brand } from "../Brand/Brand";
+import { Button } from "@mui/material";
 import { PhoneNumberInput } from "../../common/UI/Form/PhoneNumberInput";
 import { Owner } from "../../core/owner/Owner";
 import { Property } from "../../core/property/Property";
-import {
-  DataGrid,
-  GridCallbackDetails,
-  GridColDef,
-  GridRowParams,
-  GridValueGetterParams,
-  MuiEvent,
-  GridCellParams,
-} from "@mui/x-data-grid";
-import { RootState, useAppDispatch } from "../../store";
+import { DataGrid, GridColDef } from "@mui/x-data-grid";
+import { RootState } from "../../store";
 import { useDispatch, useSelector } from "react-redux";
 import NoteComponent from "../Notes/NoteComponent";
 import SectionTitle from "../Typography/SectionTitle";
 import { deleteOwner, updateOwner } from "../../core/owner/OwnerSlice";
-import { Phone } from "grommet-icons";
 const propertyAPI = new PropertyAPI();
 const noteAPI = new NoteApi();
 const ownerAPI = new OwnerAPI();
@@ -166,12 +155,6 @@ export default function OwnerPage({
   return (
     <>
       <div className="owner-page-wrapper">
-        {/* <div className="header-wrapper">
-          <div className="header-layout">
-            <Brand sizing="owner-styles" />
-          </div>
-        </div> */}
-
         <div className="owner-page-content-wrapper">
           <div className="owner-page-inputs-wrapper">
             <div className="header-layout">
@@ -280,12 +263,6 @@ export default function OwnerPage({
                 disableSelectionOnClick={true}
                 rows={ownerProperties || []}
                 columns={columns}
-                // getCellParams={(id: any, field: string) => {}}
-                // onRowClick={(
-                //   params: GridRowParams,
-                //   event: MuiEvent<React.MouseEvent>,
-                //   details: GridCallbackDetails
-                // ) => {}
               />
             </div>
           </div>

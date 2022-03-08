@@ -44,5 +44,4 @@ export default class UserAPI {
     }
   }
   // async getNotesByUserId
-
 }

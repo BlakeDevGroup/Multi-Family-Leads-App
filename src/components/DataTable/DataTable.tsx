@@ -1,6 +1,5 @@
 import PropertyAPI from "../../core/property/Property.api";
 import React, { useState, useEffect } from "react";
-import { Box } from "grommet";
 import "./DataTable.css";
 import MainLayer from "../Layer/Layer";
 import HomeView from "../HomeView";
@@ -16,9 +15,7 @@ import {
   GridCallbackDetails,
   GridColDef,
   GridRowParams,
-  GridValueGetterParams,
   MuiEvent,
-  GridCellParams,
 } from "@mui/x-data-grid";
 import { Property } from "../../core/property/Property";
 import { RootState } from "../../store";
@@ -130,49 +127,6 @@ const columns: GridColDef[] = [
     align: "left",
   },
 ];
-
-// const columns = [
-//   {
-//     property: "street",
-//     header: <Text color="#99A3C0">Street</Text>,
-//     search: true,
-//   },
-//   {
-//     property: "city",
-//     header: <Text color="#99A3C0">City</Text>,
-//     search: true,
-//   },
-//   {
-//     property: "state",
-//     header: <Text color="#99A3C0">State</Text>,
-//     search: true,
-//   },
-//   {
-//     property: "zip_code",
-//     header: <Text color="#99A3C0">Zip Code</Text>,
-//     search: true,
-//   },
-//   {
-//     property: "units",
-//     header: <Text color="#99A3C0">Units</Text>,
-//     search: true,
-//   },
-//   {
-//     property: "name",
-//     header: <Text color="#99A3C0">Name</Text>,
-//     search: true,
-//   },
-//   {
-//     property: "email",
-//     header: <Text color="#99A3C0">Email</Text>,
-//     search: true,
-//   },
-//   {
-//     property: "phone_number",
-//     header: <Text color="#99A3C0">Phone Number</Text>,
-//     search: true,
-//   },
-// ];
 
 export default function DataTableComponent(props) {
   const [open, setOpen] = useState(false);

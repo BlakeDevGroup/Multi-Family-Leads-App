@@ -1,4 +1,3 @@
-import { Text, DataTable } from "grommet";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import OwnerAPI from "../../core/owner/Owner.api";
@@ -9,15 +8,7 @@ import "./Owner.css";
 import OwnerPage from "./OwnerPage";
 import { WebsiteLevelHeader } from "../Headers/WebsiteLevelHeader";
 import PropertyWorkflow from "../PropertiesWorkflow/PropertyWorkflow";
-import {
-  DataGrid,
-  GridCallbackDetails,
-  GridColDef,
-  GridRowParams,
-  GridValueGetterParams,
-  MuiEvent,
-  GridCellParams,
-} from "@mui/x-data-grid";
+import { DataGrid, GridColDef } from "@mui/x-data-grid";
 import { RootState } from "../../store";
 import { Property } from "../../core/property/Property";
 
@@ -60,28 +51,6 @@ const columns: GridColDef[] = [
     align: "left",
   },
 ];
-// const columns = [
-//   {
-//     field: "name",
-//     header: <Text color="#99A3C0">Name</Text>,
-//     search: true,
-//   },
-//   {
-//     property: "entity",
-//     header: <Text color="#99A3C0">Entity</Text>,
-//     search: true,
-//   },
-//   {
-//     property: "phone_number",
-//     header: <Text color="#99A3C0">Phone Number</Text>,
-//     search: true,
-//   },
-//   {
-//     property: "email",
-//     header: <Text color="#99A3C0">Email</Text>,
-//     search: true,
-//   },
-// ];
 
 export default function OwnerView(props) {
   const [open, setOpen] = useState(false);
@@ -147,18 +116,6 @@ export default function OwnerView(props) {
             }}
           />
         </div>
-        {/* <DataTable
-          border={{ side: "bottom", color: "#EEF1F7", size: "small" }}
-          paginate={{ size: "medium" }}
-          columns={columns}
-          data={data}
-          onClickRow={({ datum }) => {
-            setOpen(true);
-            setComponent(
-              <OwnerPage setOpen={setOpen} data={datum} action="put" />
-            );
-          }}
-        /> */}
         <Cover isOpen={open} onClickOutside={() => setOpen(false)}>
           {component}
         </Cover>

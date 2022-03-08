@@ -5,12 +5,12 @@
   margin: 1%;
   padding: 1%;
   /* flex-grow: inherit; */
-  
 }
 
 .data-table-height {
   max-height: 90vh;
 }
 
-
-
+div[role="tooltip"] {
+  top: -60px !important;
+}

@@ -1,5 +1,5 @@
 import { IQuery } from "../../common/query/IQuery";
-import axios from "axios";
+import axios, { AxiosError } from "axios";
 import * as MessageService from "../../common/message/message.service";
 import { User } from "./User";
 import { throws } from "assert";
@@ -10,8 +10,8 @@ export default class UserQuery implements IQuery {
     this.query = axios.create({
       baseURL:
         process.env.NODE_ENV == "production"
-          ? "https://multi-family-service.herokuapp.com"
-          : "http://localhost:3500",
+          ? "https://multi-family-service.herokuapp.com/auth"
+          : "http://localhost:3500/auth",
     });
   }
 
@@ -45,8 +45,28 @@ export default class UserQuery implements IQuery {
   }
 
   async create(resource: User) {
-    const result = await this.query.post("/", resource);
-    return MessageService.sendSuccess("Successfully created user", result.data);
+    try {
+      const result = await this.query.post("/create", resource);
+      console.log(resource);
+      console.log(result.data);
+      return MessageService.sendSuccess(
+        "Successfully created user",
+        result.data
+      );
+    } catch (e: any) {
+      console.log(e);
+      if (e.response?.data) {
+        return MessageService.sendFailure(
+          e.response.data.error.message,
+          e.response.data,
+          400
+        );
+      } else {
+        return MessageService.sendFailure(e.message, e, 500);
+      }
+    }
+
+    // console.log(result.data);
   }
 
   async deleteById(id: string) {

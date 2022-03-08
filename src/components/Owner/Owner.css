@@ -55,11 +55,9 @@
 }
 
 .owner-table-wrapper {
-  background: #edc0bf;
-  background: linear-gradient(90deg, #eec8c8 0, #ced3f3 58%);
   font-family: "Inter", sans-serif;
   overflow: hidden;
-  background-color: #f1f5f8;
+  background-color: #f1f1f3;
   height: auto;
   display: flex;
   box-sizing: border-box;
@@ -69,12 +67,6 @@
   min-width: 0;
   min-height: 0;
   flex-direction: column;
-}
-
-.owner-table-glass {
-  background: rgba(255, 255, 255, 0.7);
-  -webkit-backdrop-filter: blur(10px);
-  backdrop-filter: blur(10px);
 }
 
 .owner-page-content-wrapper {

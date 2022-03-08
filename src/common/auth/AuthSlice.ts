@@ -8,7 +8,7 @@ const authService = new AuthService();
 export const authenticateUser = createAsyncThunk(
   "auth/authUser",
   async (data: any, thunkAPI) => {
-    const result = await authService.login(data.userName, data.password);
+    const result = await authService.login(data.email, data.password);
 
     if (result.data.error) return;
 
@@ -22,9 +22,11 @@ export const authenticateUser = createAsyncThunk(
 
 export const getUser = createAsyncThunk(
   "auth/getUser",
-  async (data: any, thunkAPI) => {
+  async (data: string, thunkAPI) => {
+    // console.log(data);
     const user = jwt.verify(data, "42616896-e9e6-4fd7-80af-e0c1b325899b" || "");
 
+    // console.log({ user: user });
     return { user: user };
   }
 );
@@ -49,7 +51,7 @@ export const AuthCalendarSlice = createSlice({
     });
 
     builder.addCase(getUser.fulfilled, (state, action) => {
-      state.user = action.payload?.user;
+      // state.user = action.payload?.user;
     });
 
     builder.addCase(logoutUser.fulfilled, (state, action) => {

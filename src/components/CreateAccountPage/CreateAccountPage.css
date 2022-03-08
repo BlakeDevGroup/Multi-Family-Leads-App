@@ -1,13 +1,12 @@
-.create-account-container {
-  /* background-color: blue; */
+/* .create-account-container {
   display: flex;
   justify-content: center;
   align-items: center;
-  /* height: 500px; */
 }
 
 .create-account-input-container {
   display: flex;
+  flex-direction: column;
   background-color: white;
   border: 1px solid #dadce0;
   border-radius: 10px;
@@ -16,4 +15,110 @@
   min-height: 500px;
   width: 700px;
   margin-top: 125px;
+  justify-content: center;
+  align-items: center;
 }
+
+.input-row {
+  display: flex;
+  flex-direction: row;
+  margin: 1%;
+  gap: 2%;
+}
+
+.create-account-title {
+  margin: 30px 0 30px 0;
+}
+
+
+
+.existing-account {
+  display: flex;
+  flex-direction: row;
+}
+
+.create-account-error {
+  display: flex;
+  flex-direction: column;
+  justify-self: center;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.create-account-required-text {
+  color: #c4b4b4;
+} */
+
+.split-create {
+  height: 100%;
+  width: 50%;
+  position: fixed;
+  z-index: 1;
+  top: 0;
+  overflow-x: hidden;
+  background: #ffffff;
+  display: flex;
+  flex-direction: row;
+  align-self: center;
+  justify-content: start;
+}
+
+.create-page-left-container {
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  /* padding-left: 70px; */
+  left: 0;
+  bottom: 0;
+  background: linear-gradient(90deg, #eec8c8 0, #c5c3f5 68%);
+}
+
+.create-page-right-container {
+  right: 0;
+  background-color: #ffffff;
+}
+
+.create-page-credentials-container {
+  align-self: center;
+  background: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: left;
+}
+
+.create-page-inputs {
+  display: flex;
+  flex-direction: column;
+  margin-left: 40px;
+}
+
+.forgot-password-link {
+  margin-left: 40px;
+}
+
+.create-page-header {
+  margin: 0 0 30px 40px;
+}
+
+.create-page-button {
+  margin: 40px 0 0 40px;
+  width: 23ch;
+}
+.create-page-login-link {
+  margin: 20px 0 0 40px;
+}
+
+.create-page-first-last-column {
+  display: flex;
+  flex-direction: row;
+  gap: 1%;
+}
+
+.create-page-password-fields {
+  display: flex;
+  flex-direction: row;
+  gap: 1%;
+}
+

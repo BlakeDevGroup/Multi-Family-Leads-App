@@ -2,14 +2,14 @@ import axios from "axios";
 import { sendSuccess, sendFailure } from "../message/message.service";
 import Cookies from "universal-cookie";
 
-export default class AuthService {
-  async login(username, password) {
+export default class jAuthService {
+  async login(email, password) {
     const result = await axios.post(
       process.env.NODE_ENV == "production"
-        ? "https://multi-family-service.herokuapp.com/login"
-        : "http://localhost:3500/login",
+        ? "https://multi-family-service.herokuapp.com/auth"
+        : "http://localhost:3500/auth",
       {
-        user_name: username,
+        email: email,
         password: password,
       }
     );

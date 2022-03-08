@@ -1,13 +1,60 @@
-.login-page-text-color {
-  color: #43588f;
+.split-login {
+  height: 100%;
+  width: 50%;
+  position: fixed;
+  z-index: 1;
+  top: 0;
+  overflow-x: hidden;
+  background: #ffffff;
+  display: flex;
+  flex-direction: row;
+  justify-content: start;
 }
 
-.button-style {
-  text-align: center !important;
-  border-radius: 12px !important;
-  padding: 11px !important;
+.login-page-left-container {
+  /* padding-top: 385px;
+  padding-left: 20px; */
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  padding-left: 70px;
+  left: 0;
+  bottom: 0;
+  background: linear-gradient(90deg, #eec8c8 0, #c5c3f5 68%);
 }
 
-.button-label {
-  line-height: 24px !important;
+.login-page-right-container {
+  right: 0;
+  background-color: #ffffff;
+}
+
+.login-page-credentials-container {
+  background: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: left;
+}
+
+.login-page-inputs {
+  display: flex;
+  flex-direction: column;
+  margin-left: 40px;
+}
+
+.forgot-password-link {
+  margin-left: 40px;
+}
+
+.login-page-header {
+  margin: 0 0 30px 40px;
+}
+
+.login-page-button {
+  margin: 40px 0 0 40px;
+  width: 16ch;
+}
+.login-page-create-account-link {
+  margin: 20px 0 0 40px;
 }

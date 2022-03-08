@@ -1,35 +1,38 @@
 .button-wrapper {
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  margin-right: 5px;
 }
 
 .button-styles {
-    margin: 5px;
+  margin: 5px;
 }
 
 .header-links-wrapper {
-    display: flex;
-    flex-direction: row;
-    justify-content: start;
+  display: flex;
+  flex-direction: row;
+  justify-content: start;
+  align-items: center;
 }
 
 .home-link {
-    margin-left: 75px;
-    display: flex;
-    flex-direction: row;
-    justify-self: end;
+  margin-left: 75px;
+  display: flex;
+  flex-direction: row;
+  justify-self: end;
 }
 
 .owner-link {
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
 }
 
 .branding {
-    margin: 5px;
-    display: flex;
-    flex-direction: row;
-    justify-content: start;
+  margin: 5px;
+  display: flex;
+  flex-direction: row;
+  justify-content: start;
 }
