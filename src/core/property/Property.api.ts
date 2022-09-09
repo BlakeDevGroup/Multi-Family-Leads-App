@@ -1,6 +1,7 @@
 import { Property } from "./Property";
 import Query from "./PropertyQuery";
 import propertyData from "./properties.json";
+import PropertyQuery from "./PropertyQuery";
 
 export default class PropertyAPI {
   private query: Query = new Query();
@@ -43,5 +44,17 @@ export default class PropertyAPI {
     } catch (e: any) {
       return e;
     }
+  }
+
+  async downloadExport() {
+    try {
+      const payload = await (this.query as PropertyQuery).downloadExport();
+
+      if (payload.data) {
+        return payload.data;
+      } else {
+        throw new Error(payload.message);
+      }
+    } catch (e: any) {}
   }
 }

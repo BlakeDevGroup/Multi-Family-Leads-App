@@ -57,4 +57,13 @@ export default class PropertyQuery implements IQuery {
       result.data
     );
   }
+
+  async downloadExport() {
+    const result = await this.query.get("/export");
+
+    return MessageService.sendSuccess(
+      "Successfully downloaded export",
+      result.data
+    );
+  }
 }

@@ -8,9 +8,11 @@ import { useDispatch } from "react-redux";
 import { logoutUser } from "../../common/auth/AuthSlice";
 import AddIcon from "@mui/icons-material/Add";
 import "./Header.css";
+import PropertyAPI from "../../core/property/Property.api";
+import { FileDownload } from "@mui/icons-material";
 
 const authService = new AuthService();
-
+const propertyApi = new PropertyAPI();
 export function WebsiteLevelHeader(props) {
   const dispatch = useDispatch();
   return (
@@ -56,6 +58,30 @@ export function WebsiteLevelHeader(props) {
         </div>
       </div>
       <div className="button-wrapper">
+        <div className="button-styles">
+          {props.view !== "owner" && (
+            <Button
+              onClick={async () => {
+                const response = new Blob(
+                  [await propertyApi.downloadExport()],
+                  { type: "text/csv" }
+                );
+
+                const link = document.createElement("a");
+                link.href = window.URL.createObjectURL(response);
+                link.download = `Export-${new Date().toLocaleDateString()}.csv`;
+                link.click();
+
+                link.remove();
+              }}
+              size="small"
+              variant="contained"
+              startIcon={<FileDownload />}
+            >
+              Export
+            </Button>
+          )}
+        </div>
         <div className="button-styles">
           {props.view !== "owner" && (
             <Button
