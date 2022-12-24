@@ -47,7 +47,7 @@ export default class UserQuery implements IQuery {
   async create(resource: User) {
     try {
       const result = await this.query.post("/create", resource);
-      console.log(resource);
+      // console.log(resource);
       console.log(result.data);
       return MessageService.sendSuccess(
         "Successfully created user",

@@ -20,8 +20,12 @@ import { Owner } from "../../core/owner/Owner";
 const ownerAPI = new OwnerAPI();
 type OwnerComponentProps = {
   onNext: Function;
-  setNewOwnerName: Function;
-  newOwnerName: string;
+  // setNewOwnerName: Function;
+  // newOwnerName: string;
+  setNewLastName: Function;
+  newLastName: string;
+  setNewFirstName: Function;
+  newFirstName: string;
   setEntity: Function;
   entity: string;
   setEmail: Function;
@@ -35,8 +39,12 @@ type OwnerComponentProps = {
 
 export default function OwnerComponent({
   onNext,
-  setNewOwnerName,
-  newOwnerName,
+  setNewFirstName,
+  newFirstName,
+  setNewLastName,
+  newLastName,
+  // setNewOwnerName,
+  // newOwnerName,
   setEntity,
   entity,
   setEmail,
@@ -54,14 +62,14 @@ export default function OwnerComponent({
   // const [newOwnerName, setNewOwnerName] = useState("");
 
   useEffect(() => {
-    if (!newOwnerName && !phone) {
+    if (!newFirstName && !phone && !newLastName) {
       setButtonDisabled(true);
       setDropdownDisabled(false);
     } else {
       setButtonDisabled(false);
       setDropdownDisabled(true);
     }
-  }, [newOwnerName]);
+  }, [newFirstName, phone, newLastName]);
 
   console.log(currentOwner);
 
@@ -122,20 +130,22 @@ export default function OwnerComponent({
         <div className="input-styles">
           <ControlledInput
             required="required"
-            label="Name"
-            placeholder="Owner Name..."
+            label="First Name"
+            placeholder="First Name..."
             disabled={fieldDisabled}
-            value={newOwnerName}
+            value={newFirstName}
             onChange={(e) => {
-              setNewOwnerName(e.target.value);
+              setNewFirstName(e.target.value);
               setCurrentOwner({});
             }}
           ></ControlledInput>
           <ControlledInput
-            label="Entity"
+            label="Last Name"
+            required="required"
+            placeholder="Last Name..."
             disabled={fieldDisabled}
-            value={entity}
-            onChange={(e) => setEntity(e.target.value)}
+            value={newLastName}
+            onChange={(e) => setNewLastName(e.target.value)}
           ></ControlledInput>
         </div>
         <div className="input-styles">
@@ -157,6 +167,38 @@ export default function OwnerComponent({
             value={phone}
             onChange={setPhone}
           ></PhoneNumberInput>
+          {/* <ControlledInput
+            label="Entity"
+            disabled={fieldDisabled}
+            value={entity}
+            onChange={(e) => setEntity(e.target.value)}
+          ></ControlledInput> */}
+        </div>
+        <div className="input-styles">
+          <ControlledInput
+            label="Entity"
+            disabled={fieldDisabled}
+            value={entity}
+            onChange={(e) => setEntity(e.target.value)}
+          ></ControlledInput>
+          {/* <ControlledInput
+            disabled={fieldDisabled}
+            label="Email"
+            placeholder="xxxxx"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            validationFn={(value) =>
+              ValidationBroker.validate(new EmailValidationScope(value))
+            }
+            validationText="Please enter a valid email address"
+          ></ControlledInput> */}
+          {/* <PhoneNumberInput
+            disabled={fieldDisabled}
+            required
+            text="Phone Number"
+            value={phone}
+            onChange={setPhone}
+          ></PhoneNumberInput> */}
         </div>
         <div className="workflow-required">
           <Typography variant="caption">*Required</Typography>

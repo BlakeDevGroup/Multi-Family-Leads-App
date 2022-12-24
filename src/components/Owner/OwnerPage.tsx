@@ -133,7 +133,7 @@ export default function OwnerPage({
   }, []);
 
   useEffect(() => {
-    setName(data?.name);
+    // setName(data?.name);
     setEmail(data?.email);
     setEntity(data?.entity);
     setNumber(data?.phone_number);

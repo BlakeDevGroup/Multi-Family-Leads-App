@@ -24,7 +24,6 @@ export default function CreateAccountPage() {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
-  // const [phone, setPhone] = useState("");
   const [password, setPassword] = useState("");
   const [confirmedPassword, setConfirmedPassword] = useState("");
   const [passwordError, setPasswordError] = useState(false);
@@ -48,7 +47,6 @@ export default function CreateAccountPage() {
       })
     ).then((res: any) => {
       setUniqueEmail(false);
-      // console.log(res.payload.error.message);
     });
   }
 
@@ -136,35 +134,6 @@ export default function CreateAccountPage() {
                   ),
                 }}
               />
-              {/* <TextField
-                inputProps={{ style: { fontSize: 15 } }}
-                value={confirmedPassword}
-                type={reveal ? "text" : "password"}
-                label="Confirm Pasword"
-                size="small"
-                sx={{ margin: "20px 0 20px 0", width: "25ch" }}
-                onChange={(e) => {
-                  setConfirmedPassword(e.target.value);
-                }}
-                InputProps={{
-                  endAdornment: (
-                    <InputAdornment position="end">
-                      <IconButton
-                        size="small"
-                        onClick={() => setReveal(!reveal)}
-                        // onMouseDown={}
-                        edge="end"
-                      >
-                        {reveal ? (
-                          <VisibilityOffIcon sx={{ fontSize: "1rem" }} />
-                        ) : (
-                          <VisibilityIcon sx={{ fontSize: "1rem" }} />
-                        )}
-                      </IconButton>
-                    </InputAdornment>
-                  ),
-                }}
-              /> */}
             </div>
             <Typography variant="subtitle2">
               Already have an account?{" "}

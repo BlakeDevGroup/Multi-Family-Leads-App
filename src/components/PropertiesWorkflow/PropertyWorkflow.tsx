@@ -29,6 +29,8 @@ type PropertyWorkflowProps = {
 export default function PropertyWorkflow({ onConfirm }: PropertyWorkflowProps) {
   const [activePage, setActivePage] = useState("owner");
   const [newOwnerName, setNewOwnerName] = useState("");
+  const [newFirstName, setNewFirstName] = useState("");
+  const [newLastName, setNewLastName] = useState("");
   const [entity, setEntity] = useState("");
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
@@ -41,6 +43,7 @@ export default function PropertyWorkflow({ onConfirm }: PropertyWorkflowProps) {
   const [purchaseDate, setPurchaseDate] = useState<Date | undefined>();
   const [purchasePrice, setPurchasePrice] = useState("");
   const [currentOwner, setCurrentOwner] = useState<Owner>();
+  const [uniqueStreet, setUniqueStreet] = useState(true);
   const dispatch = useAppDispatch();
 
   const completeWorkflow = async () => {
@@ -50,7 +53,8 @@ export default function PropertyWorkflow({ onConfirm }: PropertyWorkflowProps) {
     if (!existingOwner) {
       const payload = await dispatch(
         addOwner({
-          name: newOwnerName,
+          first_name: newFirstName,
+          last_name: newLastName,
           entity: entity,
           email: email,
           phone_number: phone,
@@ -74,9 +78,8 @@ export default function PropertyWorkflow({ onConfirm }: PropertyWorkflowProps) {
       })
     );
   };
-  useEffect(() => {
-    console.log(existingOwner);
-  }, [existingOwner]);
+  useEffect(() => {}, [existingOwner]);
+
   const ActiveComponent = (value) => {
     if (value === "owner") {
       return (
@@ -84,8 +87,12 @@ export default function PropertyWorkflow({ onConfirm }: PropertyWorkflowProps) {
           onNext={() => {
             setActivePage("property");
           }}
-          setNewOwnerName={setNewOwnerName}
-          newOwnerName={newOwnerName}
+          setNewFirstName={setNewFirstName}
+          newFirstName={newFirstName}
+          setNewLastName={setNewLastName}
+          newLastName={newLastName}
+          // setNewOwnerName={setNewOwnerName}
+          // newOwnerName={newOwnerName}
           setEntity={setEntity}
           entity={entity}
           setEmail={setEmail}
@@ -125,7 +132,9 @@ export default function PropertyWorkflow({ onConfirm }: PropertyWorkflowProps) {
     } else if (value === "confirmation") {
       return (
         <ConfirmationComponent
-          newOwnerName={newOwnerName}
+          newFirstName={newFirstName}
+          newLastName={newLastName}
+          // newOwnerName={newOwnerName}
           entity={entity}
           email={email}
           phone={phone}
@@ -137,6 +146,7 @@ export default function PropertyWorkflow({ onConfirm }: PropertyWorkflowProps) {
           purchaseDate={purchaseDate}
           units={units}
           currentOwner={currentOwner}
+          uniqueStreet={uniqueStreet}
           onConfirm={() => {
             completeWorkflow();
             if (onConfirm) onConfirm();

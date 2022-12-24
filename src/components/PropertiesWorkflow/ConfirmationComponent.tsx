@@ -2,7 +2,7 @@ import AdapterDateFns from "@mui/lab/AdapterDateFns";
 import DatePicker from "@mui/lab/DatePicker";
 import LocalizationProvider from "@mui/lab/LocalizationProvider";
 import { Button, TextField } from "@mui/material";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { ControlledInput } from "../../common/UI/Form/ControlledInput";
 import { PhoneNumberInput } from "../../common/UI/Form/PhoneNumberInput";
 import { EmailValidationScope } from "../../common/validation/impl/scopes/EmailValidationScope";
@@ -15,7 +15,9 @@ import SectionTitle from "../Typography/SectionTitle";
 type ConfirmationComponentProps = {
   onConfirm: Function;
   onBack: Function;
-  newOwnerName: string;
+  newFirstName: string;
+  newLastName: string;
+  // newOwnerName: string;
   entity: string;
   email: string;
   phone: string;
@@ -27,12 +29,15 @@ type ConfirmationComponentProps = {
   purchaseDate: Date | undefined;
   units: string;
   currentOwner: Owner | undefined;
+  uniqueStreet: boolean;
 };
 
 export default function ConfirmationComponent({
+  newFirstName,
+  newLastName,
   onConfirm,
   onBack,
-  newOwnerName,
+  // newOwnerName,
   entity,
   email,
   phone,
@@ -44,32 +49,40 @@ export default function ConfirmationComponent({
   purchasePrice,
   units,
   currentOwner,
+  uniqueStreet,
 }: ConfirmationComponentProps) {
   useEffect(() => {
     console.log(currentOwner);
   }, [currentOwner]);
+
   return (
     <div>
       <SectionTitle label={"Owner Details"} />
       <div className="input-styles">
         <ControlledInput
           disabled
-          label="Name"
-          placeholder="Owner Name..."
-          value={newOwnerName ? newOwnerName : currentOwner?.name}
+          label="First Name"
+          placeholder="First Name..."
+          value={newFirstName ? newFirstName : currentOwner?.name}
         ></ControlledInput>
         <ControlledInput
           disabled
-          label="Entity"
-          value={newOwnerName ? entity : currentOwner?.entity}
+          label="Last Name"
+          placeholder="Last Name..."
+          value={newLastName ? newLastName : currentOwner?.name}
         ></ControlledInput>
+        {/* <ControlledInput
+          disabled
+          label="Entity"
+          // value={newOwnerName ? entity : currentOwner?.entity}l
+        ></ControlledInput> */}
       </div>
       <div className="input-styles">
         <ControlledInput
           disabled
           label="Email"
           placeholder="xxxxx"
-          value={newOwnerName ? email : currentOwner?.email}
+          value={newFirstName ? email : currentOwner?.email}
           validationFn={(value) =>
             ValidationBroker.validate(new EmailValidationScope(value))
           }
@@ -78,8 +91,15 @@ export default function ConfirmationComponent({
         <PhoneNumberInput
           text="Phone Number"
           disabled
-          value={newOwnerName ? phone : currentOwner?.phone_number}
+          value={newFirstName ? phone : currentOwner?.phone_number}
         ></PhoneNumberInput>
+      </div>
+      <div className="input-styles">
+        <ControlledInput
+          disabled
+          label="Entity"
+          value={newFirstName ? entity : currentOwner?.entity}
+        ></ControlledInput>
       </div>
       <SectionTitle label={"Property Address"} />
       <div className="property-component-2-row">
@@ -140,6 +160,13 @@ export default function ConfirmationComponent({
               renderInput={(params) => <TextField {...params} />}
             />
           </LocalizationProvider>
+          <div>
+            {!uniqueStreet ? (
+              <div style={{ color: "#ff3333" }}>
+                A property already exists with this address.
+              </div>
+            ) : null}
+          </div>
         </div>
         <div className="workflow-button">
           <div className="workflow-button-container">
